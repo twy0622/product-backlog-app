@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/taskName"
+        android:id="@+id/Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
@@ -53,18 +53,18 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <EditText
-        android:id="@+id/taskNameBox"
+        android:id="@+id/nameBox"
         android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/taskName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Name"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioCategory"
         android:layout_width="206dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
@@ -79,7 +79,7 @@
             android:layout_height="48dp"
             android:scaleX="1"
             android:scaleY="1"
-            android:text="User Story      " />
+            android:text="User Story" />
 
         <RadioButton
             android:id="@+id/bugButton"
@@ -93,13 +93,13 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/taskPriority"
+        android:id="@+id/Priority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Priority :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskName" />
+        app:layout_constraintTop_toBottomOf="@+id/Name" />
 
     <Spinner
         android:id="@+id/priorityBox"
@@ -108,16 +108,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskNameBox" />
+        app:layout_constraintTop_toBottomOf="@+id/nameBox" />
 
     <TextView
-        android:id="@+id/taskStatus"
+        android:id="@+id/Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Status :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskPriority" />
+        app:layout_constraintTop_toBottomOf="@+id/Priority" />
 
     <Spinner
         android:id="@+id/statusBox"
@@ -129,13 +129,13 @@
         app:layout_constraintTop_toBottomOf="@+id/priorityBox" />
 
     <TextView
-        android:id="@+id/taskAssigned"
+        android:id="@+id/Assigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Assigned :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskStatus" />
+        app:layout_constraintTop_toBottomOf="@+id/Status" />
 
     <Spinner
         android:id="@+id/assignedBox"
@@ -147,13 +147,13 @@
         app:layout_constraintTop_toBottomOf="@+id/statusBox" />
 
     <TextView
-        android:id="@+id/taskTag"
+        android:id="@+id/Tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Tag :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskAssigned" />
+        app:layout_constraintTop_toBottomOf="@+id/Assigned" />
 
     <Spinner
         android:id="@+id/tagBox"
@@ -165,13 +165,13 @@
         app:layout_constraintTop_toBottomOf="@+id/assignedBox" />
 
     <TextView
-        android:id="@+id/taskStoryPoints"
+        android:id="@+id/StoryPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Story Points :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskTag" />
+        app:layout_constraintTop_toBottomOf="@+id/Tag" />
 
     <EditText
         android:id="@+id/storyPointsBox"
@@ -179,29 +179,29 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/taskStoryPoints"
+        app:layout_constraintBaseline_toBaselineOf="@+id/StoryPoints"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/taskDescription"
+        android:id="@+id/Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Description :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/taskStoryPoints" />
+        app:layout_constraintTop_toBottomOf="@+id/StoryPoints" />
 
     <EditText
-        android:id="@+id/taskDescriptionBox"
+        android:id="@+id/descriptionBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/taskDescription"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Description"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
