@@ -10,7 +10,10 @@ public class Task {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "taskId")
-    private int id;
+    private int taskId;
+
+    @ColumnInfo(name = "taskCategory")
+    private String category;
 
     @ColumnInfo(name = "taskName")
     private String name;
@@ -33,7 +36,8 @@ public class Task {
     @ColumnInfo(name = "taskStoryPoints")
     private int storyPoints;
 
-    public Task(String name, String description, String priority, String status, String assigned, String tags, int storyPoints) {
+    public Task(String category, String name, String description, String priority, String status, String assigned, String tags, int storyPoints) {
+        this.category = category;
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -42,4 +46,16 @@ public class Task {
         this.tags = tags;
         this.storyPoints = storyPoints;
     }
+
+    public String getCategory() { return category; }
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public String getPriority() { return priority; }
+    public String getStatus() { return status; }
+    public String getAssigned() { return assigned; }
+    public String getTags() { return tags; }
+    public int getStoryPoints() { return storyPoints; }
+
+    public int getTaskId() { return taskId; }
+    public void setTaskId(@NonNull int taskId) { this.taskId = taskId; }
 }

@@ -7,6 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
+@Dao
 public interface TaskDao {
     @Query("select * from tasks")
     LiveData<List<Task>> getAllTask();
@@ -18,5 +19,5 @@ public interface TaskDao {
     void deleteTaskName(String name);
 
     @Query("delete FROM tasks")
-    void deleteAllMovies();
+    void deleteAllTasks();
 }

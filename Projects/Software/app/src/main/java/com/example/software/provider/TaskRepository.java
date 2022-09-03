@@ -29,7 +29,7 @@ public class TaskRepository {
 
     void deleteAll(){
         TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.deleteAllMovies();
+            mTaskDao.deleteAllTasks();
         });
     }
 }
