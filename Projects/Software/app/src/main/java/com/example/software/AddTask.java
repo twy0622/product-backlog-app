@@ -3,6 +3,7 @@ package com.example.software;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -17,17 +18,29 @@ import android.widget.Toast;
 import com.example.software.provider.Task;
 import com.example.software.provider.TaskViewModel;
 
+import java.util.ArrayList;
+
 public class AddTask extends AppCompatActivity {
 
     private RadioGroup radioCategoryGroup;
 
     static TaskViewModel mTaskViewModel;
+//    ArrayList<String> taskList = new ArrayList<String>();
+//    ArrayAdapter myAdapter;
+    RecyclerViewAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_task);
+
+        adapter = new RecyclerViewAdapter();
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        mTaskViewModel.getAllTasks().observe(this, newData -> {
+            adapter.setTask(newData);
+            adapter.notifyDataSetChanged();
+        });
 
         // Dropdown list Values
         Spinner prioritySpinner = (Spinner) findViewById(R.id.priorityBox);
@@ -86,8 +99,8 @@ public class AddTask extends AppCompatActivity {
 
                 Task task = new Task(category,name,description,priority,status,assigned,tag,sp);
 
-                // causing crash cause of incomplete database code
-//                mTaskViewModel.insert(task);
+//                 causing crash cause of incomplete database code
+                mTaskViewModel.insert(task);
 
                 Toast myMessage = Toast.makeText(getApplicationContext(),
                         "Task successfully created.",Toast.LENGTH_SHORT);
@@ -102,6 +115,15 @@ public class AddTask extends AppCompatActivity {
                 taskTag.setSelection(0);
                 taskSP.setText("");
                 taskDescription.setText("");
+            }
+        });
+
+        Button productBacklog = findViewById(R.id.goNext);
+        productBacklog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProductBacklog.class);
+                startActivity(intent);
             }
         });
     }
