@@ -45,18 +45,18 @@ public class AddTask extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.goToAddTask) {
-//            Intent addTaskIntent = new Intent(this, AddTask.class);
-//            startActivity(addTaskIntent);
+            Intent addTaskIntent = new Intent(this, AddTask.class);
+            startActivity(addTaskIntent);
         } else if (id == R.id.goToProductBackLog) {
             Intent productBackLogIntent = new Intent(this, ProductBacklog.class);
             startActivity(productBackLogIntent);
-        } else if (id == R.id.goToSprintBoard) {
-            Intent sprintBoardIntent = new Intent(this, SprintBoard.class);
-            startActivity(sprintBoardIntent);
-        } else if (id == R.id.goToTeamMembers) {
-            Intent teamMembersIntent = new Intent(this, TeamMembers.class);
-            startActivity(teamMembersIntent);
-        }
+        } //else if (id == R.id.goToSprintBoard) {
+//            Intent sprintBoardIntent = new Intent(this, SprintBoard.class);
+//            startActivity(sprintBoardIntent);
+        //} else if (id == R.id.goToTeamMembers) {
+//            Intent teamMembersIntent = new Intent(this, TeamMembers.class);
+//            startActivity(teamMembersIntent);
+        //}
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
