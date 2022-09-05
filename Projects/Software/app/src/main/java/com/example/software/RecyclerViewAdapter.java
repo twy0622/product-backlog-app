@@ -4,21 +4,21 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software.provider.Task;
-import com.example.software.provider.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
+    private OnItemClickListener mListener;
 
 
     public void setTask(List<Task> data){
@@ -72,20 +72,54 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return taskListRecycle.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+        void onDeleteClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView description;
         public TextView priority;
         public TextView status;
         public LinearLayout cardview;
+        public ImageView deleteTask;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView, OnItemClickListener listener){
             super(itemView);
             title = itemView.findViewById(R.id.task_title);
             description = itemView.findViewById(R.id.task_description);
             priority = itemView.findViewById(R.id.task_priority);
             status = itemView.findViewById(R.id.task_status);
             cardview = itemView.findViewById(R.id.task_cardview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+            deleteTask = itemView.findViewById(R.id.image_delete);
+
+            deleteTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onDeleteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

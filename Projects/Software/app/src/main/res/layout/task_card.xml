@@ -52,13 +52,11 @@
                     android:layout_height="wrap_content"
                     android:text="Status: " />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
+                <ImageView
+                    android:id="@+id/image_delete"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_delete"/>
 
 
                 <!--            <TextView-->
@@ -78,6 +76,7 @@
                 <!--                android:text="dse4cisprionw: " />-->
 
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
