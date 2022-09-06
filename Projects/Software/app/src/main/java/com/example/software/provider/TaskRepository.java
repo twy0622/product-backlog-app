@@ -23,8 +23,8 @@ public class TaskRepository {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
     }
 
-    void deleteTaskName(String name){
-        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteTaskName(name));
+    void deleteById(int id){
+        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteById(id));
     }
 
     void deleteAll(){

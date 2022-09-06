@@ -33,18 +33,6 @@ public class ProductBacklog extends AppCompatActivity {
         mTaskViewModel.getAllTasks().observe(this, newData -> {
             adapter.setTask(newData);
             adapter.notifyDataSetChanged();
-
-        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-            }
-
-            @Override
-            public void onDeleteClick(int position) {
-
-            }
-        });
         });
     }
 

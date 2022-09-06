@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.software.provider.DemoAdapter;
+//import com.example.software.provider.DemoAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,13 +26,13 @@ public class EditTask extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DemoAdapter adapter = new DemoAdapter(items);
-        recyclerView.setAdapter(adapter);
-
-        findViewById(R.id.add).setOnClickListener(view -> {
-            items.add(data[counter%3]);
-            counter++;
-            adapter.notifyItemInserted(items.size()-1);
-        });
+//        DemoAdapter adapter = new DemoAdapter(items);
+//        recyclerView.setAdapter(adapter);
+//
+//        findViewById(R.id.add).setOnClickListener(view -> {
+//            items.add(data[counter%3]);
+//            counter++;
+//            adapter.notifyItemInserted(items.size()-1);
+//        });
     }
 }
