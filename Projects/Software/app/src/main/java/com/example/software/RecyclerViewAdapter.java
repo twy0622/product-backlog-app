@@ -4,22 +4,20 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software.provider.Task;
-import com.example.software.provider.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
-
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
@@ -54,17 +52,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.cardview.setBackgroundColor(Color.parseColor("#00ff15"));
         }
 
-
-//        int newPosition = position;
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            int year = taskListRecycle.get(newPosition).getYear();
-//            @Override public void onClick(View v) {
-//                ProductBacklog.mTaskViewModel.deleteMovieYear(year);
-//                Toast msg = Toast.makeText(v.getContext(), "Movie No." + (newPosition + 1) + " with title: " + movieListRecycle.get(newPosition).getTitle() + " is selected", Toast.LENGTH_SHORT);
-////                msg.show();
-//
-//            }
-//        });
+        int fPosition = position;
+        holder.deleteTask.setOnClickListener(new View.OnClickListener() {
+            int id = taskListRecycle.get(fPosition).getTaskId();
+            @Override
+            public void onClick(View view) {
+                ProductBacklog.mTaskViewModel.deleteById(id);
+            }
+        });
     }
 
     @Override
@@ -78,6 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView priority;
         public TextView status;
         public LinearLayout cardview;
+        public ImageView deleteTask;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -86,6 +82,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             priority = itemView.findViewById(R.id.task_priority);
             status = itemView.findViewById(R.id.task_status);
             cardview = itemView.findViewById(R.id.task_cardview);
+            deleteTask = itemView.findViewById(R.id.image_delete);
+
         }
     }
 }
