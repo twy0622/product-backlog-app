@@ -4,25 +4,28 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.software.provider.Task;
-import com.example.software.provider.TaskViewModel;
+
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    List<Task> taskListRecycle = new ArrayList<>();
 
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
+    private List<Task> taskListRecycle = new ArrayList<>();
+    private List<Task> taskListRecycleFull; /// copy of list with all items
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
+        taskListRecycleFull = new ArrayList<>(data);
     }
 
     public RecyclerViewAdapter(){
@@ -67,11 +70,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        });
     }
 
-    @Override
-    public int getItemCount() {
-        return taskListRecycle.size();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView description;
@@ -88,4 +86,43 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardview = itemView.findViewById(R.id.task_cardview);
         }
     }
+    @Override
+    public int getItemCount() {
+        return taskListRecycle.size();
+    }
+
+    public Filter getFilter(){
+        return taskListFilter;
+    }
+
+    private Filter taskListFilter = new Filter() {
+
+        // run on background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Task> filteredTaskList = new ArrayList<>();
+
+            if (charSequence.toString().isEmpty()){
+                filteredTaskList.addAll(taskListRecycleFull);
+            } else{
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Task data: taskListRecycleFull){
+                    if (data.getTags().toLowerCase().contains(filterPattern)){
+                        filteredTaskList.add(data);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredTaskList;
+            return results;
+        }
+        // runs on a UI thread
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            taskListRecycle.clear();
+            taskListRecycle.addAll((Collection<? extends Task>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 }
