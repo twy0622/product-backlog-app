@@ -15,8 +15,8 @@ public interface TaskDao {
     @Insert
     void addTask(Task task);
 
-    @Query("delete from tasks where taskName= :name")
-    void deleteTaskName(String name);
+    @Query("delete from tasks where taskId= :id")
+    void deleteById(int id);
 
     @Query("delete FROM tasks")
     void deleteAllTasks();

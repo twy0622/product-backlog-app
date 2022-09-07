@@ -6,18 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.software.provider.Task;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
     private List<Task> taskListRecycle = new ArrayList<>();
@@ -40,7 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return viewHolder;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.title.setText(taskListRecycle.get(position).getName() + " - " + taskListRecycle.get(position).getStoryPoints());
@@ -59,17 +56,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.cardview.setBackgroundColor(Color.parseColor("#00ff15"));
         }
 
+        int fPosition = position;
+        holder.deleteTask.setOnClickListener(new View.OnClickListener() {
+            int id = taskListRecycle.get(fPosition).getTaskId();
+            @Override
+            public void onClick(View view) {
+                ProductBacklog.mTaskViewModel.deleteById(id);
+            }
+        });
+    }
 
-//        int newPosition = position;
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            int year = taskListRecycle.get(newPosition).getYear();
-//            @Override public void onClick(View v) {
-//                ProductBacklog.mTaskViewModel.deleteMovieYear(year);
-//                Toast msg = Toast.makeText(v.getContext(), "Movie No." + (newPosition + 1) + " with title: " + movieListRecycle.get(newPosition).getTitle() + " is selected", Toast.LENGTH_SHORT);
-////                msg.show();
-//
-//            }
-//        });
+    @Override
+    public int getItemCount() {
+        return taskListRecycle.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -78,6 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView priority;
         public TextView status;
         public LinearLayout cardview;
+        public ImageView deleteTask;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -86,11 +86,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             priority = itemView.findViewById(R.id.task_priority);
             status = itemView.findViewById(R.id.task_status);
             cardview = itemView.findViewById(R.id.task_cardview);
+            deleteTask = itemView.findViewById(R.id.image_delete);
         }
-    }
-    @Override
-    public int getItemCount() {
-        return taskListRecycle.size();
     }
 
     public Filter getFilter(){
