@@ -59,19 +59,20 @@ public class ProductBacklog extends AppCompatActivity {
 
         adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
-
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
             adapter.setTask(newData);
             adapter.notifyDataSetChanged();
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.task_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

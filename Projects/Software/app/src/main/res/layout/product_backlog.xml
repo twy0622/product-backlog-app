@@ -19,28 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <SearchView-->
-<!--        android:id="@+id/TagSearchView"-->
-<!--        android:layout_width="158dp"-->
-<!--        android:layout_height="25dp"-->
-<!--        android:layout_marginStart="12dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:iconifiedByDefault="false"-->
-<!--        android:queryHint="Enter tag..."-->
-<!--        app:layout_constraintStart_toEndOf="@+id/filterByTag"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/productBacklog" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/filterByTag"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="64dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:text="Filter by Tag:"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/productBacklog" />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/task_recycler_view"
         android:layout_width="306dp"
