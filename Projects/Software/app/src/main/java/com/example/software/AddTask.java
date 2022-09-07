@@ -1,11 +1,15 @@
 package com.example.software;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,15 +18,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.software.provider.Task;
 import com.example.software.provider.TaskViewModel;
+import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
-public class AddTask extends AppCompatActivity {
+public class AddTask extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RadioGroup radioCategoryGroup;
+    DrawerLayout drawerLayout;
 
     static TaskViewModel mTaskViewModel;
 //    ArrayList<String> taskList = new ArrayList<String>();
@@ -33,7 +38,22 @@ public class AddTask extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_task);
+        setContentView(R.layout.drawer_layout_add_task);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_addtask);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout_add_task);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navView_add_task);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         adapter = new RecyclerViewAdapter();
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
@@ -128,4 +148,29 @@ public class AddTask extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.goToAddTask) {
+//            Intent addTaskIntent = new Intent(getApplicationContext(), AddTask.class);
+//            startActivity(addTaskIntent);
+        }
+        else if (id == R.id.goToProductBackLog) {
+            Intent productBacklogIntent = new Intent(getApplicationContext(), ProductBacklog.class);
+            startActivity(productBacklogIntent);
+        }
+        else if (id == R.id.goToSprintBoard) {
+//            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
+//            startActivity(sprintBoardIntent);
+        }
+        else if (id == R.id.goToTeamMembers) {
+//            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);
+//            startActivity(teamMembersIntent);
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
 }
