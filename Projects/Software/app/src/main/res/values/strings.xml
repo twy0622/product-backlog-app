@@ -32,4 +32,11 @@
         <item>Testing</item>
     </string-array>
 
+    <string-array name="filterTags">
+        <item>None</item>
+        <item>UI</item>
+        <item>Core</item>
+        <item>Testing</item>
+    </string-array>
+
 </resources>

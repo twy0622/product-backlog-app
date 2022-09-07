@@ -6,7 +6,7 @@
     android:layout_margin="10dp"
     app:cardCornerRadius="6dp">
 
-    <!--titel n dsceripcaiotbn-->
+    <!--title n description-->
 
     <LinearLayout
         android:id="@+id/task_cardview"

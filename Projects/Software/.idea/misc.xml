@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/add_task.xml" value="0.33" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/edit_task.xml" value="0.33" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/product_backlog.xml" value="0.4" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/task_card.xml" value="0.72" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/menu/task_menu.xml" value="0.26944444444444443" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/activity_main2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/add_task.xml" value="0.46494464944649444" />
