@@ -31,6 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(){
     }
 
+
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
@@ -102,12 +104,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<Task> filteredTaskList = new ArrayList<>();
 
-            if (charSequence.toString().isEmpty()){
+            if (charSequence.toString().equals("None")){
                 filteredTaskList.addAll(taskListRecycleFull);
             } else{
                 String filterPattern = charSequence.toString().toLowerCase().trim();
                 for (Task data: taskListRecycleFull){
-                    if (data.getTags().toLowerCase().contains(filterPattern)){
+                    if (data.getTags().toLowerCase().contains(filterPattern)) {
                         filteredTaskList.add(data);
                     }
                 }

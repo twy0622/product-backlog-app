@@ -19,12 +19,15 @@ import android.widget.Spinner;
 import com.example.software.provider.TaskViewModel;
 import com.example.software.provider.Task;
 
+import java.util.ArrayList;
+
 
 public class ProductBacklog extends AppCompatActivity {
     RecyclerView recyclerView;
+    ArrayList<Task> taskList;
     RecyclerView.LayoutManager layoutManager;
     RecyclerViewAdapter adapter;
-
+    Spinner tagSpinner;
     static TaskViewModel mTaskViewModel;
 
     @Override
@@ -32,31 +35,29 @@ public class ProductBacklog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_backlog);
 
-//        //spinner for filtering tags
-//        Spinner tagFilterSpinner = findViewById(R.id.filterTagBox);
-//        ArrayAdapter<String> filterTagAdapter = new ArrayAdapter<String>(ProductBacklog.this,
-//                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filterTags));
-//        filterTagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        tagFilterSpinner.setAdapter(filterTagAdapter);
-//
-//        tagFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                Toast.makeText(ProductBacklog.this,adapterView.getItemAtPosition(position).toString()+ " selected",
-//                        Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//            }
+        tagSpinner = findViewById(R.id.filterTagSpinner);
+        ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(ProductBacklog.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filterTags));
+        tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tagSpinner.setAdapter(tagAdapter);
 
-//        });
+        tagSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedTag = (String) adapterView.getItemAtPosition(i);
+                adapter.getFilter().filter(selectedTag);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
+        });
 
         recyclerView = findViewById(R.id.task_recycler_view);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
+        taskList = new ArrayList<>();
         adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
@@ -66,26 +67,26 @@ public class ProductBacklog extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.task_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.task_menu, menu);
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        return true;
+//    }
 }
