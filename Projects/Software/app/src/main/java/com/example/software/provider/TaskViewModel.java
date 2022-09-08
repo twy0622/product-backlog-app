@@ -31,9 +31,4 @@ public class TaskViewModel extends AndroidViewModel {
     public void deleteById(int id){
         mRepository.deleteById(id);
     }
-
-    public void updateTask(int id, String category, String name, String description, String priority,
-                           String status, String assigned, String tag, int storyPoints) {
-        mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
-    }
 }

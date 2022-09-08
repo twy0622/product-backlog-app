@@ -76,7 +76,7 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         taskList = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(this);
+        adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {

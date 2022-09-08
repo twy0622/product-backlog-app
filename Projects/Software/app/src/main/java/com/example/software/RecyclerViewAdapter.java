@@ -1,25 +1,13 @@
 package com.example.software;
 
-import static com.example.software.ProductBacklog.mTaskViewModel;
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,15 +20,13 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
     private List<Task> taskListRecycle = new ArrayList<>();
     private List<Task> taskListRecycleFull; /// copy of list with all items
-    Context context;
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
         taskListRecycleFull = new ArrayList<>(data);
     }
 
-    public RecyclerViewAdapter(Context context){
-        this.context = context;
+    public RecyclerViewAdapter(){
     }
 
 
@@ -75,91 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int id = taskListRecycle.get(fPosition).getTaskId();
             @Override
             public void onClick(View view) {
-                mTaskViewModel.deleteById(id);
-            }
-        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                final View view1 = LayoutInflater.from(context).inflate(R.layout.edit_task, null);
-                builder.setView(view1);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-
-                final EditText editName = view1.findViewById(R.id.editName);
-                final EditText editSP = view1.findViewById(R.id.editSP);
-                final EditText editDesc = view1.findViewById(R.id.editDesc);
-
-                // Dropdown list Values
-                Spinner editPriority = (Spinner) view1.findViewById(R.id.editPriority);
-                ArrayAdapter<String> priorityAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.priority));
-                priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editPriority.setAdapter(priorityAdapter);
-
-                Spinner editStatus = (Spinner) view1.findViewById(R.id.editStatus);
-                ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.status));
-                statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editStatus.setAdapter(statusAdapter);
-
-                Spinner editAssigned = (Spinner) view1.findViewById(R.id.editAssigned);
-                ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.assigned));
-                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editAssigned.setAdapter(assignAdapter);
-
-                Spinner editTag = (Spinner) view1.findViewById(R.id.editTag);
-                ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.tags));
-                tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editTag.setAdapter(tagAdapter);
-
-                RadioGroup editCategory = (RadioGroup) view1.findViewById(R.id.editCategory);
-
-//                set selected task values
-                String Category = taskListRecycle.get(fPosition).getCategory();
-                if (Category.equals("User Story")) {
-                    editCategory.check(R.id.userStoryEdit);
-                }
-                else if (Category.equals("Bug")) {
-                    editCategory.check(R.id.bugEdit);
-                }
-                editName.setText(taskListRecycle.get(fPosition).getName());
-                editPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
-                editStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
-                editAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
-                editTag.setSelection(tagAdapter.getPosition(taskListRecycle.get(fPosition).getTag()));
-                editSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
-                editDesc.setText(taskListRecycle.get(fPosition).getDescription());
-
-                int id = taskListRecycle.get(fPosition).getTaskId();
-
-                Button editButton = view1.findViewById(R.id.editButton);
-                editButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Task task = taskListRecycle.get(fPosition).getTask();
-                        RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.editCategory);
-                        RadioButton selected = (RadioButton) view1.findViewById(eCategory.getCheckedRadioButtonId());
-                        String category = selected.getText().toString();
-                        String name = editName.getText().toString();
-                        String priority = editPriority.getSelectedItem().toString();
-                        String status = editStatus.getSelectedItem().toString();
-                        String assigned = editAssigned.getSelectedItem().toString();
-                        String tag = editTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(editSP.getText().toString());
-                        String desc = (editDesc.getText().toString());
-
-//                        Log.d("test",category);
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
-                        alertDialog.dismiss();
-                    }
-                });
-
+                ProductBacklog.mTaskViewModel.deleteById(id);
             }
         });
     }
@@ -204,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             } else{
                 String filterPattern = charSequence.toString().toLowerCase().trim();
                 for (Task data: taskListRecycleFull){
-                    if (data.getTag().toLowerCase().contains(filterPattern)) {
+                    if (data.getTags().toLowerCase().contains(filterPattern)) {
                         filteredTaskList.add(data);
                     }
                 }
@@ -223,4 +125,3 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     };
 }
-

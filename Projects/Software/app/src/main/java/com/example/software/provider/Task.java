@@ -30,27 +30,22 @@ public class Task {
     @ColumnInfo(name = "taskAssigned")
     private String assigned;
 
-    @ColumnInfo(name = "taskTag")
-    private String tag;
+    @ColumnInfo(name = "taskTags")
+    private String tags;
 
     @ColumnInfo(name = "taskStoryPoints")
     private int storyPoints;
 
-    public Task(String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints) {
+    public Task(String category, String name, String description, String priority, String status, String assigned, String tags, int storyPoints) {
         this.category = category;
         this.name = name;
         this.description = description;
         this.priority = priority;
         this.status = status;
         this.assigned = assigned;
-        this.tag = tag;
+        this.tags = tags;
         this.storyPoints = storyPoints;
     }
-
-    public Task getTask() {
-        return this;
-    }
-    public int getTaskId() { return taskId; }
 
     public String getCategory() { return category; }
     public String getName() { return name; }
@@ -58,35 +53,9 @@ public class Task {
     public String getPriority() { return priority; }
     public String getStatus() { return status; }
     public String getAssigned() { return assigned; }
-    public String getTag() { return tag; }
+    public String getTags() { return tags; }
     public int getStoryPoints() { return storyPoints; }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public void setAssigned(String assigned) {
-        this.assigned = assigned;
-    }
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-    public void setStoryPoints(int storyPoints) {
-        this.storyPoints = storyPoints;
-    }
+    public int getTaskId() { return taskId; }
+    public void setTaskId(@NonNull int taskId) { this.taskId = taskId; }
 }
