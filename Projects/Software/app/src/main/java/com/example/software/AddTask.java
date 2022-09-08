@@ -34,7 +34,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 //    ArrayAdapter myAdapter;
     RecyclerViewAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +52,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 
         NavigationView navigationView = findViewById(R.id.navView_add_task);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         adapter = new RecyclerViewAdapter();
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
