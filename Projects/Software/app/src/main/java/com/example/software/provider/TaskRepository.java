@@ -32,4 +32,11 @@ public class TaskRepository {
             mTaskDao.deleteAllTasks();
         });
     }
+
+    void updateTask(int id, String category, String name, String description, String priority,
+                    String status, String assigned, String tag, int storyPoints){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
+        });
+    }
 }
