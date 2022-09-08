@@ -55,7 +55,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        adapter = new RecyclerViewAdapter();
+        adapter = new RecyclerViewAdapter(this);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
             adapter.setTask(newData);
