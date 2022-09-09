@@ -87,54 +87,59 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tagSpinner.setAdapter(tagAdapter);
 
+        radioCategoryGroup = (RadioGroup) findViewById(R.id.radioCategory);
+        radioCategoryGroup.check(R.id.userStoryButton);
+        int selectedId = radioCategoryGroup.getCheckedRadioButtonId();
+        RadioButton taskCategory = (RadioButton)findViewById(selectedId);
+
+        EditText taskName = findViewById(R.id.nameBox);
+        taskName.setText("");
+
+        EditText taskSP = findViewById(R.id.storyPointsBox);
+        taskSP.setText("");
+
+        Spinner taskPriority = (Spinner)findViewById(R.id.priorityBox);
+
+        Spinner taskStatus = (Spinner)findViewById(R.id.statusBox);
+
+        Spinner taskAssigned = (Spinner)findViewById(R.id.assignedBox);
+
+        Spinner taskTag = (Spinner)findViewById(R.id.tagBox);
+
+        EditText taskDescription = findViewById(R.id.descriptionBox);
+        taskDescription.setText("");
+
         Button create = findViewById(R.id.createButton);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                radioCategoryGroup = (RadioGroup) findViewById(R.id.radioCategory);
-                int selectedId = radioCategoryGroup.getCheckedRadioButtonId();
-                RadioButton taskCategory = (RadioButton)findViewById(selectedId);
                 String category = taskCategory.getText().toString();
-
-                EditText taskName = findViewById(R.id.nameBox);
                 String name = taskName.getText().toString();
-
-                Spinner taskPriority = (Spinner)findViewById(R.id.priorityBox);
                 String priority = taskPriority.getSelectedItem().toString();
-
-                Spinner taskStatus = (Spinner)findViewById(R.id.statusBox);
                 String status = taskStatus.getSelectedItem().toString();
-
-                Spinner taskAssigned = (Spinner)findViewById(R.id.assignedBox);
                 String assigned = taskAssigned.getSelectedItem().toString();
-
-                Spinner taskTag = (Spinner)findViewById(R.id.tagBox);
                 String tag = taskTag.getSelectedItem().toString();
-
-                EditText taskSP = findViewById(R.id.storyPointsBox);
-                int sp = Integer.valueOf(taskSP.getText().toString());
-
-                EditText taskDescription = findViewById(R.id.descriptionBox);
+                String sp = taskSP.getText().toString();
                 String description = taskDescription.getText().toString();
 
-                Task task = new Task(category,name,description,priority,status,assigned,tag,sp);
+                if (name.matches("") | sp.matches("") | description.matches("")){
+                    Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Task task = new Task(category, name, description, priority, status, assigned, tag, Integer.parseInt(sp));
+                    mTaskViewModel.insert(task);
+                    Toast.makeText(getApplicationContext(), "Task successfully created.", Toast.LENGTH_SHORT).show();
 
-//                 causing crash cause of incomplete database code
-                mTaskViewModel.insert(task);
-
-                Toast myMessage = Toast.makeText(getApplicationContext(),
-                        "Task successfully created.",Toast.LENGTH_SHORT);
-                myMessage.show();
-
-                // reset fields after creating a task
-                radioCategoryGroup.clearCheck();
-                taskName.setText("");
-                taskPriority.setSelection(0);
-                taskStatus.setSelection(0);
-                taskAssigned.setSelection(0);
-                taskTag.setSelection(0);
-                taskSP.setText("");
-                taskDescription.setText("");
+                    // reset fields after creating a task
+                    radioCategoryGroup.clearCheck();
+                    taskName.setText("");
+                    taskPriority.setSelection(0);
+                    taskStatus.setSelection(0);
+                    taskAssigned.setSelection(0);
+                    taskTag.setSelection(0);
+                    taskSP.setText("");
+                    taskDescription.setText("");
+                }
             }
         });
 
