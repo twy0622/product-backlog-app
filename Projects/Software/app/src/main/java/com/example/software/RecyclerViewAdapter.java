@@ -61,13 +61,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         if (taskListRecycle.get(position).getPriority().equals("Critical")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#e81300"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#D85251"));
         } else if (taskListRecycle.get(position).getPriority().equals("High")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#ff7b00"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#f47b20"));
         } else if (taskListRecycle.get(position).getPriority().equals("Medium")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#eeff00"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#ffd200"));
         } else{
-            holder.cardview.setBackgroundColor(Color.parseColor("#00ff15"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#8FBB09"));
         }
 
         int fPosition = position;
