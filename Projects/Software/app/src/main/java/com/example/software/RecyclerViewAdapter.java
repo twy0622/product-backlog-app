@@ -58,16 +58,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.description.setText(" - " + taskListRecycle.get(position).getDescription());
         holder.priority.setText("Priority: " + taskListRecycle.get(position).getPriority());
         holder.status.setText(taskListRecycle.get(position).getStatus());
+        if (taskListRecycle.get(position).getStatus().equals("Not Started")){
+            holder.status.setTextColor(Color.parseColor("#830000"));
+        } else if (taskListRecycle.get(position).getStatus().equals("Completed")){
+            holder.status.setTextColor(Color.parseColor("#004614"));
+        } else {
+            holder.status.setTextColor(Color.parseColor("#0D0C6F"));
+        }
 
 
         if (taskListRecycle.get(position).getPriority().equals("Critical")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#D85251"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#E01E1E")); //#D85251
         } else if (taskListRecycle.get(position).getPriority().equals("High")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#f47b20"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#FFA100")); //#f47b20
         } else if (taskListRecycle.get(position).getPriority().equals("Medium")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#ffd200"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#E4F623")); // #ffd200
         } else{
-            holder.cardview.setBackgroundColor(Color.parseColor("#8FBB09"));
+            holder.cardview.setBackgroundColor(Color.parseColor("#1BE000")); // #8FBB09
         }
 
         int fPosition = position;
