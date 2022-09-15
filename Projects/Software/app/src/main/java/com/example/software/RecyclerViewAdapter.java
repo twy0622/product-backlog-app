@@ -4,6 +4,7 @@ import static com.example.software.ProductBacklog.mTaskViewModel;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -80,9 +81,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         int fPosition = position;
         holder.deleteTask.setOnClickListener(new View.OnClickListener() {
             int id = taskListRecycle.get(fPosition).getTaskId();
+            String name = taskListRecycle.get(fPosition).getName();
             @Override
             public void onClick(View view) {
-                mTaskViewModel.deleteById(id);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete " + name)
+                        .setMessage("Confirm delete?")
+                        .setCancelable(true)
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mTaskViewModel.deleteById(id);
+                            }
+                        })
+                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -144,8 +162,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
+                editCategory.setEnabled(false);
+                editName.setEnabled(false);
+                editPriority.setEnabled(false);
+                editStatus.setEnabled(false);
+                editAssigned.setEnabled(false);
+                editTag.setEnabled(false);
+                editSP.setEnabled(false);
+                editDesc.setEnabled(false);
+
                 Button editButton = view1.findViewById(R.id.editButton);
                 editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        editCategory.setEnabled(true);
+                        editName.setEnabled(true);
+                        editPriority.setEnabled(true);
+                        editStatus.setEnabled(true);
+                        editAssigned.setEnabled(true);
+                        editTag.setEnabled(true);
+                        editSP.setEnabled(true);
+                        editDesc.setEnabled(true);
+                    }
+                });
+
+                Button saveButton = view1.findViewById(R.id.saveButton);
+                saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Task task = taskListRecycle.get(fPosition).getTask();
@@ -160,7 +202,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         int sp = Integer.valueOf(editSP.getText().toString());
                         String desc = (editDesc.getText().toString());
 
-//                        Log.d("test",category);
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
                         alertDialog.dismiss();
