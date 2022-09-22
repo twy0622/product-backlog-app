@@ -21,12 +21,14 @@
             android:textSize="20dp" />
 
         <TextView
-            android:layout_width="397dp"
+            android:layout_width="382dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="40dp"
+            android:background="#FFFFFF"
+            android:gravity="left"
             android:text="Product Backlog"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:visibility="visible" />
 
@@ -34,45 +36,48 @@
             android:id="@+id/productBacklogList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@color/white" />
+            android:layout_marginBottom="5dp"
+            android:background="@color/black" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="383dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="15dp"
-            android:text="Sprint Backlog" />
+            android:layout_marginTop="40dp"
+            android:background="#FFFFFF"
+            android:gravity="left"
+            android:text="Sprint Backlog"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sprintBacklogList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@color/white"/>
+            android:background="@color/black"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/saveSprintButton"
-            android:layout_width="1000px"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:background="@color/black"
-            android:layout_gravity="center"
             android:text="Save Changes"
             android:textColor="@color/white" />
 
         <Button
             android:id="@+id/startSprintButton"
-            android:layout_width="1000px"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/black"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#713E3E"
             android:text="Start"
             android:textColor="@color/white" />
 
