@@ -28,6 +28,7 @@
             android:background="#FFFFFF"
             android:gravity="left"
             android:text="Product Backlog"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textStyle="bold"
             android:visibility="visible" />
@@ -49,6 +50,7 @@
             android:background="#FFFFFF"
             android:gravity="left"
             android:text="Sprint Backlog"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -73,7 +75,7 @@
 
         <Button
             android:id="@+id/startSprintButton"
-            android:layout_width="180dp"
+            android:layout_width="124dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
