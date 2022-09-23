@@ -5,77 +5,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+    <TextView
+        android:id="@+id/addSprint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
+        android:layout_marginTop="80dp"
+        android:text="Add Sprint"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine2"
+        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
-    <!--        app:layout_constraintBaseline_toBaselineOf="@+id/sprintName"-->
-
-    <EditText
-        android:id="@+id/nameSprint"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sprintName"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="@+id/guideline2" />
-
-    <TextView
-        android:id="@+id/addSprint"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="Add Sprint"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
     <TextView
         android:id="@+id/sprintName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="4dp"
-        android:text="Name: "
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        android:text="Name:"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine"
         app:layout_constraintTop_toBottomOf="@+id/addSprint" />
-
-    <Button
-        android:id="@+id/sprintCalendar"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:onClick="openDatePicker"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sprintDate"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        tools:text="@tools:sample/date/ddmmyy" />
 
     <TextView
         android:id="@+id/sprintDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="4dp"
         android:text="Date:"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine"
         app:layout_constraintTop_toBottomOf="@+id/sprintName" />
+
+    <EditText
+        android:layout_width="206dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine2"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toEndOf="@+id/sprintName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/chooseDate"
+        android:layout_width="173dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="256dp"
+        android:background="@drawable/rounded_corner_box"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:drawableRight="@drawable/ic_baseline_calendar"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:padding="5dip"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine2"
+        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintStart_toEndOf="@+id/sprintName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addSprintButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Add Sprint"
+        app:layout_constraintEnd_toStartOf="@+id/guideLine2"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="@+id/guideLine"
+        app:layout_constraintTop_toBottomOf="@+id/chooseDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
