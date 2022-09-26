@@ -30,7 +30,7 @@ public class AddSprint extends AppCompatActivity {
     }
 
     private void updateLabel(){
-        String myFormat="dd/MM/yy";
+        String myFormat="dd/MM/yyyy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
         editText.setText(dateFormat.format(myCalendar.getTime()));
     }
