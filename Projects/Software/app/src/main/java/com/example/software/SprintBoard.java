@@ -26,12 +26,11 @@ import java.util.ArrayList;
 
 public class SprintBoard extends AppCompatActivity {
 
-//    private SprintViewModel mSprintViewModel;
+//    private Sprint mSprintViewModel;
 //
 //    ArrayList<Sprint> sprint = new ArrayList<>();
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    SprintRecyclerViewAdapter adapter;
     TextView stories;
     TextView date;
 
@@ -70,7 +69,7 @@ public class SprintBoard extends AppCompatActivity {
 //        adapter.setSprint(sprint);
 //        recyclerView.setAdapter(adapter);
 
-//        mSprintViewModel = new ViewModelProvider(this).get(SprintViewModel.class);
+//        mSprintViewModel = new ViewModelProvider(this).get(Sprint.class);
 //
 //        mSprintViewModel.getAllSprint().observe(this, newData-> {
 //            adapter.setSprint(newData);
@@ -107,15 +106,15 @@ public class SprintBoard extends AppCompatActivity {
 
 
 
-    public void addingSprint() {
-        EditText sprintName = findViewById(R.id.nameSprint);
-        String name = sprintName.getText().toString();
-        Button sprintDate = findViewById(R.id.sprintCalendar);
-        String date = sprintName.getText().toString();
-
-
-//        Sprint sprintItems = new Sprint(name,date);
-        
-    }
+//    public void addingSprint() {
+//        EditText sprintName = findViewById(R.id.nameSprint);
+//        String name = sprintName.getText().toString();
+//        Button sprintDate = findViewById(R.id.sprintCalendar);
+//        String date = sprintName.getText().toString();
+//
+//
+////        Sprint sprintItems = new Sprint(name,date);
+//
+//    }
 
 }
