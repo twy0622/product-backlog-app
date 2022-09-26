@@ -3,17 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.153" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/add_task.xml" value="0.1" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/date_box.xml" value="0.1995" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_add_sprint_button.xml" value="0.202" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_baseline_calendar.xml" value="0.1995" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.1" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_rounded_calendar_bar1.xml" value="0.2" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_rounder_calendarbox.xml" value="0.202" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/placeholder_background.xml" value="0.202" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/polygon_button.xml" value="0.202" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/product_backlog_image.xml" value="0.202" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/rounded_corner_box.xml" value="0.1995" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/side_nav_bar.xml" value="0.153" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/sprint_board.xml" value="0.153" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/team_members.xml" value="0.153" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/add_sprint.xml" value="0.264" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/add_task.xml" value="0.2" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/edit_task.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/item.xml" value="0.25" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/product_backlog.xml" value="0.23777173913043478" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_board.xml" value="0.264" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_card.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_overview.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/task_card.xml" value="0.1621376811594203" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/activity_main2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Wei Jian/group-a1/Projects/Software/app/src/main/res/layout/edit_task.xml" value="0.36666666666666664" />
