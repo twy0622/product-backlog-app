@@ -154,25 +154,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 //        });
     }
 
-    public void changeStatusDotColor(String taskStatus){
-        ImageView image_statusDot = (ImageView) findViewById(R.id.image_statusDot);
-        if (taskStatus == "Not_Started"){
-           image_statusDot.setImageResource(R.drawable.not_started_dot);
-        }
-        if (taskStatus == "In Progress"){
-            image_statusDot.setImageResource(R.drawable.in_progress_dot);
-        }
-        if (taskStatus == "Developing"){
-            image_statusDot.setImageResource(R.drawable.developing_dot);
-        }
-        if (taskStatus == "Testing"){
-            image_statusDot.setImageResource(R.drawable.testing_dot);
-        }
-        if (taskStatus == "Completed"){
-            image_statusDot.setImageResource(R.drawable.completed_dot);
-        }
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
