@@ -1,30 +1,41 @@
 package com.example.software;
-
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.software.provider.BaseEntity;
 import com.example.software.provider.BaseEntityDao;
+import com.example.software.provider.DatabaseHelper;
 import com.example.software.provider.MultiDatabase;
+import com.example.software.provider.Sprint;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SprintBoard extends AppCompatActivity {
+public class SprintBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 //    private Sprint mSprintViewModel;
 //
@@ -33,9 +44,8 @@ public class SprintBoard extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     TextView stories;
     TextView date;
-
-    MultiDatabase mDB;
-    BaseEntityDao mDao;
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
 
 
 
@@ -43,27 +53,30 @@ public class SprintBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sprint_board);
+        setContentView(R.layout.drawer_layout_sprint_board);
 
-        recyclerView = findViewById(R.id.sprintRecyclerView);
+        toolbar = findViewById(R.id.toolbar_sprintboard);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout_sprint_board);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navView_sprint_board);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
+        recyclerView = findViewById(R.id.sprint_board_recyclerView);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mDB = Room.databaseBuilder(this,MultiDatabase.class,"basedb")
-                .allowMainThreadQueries()
-                .build();
-        mDao = mDB.baseEntityDao();
-        addSomeDataViaRoom();
-        String dynamicTableName = "testing";
-        addTable(dynamicTableName);
-        addSomeDataOutsideOfRoom(dynamicTableName);
-        SupportSQLiteDatabase sdb = mDB.getOpenHelper().getWritableDatabase();
-        Cursor csr = sdb.query("SELECT * FROM " + BaseEntity.BASETABLE_NAME);
-        DatabaseUtils.dumpCursor(csr);
-        csr = sdb.query("SELECT * FROM " + dynamicTableName);
-        DatabaseUtils.dumpCursor(csr);
-        mDB.close();
+        //List<Sprint> allSprints = new databaseHelper.getAllSprint();
 
 //        adapter = new SprintRecyclerViewAdapter();
 //        adapter.setSprint(sprint);
@@ -75,33 +88,35 @@ public class SprintBoard extends AppCompatActivity {
 //            adapter.setSprint(newData);
 //            adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.goToAddTask) {
+            Intent addTaskIntent = new Intent(getApplicationContext(), AddTask.class);
+            startActivity(addTaskIntent);
+        }
+        else if (id == R.id.goToProductBackLog) {
+            Intent productBacklogIntent = new Intent(getApplicationContext(), ProductBacklog.class);
+            startActivity(productBacklogIntent);
+        }
+        else if (id == R.id.goToSprintBoard) {
+//            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
+//            startActivity(sprintBoardIntent);
+        }
+        else if (id == R.id.goToTeamMembers) {
+//            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);
+//            startActivity(teamMembersIntent);
         }
 
-    private boolean addTable(String tableName) {
+        drawerLayout.closeDrawer(GravityCompat.START);
 
-        SupportSQLiteDatabase sdb = mDB.getOpenHelper().getWritableDatabase();
-        try {
-            sdb.execSQL(BaseEntity.BASETABLE_CREATE_SQL.replace(BaseEntity.BASETABLE_NAME_PLACEHOLDER, tableName));
-        } catch (SQLiteException e) {
-            return false;
-        }
         return true;
     }
 
-    private void addSomeDataViaRoom() {
-        if (mDao.getRowCount() > 0) return;
-        mDao.insertRow("A");
-        mDao.insertRow("B");
-        mDao.insertRow("C");
-    }
 
-    private void addSomeDataOutsideOfRoom(String tableName) {
-        SupportSQLiteDatabase sdb = mDB.getOpenHelper().getWritableDatabase();
-        if (BaseEntity.getTableRowCount(sdb,tableName) > 0) return;
-        BaseEntity.insertRow(sdb,tableName,"X");
-        BaseEntity.insertRow(sdb,tableName,"Y");
-        BaseEntity.insertRow(sdb,tableName,"Z");
-    }
 
 
 
