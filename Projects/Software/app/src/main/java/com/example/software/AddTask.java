@@ -143,14 +143,14 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
 
-//        Button productBacklog = findViewById(R.id.goNext);
-//        productBacklog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), ProductBacklog.class);
-//                startActivity(intent);
-//            }
-//        });
+        Button sprint = findViewById(R.id.sprint);
+        sprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SprintOverview.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
