@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".SprintOverview"
+            android:exported="false" />
+        <activity
             android:name=".ProductBacklog"
             android:exported="true" />
         <activity
@@ -27,6 +30,10 @@
         </activity>
         <activity
             android:name=".SprintBoard"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".SprintAllocate"
             android:exported="true">
         </activity>
     </application>
