@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AddSprint extends AppCompatActivity {
+public class LogTime extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
     EditText editText;
 
@@ -26,7 +26,7 @@ public class AddSprint extends AppCompatActivity {
             myCalendar.set(Calendar.DAY_OF_MONTH,day);
             updateLabel();
         };
-        editText.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        editText.setOnClickListener(view -> new DatePickerDialog(LogTime.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     private void updateLabel(){
