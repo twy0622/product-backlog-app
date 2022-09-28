@@ -155,7 +155,6 @@
             android:id="@+id/chooseDate"
             android:layout_width="173dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop=""
             android:background="@drawable/round_corner_box"
             android:clickable="false"
             android:cursorVisible="false"
