@@ -39,7 +39,7 @@ public class SprintAllocate extends AppCompatActivity {
         productBacklogList.setAdapter(pbAdapter);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        mTaskViewModel.getAllTasks().observe(this, newData -> {
+        mTaskViewModel.getSprintTasks("PB").observe(this, newData -> {
             pbAdapter.setTask(newData);
             pbAdapter.notifyDataSetChanged();
         });
@@ -53,7 +53,7 @@ public class SprintAllocate extends AppCompatActivity {
         sprintBacklogList.setAdapter(sbAdapter);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        mTaskViewModel.getAllTasks().observe(this, newData -> {
+        mTaskViewModel.getSprintTasks("Sprint 1").observe(this, newData -> {
             sbAdapter.setTask(newData);
             sbAdapter.notifyDataSetChanged();
         });

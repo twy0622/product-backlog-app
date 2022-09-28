@@ -20,6 +20,10 @@ public class TaskViewModel extends AndroidViewModel {
         return mAllTasks;
     }
 
+    public LiveData<List<Task>> getSprintTasks(String sprint) {
+        return mRepository.getSprintTasks(sprint);
+    }
+
     public void insert(Task task) {
         mRepository.insert(task);
     }
@@ -30,6 +34,10 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void deleteById(int id){
         mRepository.deleteById(id);
+    }
+
+    public void updateSprint(String sprint) {
+        mRepository.updateSprint(sprint);
     }
 
     public void updateTask(int id, String category, String name, String description, String priority,
