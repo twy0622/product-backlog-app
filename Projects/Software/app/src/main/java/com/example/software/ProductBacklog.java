@@ -63,6 +63,7 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedTag = (String) adapterView.getItemAtPosition(i);
+                System.out.println(selectedTag);
                 adapter.getFilter().filter(selectedTag);
             }
             @Override
