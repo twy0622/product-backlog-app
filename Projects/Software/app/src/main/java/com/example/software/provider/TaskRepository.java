@@ -8,6 +8,7 @@ import java.util.List;
 public class TaskRepository {
     private TaskDao mTaskDao;
     private LiveData<List<Task>> mAllTasks;
+    private LiveData<List<Task>> mSprintTasks;
 
     TaskRepository(Application application) {
         TaskDatabase db = TaskDatabase.getDatabase(application);
@@ -18,6 +19,11 @@ public class TaskRepository {
     LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
     }
+
+    LiveData<List<Task>> getSprintTasks(String sprint) {
+        return mTaskDao.getSprintTask(sprint);
+    }
+
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
@@ -30,6 +36,12 @@ public class TaskRepository {
     void deleteAll(){
         TaskDatabase.databaseWriteExecutor.execute(()->{
             mTaskDao.deleteAllTasks();
+        });
+    }
+
+    void updateSprint(String sprint){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.updateSprint(sprint);
         });
     }
 

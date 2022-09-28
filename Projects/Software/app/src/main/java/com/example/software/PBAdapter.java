@@ -1,5 +1,7 @@
 package com.example.software;
 
+import static com.example.software.ProductBacklog.mTaskViewModel;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,13 @@ public class PBAdapter extends RecyclerView.Adapter<PBAdapter.PBViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PBViewHolder holder, int position) {
         holder.pbTitle.setText(pbListRecycle.get(position).getName());
+        int fPosition = position;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTaskViewModel.updateSprint("Sprint 1");
+            }
+        });
     }
 
     @Override
