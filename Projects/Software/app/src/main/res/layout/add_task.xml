@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/Name"
+        android:id="@+id/sprintName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
@@ -60,7 +60,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/Name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/sprintName"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
@@ -100,7 +100,7 @@
         android:layout_marginTop="28dp"
         android:text="Priority :"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/Name" />
+        app:layout_constraintTop_toBottomOf="@+id/sprintName" />
 
     <Spinner
         android:id="@+id/priorityBox"
