@@ -166,8 +166,8 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             startActivity(productBacklogIntent);
         }
         else if (id == R.id.goToSprintBoard) {
-//            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
-//            startActivity(sprintBoardIntent);
+            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
+            startActivity(sprintBoardIntent);
         }
         else if (id == R.id.goToTeamMembers) {
 //            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);
