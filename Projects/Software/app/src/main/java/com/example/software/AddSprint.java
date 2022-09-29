@@ -6,13 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import com.example.software.provider.DatabaseHelper;
-import com.example.software.provider.MultiDatabase;
 import com.example.software.provider.Sprint;
 
 import java.text.SimpleDateFormat;
@@ -45,10 +41,10 @@ public class AddSprint extends AppCompatActivity {
 
                 Toast.makeText(AddSprint.this, "" + sprintNameinString + " has been" +
                         " added.", Toast.LENGTH_SHORT).show();
-
-                DatabaseHelper databaseHelper = new DatabaseHelper(AddSprint.this);
-
-                boolean success = databaseHelper.insertSprint(sprintAdding);
+//
+//                TaskViewModel databaseHelper = new TaskViewModel(AddSprint.this);
+//
+//                boolean success = databaseHelper.insertSprint(sprintAdding);
             }
         });
 

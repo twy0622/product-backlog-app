@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.software.provider.Task;
@@ -19,7 +18,7 @@ public class SprintOverview extends AppCompatActivity {
     RecyclerView completedRecycler;
     ArrayList<Task> taskList;
     RecyclerView.LayoutManager layoutManager;
-    RecyclerViewAdapter completedAdapter;
+    SprintRecyclerViewAdapter completedAdapter;
     Spinner tagSpinner;
     static TaskViewModel mTaskViewModel;
     DrawerLayout drawerLayout;
@@ -34,7 +33,7 @@ public class SprintOverview extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         completedRecycler.setLayoutManager(layoutManager);
         taskList = new ArrayList<>();
-        completedAdapter = new RecyclerViewAdapter(this);
+        completedAdapter = new SprintRecyclerViewAdapter(this);
         completedRecycler.setAdapter(completedAdapter);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
