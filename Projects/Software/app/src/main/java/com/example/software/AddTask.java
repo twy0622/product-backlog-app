@@ -31,7 +31,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
     DrawerLayout drawerLayout;
 
     static TaskViewModel mTaskViewModel;
-//    ArrayList<String> taskList = new ArrayList<String>();
+    //    ArrayList<String> taskList = new ArrayList<String>();
 //    ArrayAdapter myAdapter;
     RecyclerViewAdapter adapter;
 
@@ -122,12 +122,13 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
                 String tag = taskTag.getSelectedItem().toString();
                 String sp = taskSP.getText().toString();
                 String description = taskDescription.getText().toString();
+                String sprint = "PB";
 
                 if (name.matches("") | sp.matches("") | description.matches("")){
                     Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Task task = new Task(category, name, description, priority, status, assigned, tag, Integer.parseInt(sp));
+                    Task task = new Task(category, name, description, priority, status, assigned, tag, Integer.parseInt(sp),sprint);
                     mTaskViewModel.insert(task);
                     Toast.makeText(getApplicationContext(), "Task successfully created.", Toast.LENGTH_SHORT).show();
 
@@ -144,14 +145,14 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             }
         });
 
-//        Button productBacklog = findViewById(R.id.goNext);
-//        productBacklog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), ProductBacklog.class);
-//                startActivity(intent);
-//            }
-//        });
+        Button productBacklog = findViewById(R.id.goNext);
+        productBacklog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SprintAllocate.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

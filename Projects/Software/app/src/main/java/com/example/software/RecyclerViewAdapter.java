@@ -255,7 +255,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             } else{
                 String filterPattern = charSequence.toString().toLowerCase().trim();
                 for (Task data: taskListRecycleFull){
-                    if (data.getTag().toLowerCase().contains(filterPattern)) {
+                    if (data.getTag().toLowerCase().contains(filterPattern) || data.getStatus().toLowerCase().contains(filterPattern)) {
                         filteredTaskList.add(data);
                     }
                 }

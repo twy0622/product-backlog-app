@@ -65,6 +65,7 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedTag = (String) adapterView.getItemAtPosition(i);
+                System.out.println(selectedTag);
                 adapter.getFilter().filter(selectedTag);
             }
             @Override
@@ -100,8 +101,8 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
 //            startActivity(productBacklogIntent);
         }
         else if (id == R.id.goToSprintBoard) {
-//            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
-//            startActivity(sprintBoardIntent);
+            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
+            startActivity(sprintBoardIntent);
         }
         else if (id == R.id.goToTeamMembers) {
 //            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);

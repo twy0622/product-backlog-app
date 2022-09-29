@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="435827ba-9e3b-4f5b-948e-41e864edc191" name="Changes" comment="Deleted unnecessary sandbox files.">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="435827ba-9e3b-4f5b-948e-41e864edc191" name="Changes" comment="Just a test from my own file. -Justin">
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/AddSprint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/SprintBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/SprintRecyclerViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/provider/Sprint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/provider/SprintDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/provider/SprintDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/provider/SprintRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/provider/SprintViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/add_sprint.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/sprint_board.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/sprint_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/Software/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/Software/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/AddTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/AddTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/RecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/java/com/example/software/RecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/add_task.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/add_task.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/nav_header_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/Software/app/src/main/res/layout/nav_header_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
