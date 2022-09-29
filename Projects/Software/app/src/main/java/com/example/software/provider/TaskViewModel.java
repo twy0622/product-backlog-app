@@ -24,6 +24,14 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintTasks(sprint);
     }
 
+    public LiveData<List<Task>> getSprintStatus(String status) {
+        return mRepository.getSprintStatus(status);
+    }
+
+    public LiveData<List<Task>> getSprintStatus2(String status1, String status2, String status3) {
+        return mRepository.getSprintStatus2(status1, status2, status3);
+    }
+
     public void insert(Task task) {
         mRepository.insert(task);
     }
