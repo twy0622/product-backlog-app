@@ -1,14 +1,7 @@
 package com.example.software;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -17,23 +10,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.software.provider.BaseEntity;
-import com.example.software.provider.BaseEntityDao;
-import com.example.software.provider.DatabaseHelper;
-import com.example.software.provider.MultiDatabase;
-import com.example.software.provider.Sprint;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SprintBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -68,8 +49,8 @@ public class SprintBoard extends AppCompatActivity implements NavigationView.OnN
 
         NavigationView navigationView = findViewById(R.id.navView_sprint_board);
         navigationView.setNavigationItemSelectedListener(this);
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+//
+//        DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
         recyclerView = findViewById(R.id.sprint_board_recyclerView);
 

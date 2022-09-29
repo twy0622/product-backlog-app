@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.software.provider.Task;
@@ -17,12 +16,16 @@ import java.util.ArrayList;
 
 public class SprintOverview extends AppCompatActivity {
     RecyclerView completedRecycler;
+    RecyclerView inProgressRecycler;
+    RecyclerView notStartedRecycler;
     ArrayList<Task> taskList;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerViewAdapter completedAdapter;
-    Spinner tagSpinner;
+    RecyclerView.LayoutManager completedLayoutManager;
+    RecyclerView.LayoutManager inProgressLayoutManager;
+    RecyclerView.LayoutManager notStartedLayoutManager;
+    SprintRecyclerViewAdapter completedAdapter;
+    SprintRecyclerViewAdapter inProgressAdapter;
+    SprintRecyclerViewAdapter notStartedAdapter;
     static TaskViewModel mTaskViewModel;
-    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +33,43 @@ public class SprintOverview extends AppCompatActivity {
         setContentView(R.layout.sprint_overview);
 
         completedRecycler = findViewById(R.id.completed_recycler_view);
+        completedLayoutManager = new LinearLayoutManager(this);
+        completedRecycler.setLayoutManager(completedLayoutManager);
 
-        layoutManager = new LinearLayoutManager(this);
-        completedRecycler.setLayoutManager(layoutManager);
+        inProgressRecycler = findViewById(R.id.in_progress_recycler_view);
+        inProgressLayoutManager = new LinearLayoutManager(this);
+        inProgressRecycler.setLayoutManager(inProgressLayoutManager);
+
+        notStartedRecycler = findViewById(R.id.not_started_recycler_view);
+        notStartedLayoutManager = new LinearLayoutManager(this);
+        notStartedRecycler.setLayoutManager(notStartedLayoutManager);
+
         taskList = new ArrayList<>();
-        completedAdapter = new RecyclerViewAdapter(this);
+
+        completedAdapter = new SprintRecyclerViewAdapter(this);
         completedRecycler.setAdapter(completedAdapter);
+
+        inProgressAdapter = new SprintRecyclerViewAdapter(this);
+        inProgressRecycler.setAdapter(inProgressAdapter);
+
+        notStartedAdapter = new SprintRecyclerViewAdapter(this);
+        notStartedRecycler.setAdapter(notStartedAdapter);
+
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        mTaskViewModel.getAllTasks().observe(this, newData -> {
+        mTaskViewModel.getSprintStatus("Completed").observe(this, newData -> {
             completedAdapter.setTask(newData);
             completedAdapter.notifyDataSetChanged();
         });
-//        ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(SprintOverview.this,
-//                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.status));
-//        String selectedTag = (String) adapterView.getItemAtPosition(i);
-//        completedAdapter.getFilter().filter("Completed");
+
+        mTaskViewModel.getSprintStatus2("In Progress", "Developing", "Testing").observe(this, newData -> {
+            inProgressAdapter.setTask(newData);
+            inProgressAdapter.notifyDataSetChanged();
+        });
+
+        mTaskViewModel.getSprintStatus("Not Started").observe(this, newData -> {
+            notStartedAdapter.setTask(newData);
+            notStartedAdapter.notifyDataSetChanged();
+        });
     }
 
 }

@@ -5,9 +5,7 @@ import static com.example.software.ProductBacklog.mTaskViewModel;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
+public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<ProductBacklogRecyclerViewAdapter.ViewHolder> implements Filterable {
     private List<Task> taskListRecycle = new ArrayList<>();
     private List<Task> taskListRecycleFull; /// copy of list with all items
     Context context;
@@ -40,21 +38,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         taskListRecycleFull = new ArrayList<>(data);
     }
 
-    public RecyclerViewAdapter(Context context){
+    public ProductBacklogRecyclerViewAdapter(Context context){
         this.context = context;
     }
 
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductBacklogRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_card, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductBacklogRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.title.setText(taskListRecycle.get(position).getName() + " - " + taskListRecycle.get(position).getStoryPoints());
         holder.description.setText(" - " + taskListRecycle.get(position).getDescription());
         holder.priority.setText("Priority: " + taskListRecycle.get(position).getPriority());

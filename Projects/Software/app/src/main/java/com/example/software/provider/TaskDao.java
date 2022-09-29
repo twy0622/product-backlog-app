@@ -15,6 +15,12 @@ public interface TaskDao {
     @Query("select * from tasks where taskSprint = :sprint")
     LiveData<List<Task>> getSprintTask(String sprint);
 
+    @Query("select * from tasks where taskStatus = :status")
+    LiveData<List<Task>> getSprintStatus(String status);
+
+    @Query("select * from tasks where taskStatus = :status1 OR taskStatus = :status2 OR taskStatus = :status3")
+    LiveData<List<Task>> getSprintStatus2(String status1, String status2, String status3);
+
     @Insert
     void addTask(Task task);
 

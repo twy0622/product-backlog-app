@@ -24,6 +24,14 @@ public class TaskRepository {
         return mTaskDao.getSprintTask(sprint);
     }
 
+    LiveData<List<Task>> getSprintStatus(String status) {
+        return mTaskDao.getSprintStatus(status);
+    }
+
+    LiveData<List<Task>> getSprintStatus2(String status1, String status2, String status3) {
+        return mTaskDao.getSprintStatus2(status1, status2, status3);
+    }
+
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));

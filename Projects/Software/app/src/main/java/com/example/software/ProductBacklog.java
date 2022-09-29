@@ -30,7 +30,7 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
     RecyclerView recyclerView;
     ArrayList<Task> taskList;
     RecyclerView.LayoutManager layoutManager;
-    RecyclerViewAdapter adapter;
+    ProductBacklogRecyclerViewAdapter adapter;
     Spinner tagSpinner;
     static TaskViewModel mTaskViewModel;
     DrawerLayout drawerLayout;
@@ -79,7 +79,7 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         taskList = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(this);
+        adapter = new ProductBacklogRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
