@@ -60,11 +60,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.priority.setText("Priority: " + taskListRecycle.get(position).getPriority());
         holder.status.setText(taskListRecycle.get(position).getStatus());
         if (taskListRecycle.get(position).getStatus().equals("Not Started")){
-            holder.status.setTextColor(Color.parseColor("#830000"));
+            holder.image_statusDot.setImageResource(R.drawable.not_started);
         } else if (taskListRecycle.get(position).getStatus().equals("Completed")){
-            holder.status.setTextColor(Color.parseColor("#004614"));
+            holder.image_statusDot.setImageResource(R.drawable.completed);
         } else {
-            holder.status.setTextColor(Color.parseColor("#0D0C6F"));
+            holder.image_statusDot.setImageResource(R.drawable.inprogdevtest);
         }
 
 
@@ -224,6 +224,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView status;
         public LinearLayout cardview;
         public ImageView deleteTask;
+        public ImageView image_statusDot;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -233,6 +234,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             status = itemView.findViewById(R.id.task_status);
             cardview = itemView.findViewById(R.id.task_cardview);
             deleteTask = itemView.findViewById(R.id.image_delete);
+            image_statusDot = itemView.findViewById(R.id.image_statusDot);
+
         }
     }
 
