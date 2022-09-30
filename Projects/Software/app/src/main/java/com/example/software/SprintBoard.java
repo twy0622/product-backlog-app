@@ -10,23 +10,32 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.software.provider.Sprint;
+import com.example.software.provider.TaskViewModel;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class SprintBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 //    private Sprint mSprintViewModel;
 //
-//    ArrayList<Sprint> sprint = new ArrayList<>();
+    ArrayList<Sprint> sprint = new ArrayList<>();
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     TextView stories;
     TextView date;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    SprintBoardAdapter adapter;
+
+    TaskViewModel mSprintViewModel;
+
 
 
 
@@ -59,15 +68,21 @@ public class SprintBoard extends AppCompatActivity implements NavigationView.OnN
 
         //List<Sprint> allSprints = new databaseHelper.getAllSprint();
 
-//        adapter = new SprintRecyclerViewAdapter();
-//        adapter.setSprint(sprint);
-//        recyclerView.setAdapter(adapter);
+        adapter = new SprintBoardAdapter(this);
+        adapter.setSprint(sprint);
+        recyclerView.setAdapter(adapter);
 
-//        mSprintViewModel = new ViewModelProvider(this).get(Sprint.class);
-//
-//        mSprintViewModel.getAllSprint().observe(this, newData-> {
-//            adapter.setSprint(newData);
-//            adapter.notifyDataSetChanged();
+        mSprintViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+        mSprintViewModel.getAllSprints().observe(this, newData-> {
+            adapter.setSprint(newData);
+            adapter.notifyDataSetChanged();
+
+        });
+
+
+
+
 
     }
 

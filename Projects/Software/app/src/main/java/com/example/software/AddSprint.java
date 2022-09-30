@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.software.provider.Sprint;
 import com.example.software.provider.TaskViewModel;
@@ -33,6 +34,17 @@ public class AddSprint extends AppCompatActivity {
         sprintNameInput = findViewById(R.id.sprintNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+
+        DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH,month);
+            myCalendar.set(Calendar.DAY_OF_MONTH,day);
+            updateLabel();
+        };
+        sprintDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+
         addSprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,15 +62,6 @@ public class AddSprint extends AppCompatActivity {
 //                boolean success = databaseHelper.insertSprint(sprintAdding);
             }
         });
-
-
-        DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH,month);
-            myCalendar.set(Calendar.DAY_OF_MONTH,day);
-            updateLabel();
-        };
-        sprintDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
 
     }
