@@ -25,6 +25,9 @@ public interface SprintDao {
     @Query("delete from sprints where sprintID=:id")
     void deleteSprintByID(int id);
 
+    @Query("delete from sprints where sprintName = :name")
+    void deleteSprintByName(String name);
+
     @Query("delete FROM sprints")
     void deleteAllSprints();
 

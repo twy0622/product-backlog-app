@@ -28,12 +28,12 @@ public class TaskRepository {
         return mTaskDao.getSprintTask(sprint);
     }
 
-    LiveData<List<Task>> getSprintStatus(String status) {
-        return mTaskDao.getSprintStatus(status);
+    LiveData<List<Task>> getSprintStatus(String sprint, String status) {
+        return mTaskDao.getSprintStatus(sprint, status);
     }
 
-    LiveData<List<Task>> getSprintStatus2(String status1, String status2, String status3) {
-        return mTaskDao.getSprintStatus2(status1, status2, status3);
+    LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3) {
+        return mTaskDao.getSprintStatus2(sprint, status1, status2, status3);
     }
 
     LiveData<List<Sprint>> getAllSprints(){
@@ -50,6 +50,12 @@ public class TaskRepository {
 
     void addSprint(Sprint sprint) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.addSprint(sprint));
+    }
+
+    void endSprint(String sprint){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.endSprint(sprint);
+        });
     }
 
     void deleteSprintByID(int id) {
@@ -77,15 +83,19 @@ public class TaskRepository {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteById(id));
     }
 
+    void deleteSprintByName(String name){
+        TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.deleteSprintByName(name));
+    }
+
     void deleteAll(){
         TaskDatabase.databaseWriteExecutor.execute(()->{
             mTaskDao.deleteAllTasks();
         });
     }
 
-    void updateSprint(String sprint){
+    void updateSprint(int id, String sprint){
         TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.updateSprint(sprint);
+            mTaskDao.updateSprint(id, sprint);
         });
     }
 
