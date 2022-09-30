@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -32,7 +33,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
     static TaskViewModel mTaskViewModel;
     //    ArrayList<String> taskList = new ArrayList<String>();
 //    ArrayAdapter myAdapter;
-    RecyclerViewAdapter adapter;
+    ProductBacklogRecyclerViewAdapter adapter;
 
 
     @Override
@@ -55,7 +56,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        adapter = new RecyclerViewAdapter(this);
+        adapter = new ProductBacklogRecyclerViewAdapter(this);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
             adapter.setTask(newData);
@@ -148,7 +149,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         productBacklog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SprintAllocate.class);
+                Intent intent = new Intent(getApplicationContext(), SprintOverview.class);
                 startActivity(intent);
             }
         });
@@ -167,8 +168,8 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             startActivity(productBacklogIntent);
         }
         else if (id == R.id.goToSprintBoard) {
-//            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
-//            startActivity(sprintBoardIntent);
+            Intent sprintBoardIntent = new Intent(getApplicationContext(), SprintBoard.class);
+            startActivity(sprintBoardIntent);
         }
         else if (id == R.id.goToTeamMembers) {
 //            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);

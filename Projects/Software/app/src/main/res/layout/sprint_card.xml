@@ -1,5 +1,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sprint_cardview"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_margin="10dp"
@@ -19,8 +20,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/sprintNameCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Sprint Name: "
+                android:textColor="@color/black"/>
+
             <ImageView
-                android:id="@+id/image_delete"
+                android:id="@+id/imageEditCard"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"

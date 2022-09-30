@@ -6,14 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import com.example.software.provider.DatabaseHelper;
-import com.example.software.provider.MultiDatabase;
 import com.example.software.provider.Sprint;
+import com.example.software.provider.TaskViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,6 +22,7 @@ public class AddSprint extends AppCompatActivity {
     EditText sprintNameInput;
     Button addSprint;
 
+    static TaskViewModel mTaskViewModel;
 
 
     @Override
@@ -38,17 +36,18 @@ public class AddSprint extends AppCompatActivity {
         addSprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sprintNameinString = sprintNameInput.getText().toString();
-                String sprintDateinString = sprintDateInput.getText().toString();
-                Sprint sprintAdding = new Sprint(0, sprintNameinString, sprintDateinString);
+                String sprintNameInString = sprintNameInput.getText().toString();
+                String sprintDateInString = sprintDateInput.getText().toString();
 
+                Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
+                mTaskViewModel.addSprint(sprint);
 
-                Toast.makeText(AddSprint.this, "" + sprintNameinString + " has been" +
+                Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +
                         " added.", Toast.LENGTH_SHORT).show();
-
-                DatabaseHelper databaseHelper = new DatabaseHelper(AddSprint.this);
-
-                boolean success = databaseHelper.insertSprint(sprintAdding);
+//
+//                TaskViewModel databaseHelper = new TaskViewModel(AddSprint.this);
+//
+//                boolean success = databaseHelper.insertSprint(sprintAdding);
             }
         });
 
