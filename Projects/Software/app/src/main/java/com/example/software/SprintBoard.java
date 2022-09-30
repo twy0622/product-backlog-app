@@ -2,6 +2,8 @@ package com.example.software;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -10,23 +12,32 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.software.provider.Sprint;
+import com.example.software.provider.TaskViewModel;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class SprintBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 //    private Sprint mSprintViewModel;
 //
-//    ArrayList<Sprint> sprint = new ArrayList<>();
+    ArrayList<Sprint> sprint = new ArrayList<>();
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     TextView stories;
     TextView date;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    SprintBoardAdapter adapter;
+
+    TaskViewModel mSprintViewModel;
+
 
 
 
@@ -35,6 +46,16 @@ public class SprintBoard extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout_sprint_board);
+
+        Button goToAddSprint = findViewById(R.id.goToAddSprint);
+
+        goToAddSprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddSprint.class);
+                startActivity(intent);
+            }
+        });
 
         toolbar = findViewById(R.id.toolbar_sprintboard);
         setSupportActionBar(toolbar);
@@ -59,17 +80,25 @@ public class SprintBoard extends AppCompatActivity implements NavigationView.OnN
 
         //List<Sprint> allSprints = new databaseHelper.getAllSprint();
 
-//        adapter = new SprintRecyclerViewAdapter();
-//        adapter.setSprint(sprint);
-//        recyclerView.setAdapter(adapter);
+        adapter = new SprintBoardAdapter(this);
+        adapter.setSprint(sprint);
+        recyclerView.setAdapter(adapter);
 
-//        mSprintViewModel = new ViewModelProvider(this).get(Sprint.class);
-//
-//        mSprintViewModel.getAllSprint().observe(this, newData-> {
-//            adapter.setSprint(newData);
-//            adapter.notifyDataSetChanged();
+        mSprintViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+        mSprintViewModel.getAllSprints().observe(this, newData-> {
+            adapter.setSprint(newData);
+            adapter.notifyDataSetChanged();
+
+        });
+
+
+
+
 
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

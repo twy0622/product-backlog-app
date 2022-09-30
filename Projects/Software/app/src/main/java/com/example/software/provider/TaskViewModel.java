@@ -9,11 +9,13 @@ import java.util.List;
 public class TaskViewModel extends AndroidViewModel {
     private TaskRepository mRepository;
     private LiveData<List<Task>> mAllTasks;
+    private LiveData<List<Sprint>> mAllSprints;
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
         mRepository = new TaskRepository(application);
         mAllTasks = mRepository.getAllTasks();
+        mAllSprints = mRepository.getAllSprints();
     }
 
     public LiveData<List<Task>> getAllTasks() {
@@ -51,5 +53,33 @@ public class TaskViewModel extends AndroidViewModel {
     public void updateTask(int id, String category, String name, String description, String priority,
                            String status, String assigned, String tag, int storyPoints) {
         mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
+    }
+
+    public LiveData<List<Sprint>> getAllSprints() {
+        return mAllSprints;
+    }
+
+    public LiveData<List<Sprint>> getSprintName(String name) {
+        return mRepository.getSprintName(name);
+    }
+
+    public LiveData<List<Sprint>> getSprintDate(String date) {
+        return mRepository.getSprintDate(date);
+    }
+
+    public void addSprint(Sprint sprint) {
+        mRepository.addSprint(sprint);
+    }
+
+    public void deleteSprintByID(int id) {
+        mRepository.deleteSprintByID(id);
+    }
+
+    public void deleteAllSprints() {
+        mRepository.deleteAllSprints();
+    }
+
+    public void updateSprintDetails(int id, String sprintName, String sprintDate) {
+        mRepository.updateSprintDetails(id,sprintName,sprintDate);
     }
 }
