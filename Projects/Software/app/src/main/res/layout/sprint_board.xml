@@ -28,6 +28,7 @@
         app:layout_constraintVertical_bias="0.277" />
 
     <Button
+        android:id="@+id/goToAddSprint"
         android:layout_width="50dp"
         android:layout_height="52dp"
         android:layout_marginTop="8dp"

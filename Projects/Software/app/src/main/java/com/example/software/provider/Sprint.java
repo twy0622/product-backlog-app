@@ -1,47 +1,45 @@
 package com.example.software.provider;
 
-public class Sprint {
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    private int id;
+@Entity(tableName = "sprints")
+public class Sprint{
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "sprintID")
+    private int sprintID;
+
+    @ColumnInfo(name = "sprintName")
     private String sprintName;
+
+    @ColumnInfo(name = "sprintDate")
     private String sprintDate;
 
-    public Sprint(int id, String sprintName, String sprintDate) {
-        this.id = id;
+    public Sprint(String sprintName, String sprintDate) {
         this.sprintName = sprintName;
         this.sprintDate = sprintDate;
     }
 
-    @Override
-    public String toString() {
-        return "Sprint{" +
-                "id=" + id +
-                ", sprintName='" + sprintName + '\'' +
-                ", sprintDate='" + sprintDate + '\'' +
-                '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public int getSprintID() {
+        return sprintID;
     }
 
     public String getSprintName() {
         return sprintName;
     }
 
-    public void setSprintName(String sprintName) {
-        this.sprintName = sprintName;
-    }
-
     public String getSprintDate() {
         return sprintDate;
     }
 
-    public void setSprintDate(String sprintDate) {
-        this.sprintDate = sprintDate;
+    public void setSprintID(int sprintID) {
+        this.sprintID = sprintID;
+    }
+
+    public Sprint getSprintStuff() {
+        return this;
     }
 }

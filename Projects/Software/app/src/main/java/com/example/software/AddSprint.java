@@ -8,8 +8,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.software.provider.Sprint;
+import com.example.software.provider.TaskViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +23,7 @@ public class AddSprint extends AppCompatActivity {
     EditText sprintNameInput;
     Button addSprint;
 
+    static TaskViewModel mTaskViewModel;
 
 
     @Override
@@ -31,22 +34,7 @@ public class AddSprint extends AppCompatActivity {
         sprintNameInput = findViewById(R.id.sprintNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
-        addSprint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sprintNameinString = sprintNameInput.getText().toString();
-                String sprintDateinString = sprintDateInput.getText().toString();
-                Sprint sprintAdding = new Sprint(0, sprintNameinString, sprintDateinString);
-
-
-                Toast.makeText(AddSprint.this, "" + sprintNameinString + " has been" +
-                        " added.", Toast.LENGTH_SHORT).show();
-//
-//                TaskViewModel databaseHelper = new TaskViewModel(AddSprint.this);
-//
-//                boolean success = databaseHelper.insertSprint(sprintAdding);
-            }
-        });
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
 
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
@@ -56,6 +44,26 @@ public class AddSprint extends AppCompatActivity {
             updateLabel();
         };
         sprintDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+
+        addSprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sprintNameInString = sprintNameInput.getText().toString();
+                String sprintDateInString = sprintDateInput.getText().toString();
+
+                Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
+                mTaskViewModel.addSprint(sprint);
+
+                Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +
+                        " added.", Toast.LENGTH_SHORT).show();
+
+                finish();
+//
+//                TaskViewModel databaseHelper = new TaskViewModel(AddSprint.this);
+//
+//                boolean success = databaseHelper.insertSprint(sprintAdding);
+            }
+        });
 
 
     }
