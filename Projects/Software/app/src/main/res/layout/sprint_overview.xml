@@ -31,14 +31,17 @@
             android:id="@+id/completed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Completed"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/completed_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,21 +58,24 @@
             android:id="@+id/in_progress_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="In progress"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/in_progress_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/not_started_linear_layout"
         android:layout_width="350dp"
         android:layout_height="160dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,14 +85,17 @@
             android:id="@+id/not_started_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Not Started"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/not_started_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <Button

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.software.provider.Task;
 import com.example.software.provider.TaskViewModel;
@@ -37,6 +38,9 @@ public class SprintOverview extends AppCompatActivity {
         setContentView(R.layout.sprint_overview);
         Intent intent = getIntent();
         sprintName = intent.getStringExtra("keyName");
+
+        TextView sprintOverview = findViewById(R.id.sprintOverview);
+        sprintOverview.setText(sprintName + " Overview");
 
         completedRecycler = findViewById(R.id.completed_recycler_view);
         completedLayoutManager = new LinearLayoutManager(this);
