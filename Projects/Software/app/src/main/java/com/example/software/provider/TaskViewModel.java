@@ -26,12 +26,12 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintTasks(sprint);
     }
 
-    public LiveData<List<Task>> getSprintStatus(String status) {
-        return mRepository.getSprintStatus(status);
+    public LiveData<List<Task>> getSprintStatus(String sprint, String status) {
+        return mRepository.getSprintStatus(sprint, status);
     }
 
-    public LiveData<List<Task>> getSprintStatus2(String status1, String status2, String status3) {
-        return mRepository.getSprintStatus2(status1, status2, status3);
+    public LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3) {
+        return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
     public void insert(Task task) {
@@ -46,8 +46,12 @@ public class TaskViewModel extends AndroidViewModel {
         mRepository.deleteById(id);
     }
 
-    public void updateSprint(String sprint) {
-        mRepository.updateSprint(sprint);
+    public void endSprint(String sprint) {
+        mRepository.endSprint(sprint);
+    }
+
+    public void updateSprint(int id, String sprint) {
+        mRepository.updateSprint(id, sprint);
     }
 
     public void updateTask(int id, String category, String name, String description, String priority,
@@ -73,6 +77,10 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void deleteSprintByID(int id) {
         mRepository.deleteSprintByID(id);
+    }
+
+    public void deleteSprintByName(String name) {
+        mRepository.deleteSprintByName(name);
     }
 
     public void deleteAllSprints() {

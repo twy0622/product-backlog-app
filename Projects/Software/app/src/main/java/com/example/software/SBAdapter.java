@@ -39,7 +39,7 @@ public class SBAdapter extends RecyclerView.Adapter<SBAdapter.SBViewHolder>  {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTaskViewModel.updateSprint("PB");
+                mTaskViewModel.updateSprint(sbListRecycle.get(fPosition).getTaskId(), "PB");
             }
         });
     }

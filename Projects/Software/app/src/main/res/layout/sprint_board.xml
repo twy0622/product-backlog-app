@@ -19,13 +19,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sprint_board_recyclerView"
         android:layout_width="321dp"
-        android:layout_height="569dp"
+        android:layout_height="530dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sprintBoard"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.143" />
 
     <Button
         android:id="@+id/goToAddSprint"
@@ -38,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sprint_board_recyclerView"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

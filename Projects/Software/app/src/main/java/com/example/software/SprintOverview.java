@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.software.provider.Task;
@@ -26,11 +29,14 @@ public class SprintOverview extends AppCompatActivity {
     SprintRecyclerViewAdapter inProgressAdapter;
     SprintRecyclerViewAdapter notStartedAdapter;
     static TaskViewModel mTaskViewModel;
+    String sprintName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sprint_overview);
+        Intent intent = getIntent();
+        sprintName = intent.getStringExtra("keyName");
 
         completedRecycler = findViewById(R.id.completed_recycler_view);
         completedLayoutManager = new LinearLayoutManager(this);
@@ -56,19 +62,39 @@ public class SprintOverview extends AppCompatActivity {
         notStartedRecycler.setAdapter(notStartedAdapter);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        mTaskViewModel.getSprintStatus("Completed").observe(this, newData -> {
+        mTaskViewModel.getSprintStatus(sprintName,"Completed").observe(this, newData -> {
             completedAdapter.setTask(newData);
             completedAdapter.notifyDataSetChanged();
         });
 
-        mTaskViewModel.getSprintStatus2("In Progress", "Developing", "Testing").observe(this, newData -> {
+        mTaskViewModel.getSprintStatus2(sprintName,"In Progress", "Developing", "Testing").observe(this, newData -> {
             inProgressAdapter.setTask(newData);
             inProgressAdapter.notifyDataSetChanged();
         });
 
-        mTaskViewModel.getSprintStatus("Not Started").observe(this, newData -> {
+        mTaskViewModel.getSprintStatus(sprintName,"Not Started").observe(this, newData -> {
             notStartedAdapter.setTask(newData);
             notStartedAdapter.notifyDataSetChanged();
+        });
+
+        Button allocateTask = findViewById(R.id.sprint_allocate_task);
+        allocateTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SprintAllocate.class);
+                intent.putExtra("keyName", sprintName);
+                startActivity(intent);
+            }
+        });
+
+        Button end = findViewById(R.id.end_sprint_overview);
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                mTaskViewModel.deleteSprintByName(sprintName);
+                mTaskViewModel.endSprint(sprintName);
+                finish();
+            }
         });
     }
 

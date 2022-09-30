@@ -18,12 +18,15 @@ import java.util.List;
 public class PBAdapter extends RecyclerView.Adapter<PBAdapter.PBViewHolder> {
 
     private List<Task> pbListRecycle = new ArrayList<>();
+    String sprintName;
 
     public void setTask(List<Task> data){
         this.pbListRecycle = data;
     }
 
-    public PBAdapter() {}
+    public PBAdapter(String sprintName) {
+        this.sprintName = sprintName;
+    }
 
     @NonNull
     @Override
@@ -39,7 +42,7 @@ public class PBAdapter extends RecyclerView.Adapter<PBAdapter.PBViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTaskViewModel.updateSprint("Sprint 1");
+                mTaskViewModel.updateSprint(pbListRecycle.get(fPosition).getTaskId(),sprintName);
             }
         });
     }

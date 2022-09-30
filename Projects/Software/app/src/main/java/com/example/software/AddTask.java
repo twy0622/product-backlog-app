@@ -149,7 +149,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         productBacklog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SprintOverview.class);
+                Intent intent = new Intent(getApplicationContext(), SprintAllocate.class);
                 startActivity(intent);
             }
         });

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,10 +23,13 @@ import java.util.List;
 public class SprintAllocate extends AppCompatActivity {
 
     private RecyclerView productBacklogList,sprintBacklogList;
+    String sprintName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        sprintName = intent.getStringExtra("keyName");
         setContentView(R.layout.sprint_allocate);
 
         // product backlog
@@ -35,7 +39,7 @@ public class SprintAllocate extends AppCompatActivity {
 
         List<Task> pbList = new ArrayList<>();
 
-        PBAdapter pbAdapter = new PBAdapter();
+        PBAdapter pbAdapter = new PBAdapter(sprintName);
         productBacklogList.setAdapter(pbAdapter);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
@@ -53,7 +57,7 @@ public class SprintAllocate extends AppCompatActivity {
         sprintBacklogList.setAdapter(sbAdapter);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        mTaskViewModel.getSprintTasks("Sprint 1").observe(this, newData -> {
+        mTaskViewModel.getSprintTasks(sprintName).observe(this, newData -> {
             sbAdapter.setTask(newData);
             sbAdapter.notifyDataSetChanged();
         });
