@@ -6,11 +6,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/addSprint"
+        android:id="@+id/dashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="Add Sprint"
+        android:text="Dashboard"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideLine2"
         app:layout_constraintHorizontal_bias="0.179"
@@ -37,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="4dp"
-        android:text="Name:"
+        android:text="Start Date: "
         app:layout_constraintEnd_toStartOf="@+id/guideLine"
-        app:layout_constraintTop_toBottomOf="@+id/addSprint" />
+        app:layout_constraintTop_toBottomOf="@+id/dashboard" />
 
     <TextView
         android:id="@+id/endDate"
@@ -47,22 +47,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="4dp"
-        android:text="Date:"
+        android:text="End Date:"
         app:layout_constraintEnd_toStartOf="@+id/guideLine"
         app:layout_constraintTop_toBottomOf="@+id/startDate" />
 
     <EditText
-        android:id="@+id/sprintNameInput"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/chooseDate"
+        android:layout_width="185dp"
+        android:layout_height="45dp"
         android:layout_marginTop="156dp"
+        android:background="@drawable/ic_rounder_calendarbox"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="left|center"
+        android:padding="12dip"
         app:layout_constraintEnd_toStartOf="@+id/guideLine2"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toEndOf="@+id/startDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/chooseDate"
+        android:id="@+id/chooseEndDate"
         android:layout_width="185dp"
         android:layout_height="45dp"
         android:layout_marginTop="248dp"
@@ -78,16 +85,36 @@
         app:layout_constraintStart_toEndOf="@+id/startDate"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addSprintButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Add Sprint"
-        app:layout_constraintEnd_toStartOf="@+id/guideLine2"
-        app:layout_constraintHorizontal_bias="0.349"
-        app:layout_constraintStart_toStartOf="@+id/guideLine"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDate" />
+    <LinearLayout
+        android:id="@+id/not_started_linear_layout"
+        android:layout_width="350dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="360dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/not_started_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/not_started_text"
+        android:layout_width="351dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="48dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="Members                            Average (hours)"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseEndDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
