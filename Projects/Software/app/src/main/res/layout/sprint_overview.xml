@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="84dp"
+        android:background="#713E3E"
         android:text="End"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed_linear_layout" />
