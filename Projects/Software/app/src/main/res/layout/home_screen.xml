@@ -20,8 +20,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.597"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/homeView"
+        app:layout_constraintVertical_bias="0.597">
+    </Button>
 
     <Button
         android:id="@+id/dashboardButton"
@@ -38,10 +39,11 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634"></Button>
+        app:layout_constraintVertical_bias="0.634">
+    </Button>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/homeView"
         android:layout_width="112dp"
         android:layout_height="119dp"
         app:layout_constraintBottom_toTopOf="@+id/dashboardButton"
@@ -51,4 +53,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.408"
         app:srcCompat="@drawable/ic_home" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
