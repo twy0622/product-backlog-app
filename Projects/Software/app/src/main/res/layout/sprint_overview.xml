@@ -22,6 +22,7 @@
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
+        android:outlineProvider="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/in_progress_linear_layout">
@@ -30,14 +31,17 @@
             android:id="@+id/completed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Completed"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/completed_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,21 +58,24 @@
             android:id="@+id/in_progress_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="In progress"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/in_progress_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/not_started_linear_layout"
         android:layout_width="350dp"
         android:layout_height="160dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,23 +85,35 @@
             android:id="@+id/not_started_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#656565"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Not Started"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/not_started_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/black" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/end_button"
+        android:id="@+id/end_sprint_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="84dp"
         android:text="End"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed_linear_layout" />
+
+    <Button
+        android:id="@+id/sprint_allocate_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:text="Allocate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/end_sprint_overview"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
