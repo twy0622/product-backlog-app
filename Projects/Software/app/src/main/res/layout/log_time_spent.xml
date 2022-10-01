@@ -128,7 +128,8 @@
             android:hint="Work Time ___ hours"
             android:textSize="14sp" />
 
-        <EditText
+
+        <TextView
             android:id="@+id/logAccTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,9 +137,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"
-            android:hint="Accumulated Time"
+            android:text="Accumulated Time"
             android:textSize="14sp" />
-
 
         <TextView
             android:id="@+id/endDate"
