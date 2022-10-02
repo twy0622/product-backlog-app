@@ -8,7 +8,9 @@ import java.util.List;
 public class TaskRepository {
     private TaskDao mTaskDao;
     private SprintDao mSprintDao;
+    private MembersDao mMembersDao;
     private LiveData<List<Sprint>> mAllSprints;
+    private LiveData<List<Members>> mAllMembers;
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Task>> mSprintTasks;
 
@@ -16,9 +18,13 @@ public class TaskRepository {
         TaskDatabase db = TaskDatabase.getDatabase(application);
         mTaskDao = db.taskDao();
         mSprintDao = db.sprintDao();
+        mMembersDao = db.membersDao();
+        mAllMembers = mMembersDao.getAllTeamMembers();
         mAllSprints = mSprintDao.getAllSprints();
         mAllTasks = mTaskDao.getAllTask();
     }
+
+    //Task Repositories
 
     LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
@@ -36,6 +42,42 @@ public class TaskRepository {
         return mTaskDao.getSprintStatus2(sprint, status1, status2, status3);
     }
 
+
+    void insert(Task task) {
+        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
+    }
+
+    void deleteById(int id){
+        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteById(id));
+    }
+
+    void deleteAll(){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.deleteAllTasks();
+        });
+    }
+
+    void updateSprint(int id, String sprint){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.updateSprint(id, sprint);
+        });
+    }
+
+    void endSprint(String sprint){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.endSprint(sprint);
+        });
+    }
+
+    void updateTask(int id, String category, String name, String description, String priority,
+                    String status, String assigned, String tag, int storyPoints){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
+        });
+    }
+
+    //Sprint Repositories
+
     LiveData<List<Sprint>> getAllSprints(){
         return mAllSprints;
     }
@@ -52,14 +94,12 @@ public class TaskRepository {
         TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.addSprint(sprint));
     }
 
-    void endSprint(String sprint){
-        TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.endSprint(sprint);
-        });
-    }
-
     void deleteSprintByID(int id) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.deleteSprintByID(id));
+    }
+
+    void deleteSprintByName(String name){
+        TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.deleteSprintByName(name));
     }
 
     void deleteAllSprints(){
@@ -74,35 +114,39 @@ public class TaskRepository {
         });
     }
 
+    //Members Repositories
 
-    void insert(Task task) {
-        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
+    LiveData<List<Members>> getAllTeamMembers() {
+        return mAllMembers;
     }
 
-    void deleteById(int id){
-        TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteById(id));
+    LiveData<List<Members>> getMemberName(String memberName) {
+        return mMembersDao.getMemberName(memberName);
     }
 
-    void deleteSprintByName(String name){
-        TaskDatabase.databaseWriteExecutor.execute(() -> mSprintDao.deleteSprintByName(name));
+    LiveData<List<Members>> getMemberEmail(String memberEmail) {
+        return mMembersDao.getMemberEmail(memberEmail);
     }
 
-    void deleteAll(){
-        TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.deleteAllTasks();
-        });
+    void addTeamMember(Members member) {
+        TaskDatabase.databaseWriteExecutor.execute(() -> mMembersDao.addTeamMember(member));
     }
 
-    void updateSprint(int id, String sprint){
-        TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.updateSprint(id, sprint);
-        });
+    void deleteTeamMemberByID(int memberID) {
+        TaskDatabase.databaseWriteExecutor.execute(() -> mMembersDao.deleteTeamMemberByID(memberID));
+    }
+    void deleteTeamMember(String memberName) {
+        TaskDatabase.databaseWriteExecutor.execute(() ->mMembersDao.deleteTeamMember(memberName));
     }
 
-    void updateTask(int id, String category, String name, String description, String priority,
-                    String status, String assigned, String tag, int storyPoints){
-        TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
-        });
+    void deleteAllMembers() {
+        TaskDatabase.databaseWriteExecutor.execute(() -> mMembersDao.deleteAllTeamMembers());
     }
+
+    void updateTeamMembers(int id, String memberName, String memberEmail) {
+        TaskDatabase.databaseWriteExecutor.execute(() -> {mMembersDao.updateTeamMembers(id, memberName
+        , memberEmail);
+    });
+}
+
 }

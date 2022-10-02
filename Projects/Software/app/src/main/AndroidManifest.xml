@@ -36,6 +36,12 @@
             android:name=".SprintAllocate"
             android:exported="true">
         </activity>
+        <activity android:name=".TeamMembersList"
+            android:exported="true">
+        </activity>
+        <activity android:name=".AddTeamMember"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

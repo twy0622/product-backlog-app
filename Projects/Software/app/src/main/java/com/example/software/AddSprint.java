@@ -31,7 +31,7 @@ public class AddSprint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_sprint);
         sprintDateInput= findViewById(R.id.chooseDate);
-        sprintNameInput = findViewById(R.id.sprintNameInput);
+        sprintNameInput = findViewById(R.id.memberNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
