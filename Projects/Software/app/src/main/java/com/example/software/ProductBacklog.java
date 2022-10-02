@@ -105,8 +105,8 @@ public class ProductBacklog extends AppCompatActivity implements NavigationView.
             startActivity(sprintBoardIntent);
         }
         else if (id == R.id.goToTeamMembers) {
-//            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembers.class);
-//            startActivity(teamMembersIntent);
+            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembersList.class);
+            startActivity(teamMembersIntent);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

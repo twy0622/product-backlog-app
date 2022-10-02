@@ -6,17 +6,23 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import java.util.List;
 
+import kotlin.jvm.internal.PropertyReference0Impl;
+
 public class TaskViewModel extends AndroidViewModel {
     private TaskRepository mRepository;
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Sprint>> mAllSprints;
+    private LiveData<List<Members>> mAllMembers;
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
         mRepository = new TaskRepository(application);
         mAllTasks = mRepository.getAllTasks();
         mAllSprints = mRepository.getAllSprints();
+        mAllMembers = mRepository.getAllTeamMembers();
     }
+
+    //Task View Models
 
     public LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
@@ -59,6 +65,8 @@ public class TaskViewModel extends AndroidViewModel {
         mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
     }
 
+    //Sprint View Models
+
     public LiveData<List<Sprint>> getAllSprints() {
         return mAllSprints;
     }
@@ -90,4 +98,39 @@ public class TaskViewModel extends AndroidViewModel {
     public void updateSprintDetails(int id, String sprintName, String sprintDate) {
         mRepository.updateSprintDetails(id,sprintName,sprintDate);
     }
+
+    //Member View Models
+
+    public LiveData<List<Members>> getAllTeamMembers() {
+        return mAllMembers;
+    }
+
+    public LiveData<List<Members>> getMemberName(String memberName) {
+        return mRepository.getMemberName(memberName);
+    }
+
+    public LiveData<List<Members>> getMemberEmail(String memberEmail) {
+        return mRepository.getMemberEmail(memberEmail);
+    }
+
+    public void addTeamMember(Members member) {
+        mRepository.addTeamMember(member);
+    }
+
+    public void deleteTeamMemberByID(int memberID) {
+        mRepository.deleteTeamMemberByID(memberID);
+    }
+
+    public void deleteTeamMember(String memberName) {
+        mRepository.deleteTeamMember(memberName);
+    }
+
+    public void deleteAllMembers() {
+        mRepository.deleteAllMembers();
+    }
+
+    public void updateTeamMembers(int memberID, String memberName, String memberEmail) {
+        mRepository.updateTeamMembers(memberID,memberName,memberEmail);
+    }
+
 }

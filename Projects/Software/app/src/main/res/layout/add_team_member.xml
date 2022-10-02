@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addSprint" />
 
     <EditText
-        android:id="@+id/sprintNameInput"
+        android:id="@+id/memberNameInput"
         android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
