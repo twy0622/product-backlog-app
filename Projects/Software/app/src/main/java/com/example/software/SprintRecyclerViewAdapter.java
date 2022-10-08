@@ -144,7 +144,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                     @Override
                     public void onClick(View view) {
                         Task task = taskListRecycle.get(fPosition).getTask();
-                        RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.editCategory);
+                        RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.logCategory);
                         RadioButton selected = (RadioButton) view1.findViewById(eCategory.getCheckedRadioButtonId());
                         String category = selected.getText().toString();
                         String name = logName.getText().toString();
