@@ -29,13 +29,13 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/userStoryEdit"
+                android:id="@+id/userStoryLog"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="User Story" />
 
             <RadioButton
-                android:id="@+id/bugEdit"
+                android:id="@+id/bugLog"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="Bug" />
@@ -106,7 +106,7 @@
             android:textSize="14dp" />
 
         <EditText
-            android:id="@+id/editDesc"
+            android:id="@+id/logDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -154,8 +154,8 @@
 
         <EditText
             android:id="@+id/chooseDate"
-            android:layout_width="231dp"
-            android:layout_height="47dp"
+            android:layout_width="206dp"
+            android:layout_height="46dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_rounder_calendarbox"
             android:clickable="false"
@@ -171,7 +171,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/updateButton"
             android:layout_width="253dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -10,6 +10,7 @@
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_baseline_calendar.xml" value="0.1995" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.1" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_edit_sprint.xml" value="0.131" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_rounded_calendar_bar1.xml" value="0.2" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/drawable/ic_rounder_calendarbox.xml" value="0.202" />
@@ -30,18 +31,18 @@
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/fragment_gallery.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/home_screen.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/item.xml" value="0.25" />
-        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/log_time_spent.xml" value="0.30625" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/log_time_spent.xml" value="0.264" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/nav_header_main.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/product_backlog.xml" value="0.23777173913043478" />
-        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_allocate.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_allocate.xml" value="0.4" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_allocate_product_backlog.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_allocate_sprint_backlog.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_board.xml" value="0.264" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_card.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_overview.xml" value="0.23233695652173914" />
-        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_task_card.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/sprint_task_card.xml" value="0.2" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/task_card.xml" value="0.1621376811594203" />
-        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/team_member_card.xml" value="0.5212636695018226" />
+        <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/team_member_card.xml" value="0.40298507462686567" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/team_member_list.xml" value="0.19375" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/layout/toolbar_add_task.xml" value="0.18489583333333334" />
         <entry key="..\:/Users/User/group-a1/Projects/Software/app/src/main/res/menu/task_menu.xml" value="0.25" />

@@ -61,99 +61,99 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                final View view1 = LayoutInflater.from(context).inflate(R.layout.edit_task, null);
+                final View view1 = LayoutInflater.from(context).inflate(R.layout.log_time_spent, null);
                 builder.setView(view1);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-                final EditText editName = view1.findViewById(R.id.editName);
-                final EditText editSP = view1.findViewById(R.id.editSP);
-                final EditText editDesc = view1.findViewById(R.id.editDesc);
+                final EditText logName = view1.findViewById(R.id.logName);
+                final EditText logSP = view1.findViewById(R.id.logSP);
+                final EditText logDesc = view1.findViewById(R.id.logDesc);
 
                 // Dropdown list Values
-                Spinner editPriority = (Spinner) view1.findViewById(R.id.editPriority);
+                Spinner logPriority = (Spinner) view1.findViewById(R.id.logPriority);
                 ArrayAdapter<String> priorityAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.priority));
                 priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editPriority.setAdapter(priorityAdapter);
+                logPriority.setAdapter(priorityAdapter);
 
-                Spinner editStatus = (Spinner) view1.findViewById(R.id.editStatus);
+                Spinner logStatus = (Spinner) view1.findViewById(R.id.logStatus);
                 ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.status));
                 statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editStatus.setAdapter(statusAdapter);
+                logStatus.setAdapter(statusAdapter);
 
-                Spinner editAssigned = (Spinner) view1.findViewById(R.id.editAssigned);
+                Spinner logAssigned = (Spinner) view1.findViewById(R.id.logAssigned);
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.assigned));
                 assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editAssigned.setAdapter(assignAdapter);
+                logAssigned.setAdapter(assignAdapter);
 
-                Spinner editTag = (Spinner) view1.findViewById(R.id.editTag);
+                Spinner logTag = (Spinner) view1.findViewById(R.id.logTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.tags));
                 tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editTag.setAdapter(tagAdapter);
+                logTag.setAdapter(tagAdapter);
 
-                RadioGroup editCategory = (RadioGroup) view1.findViewById(R.id.editCategory);
+                RadioGroup editCategory = (RadioGroup) view1.findViewById(R.id.logCategory);
 
 //                set selected task values
                 String Category = taskListRecycle.get(fPosition).getCategory();
                 if (Category.equals("User Story")) {
-                    editCategory.check(R.id.userStoryEdit);
+                    editCategory.check(R.id.userStoryLog);
                 }
                 else if (Category.equals("Bug")) {
-                    editCategory.check(R.id.bugEdit);
+                    editCategory.check(R.id.bugLog);
                 }
-                editName.setText(taskListRecycle.get(fPosition).getName());
-                editPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
-                editStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
-                editAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
-                editTag.setSelection(tagAdapter.getPosition(taskListRecycle.get(fPosition).getTag()));
-                editSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
-                editDesc.setText(taskListRecycle.get(fPosition).getDescription());
+                logName.setText(taskListRecycle.get(fPosition).getName());
+                logPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
+                logStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
+                logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
+                logTag.setSelection(tagAdapter.getPosition(taskListRecycle.get(fPosition).getTag()));
+                logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
+                logDesc.setText(taskListRecycle.get(fPosition).getDescription());
 
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
-                editCategory.setEnabled(false);
-                editName.setEnabled(false);
-                editPriority.setEnabled(false);
-                editStatus.setEnabled(false);
-                editAssigned.setEnabled(false);
-                editTag.setEnabled(false);
-                editSP.setEnabled(false);
-                editDesc.setEnabled(false);
+//                editCategory.setEnabled(false);
+//                logName.setEnabled(false);
+//                logPriority.setEnabled(false);
+//                logStatus.setEnabled(false);
+//                logAssigned.setEnabled(false);
+//                logTag.setEnabled(false);
+//                logSP.setEnabled(false);
+//                logDesc.setEnabled(false);
+//
+//                Button editButton = view1.findViewById(R.id.editButton);
+//                editButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        editCategory.setEnabled(true);
+//                        logName.setEnabled(true);
+//                        logPriority.setEnabled(true);
+//                        logStatus.setEnabled(true);
+//                        logAssigned.setEnabled(true);
+//                        logTag.setEnabled(true);
+//                        logSP.setEnabled(true);
+//                        logDesc.setEnabled(true);
+//                    }
+//                });
 
-                Button editButton = view1.findViewById(R.id.editButton);
-                editButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        editCategory.setEnabled(true);
-                        editName.setEnabled(true);
-                        editPriority.setEnabled(true);
-                        editStatus.setEnabled(true);
-                        editAssigned.setEnabled(true);
-                        editTag.setEnabled(true);
-                        editSP.setEnabled(true);
-                        editDesc.setEnabled(true);
-                    }
-                });
-
-                Button saveButton = view1.findViewById(R.id.saveButton);
-                saveButton.setOnClickListener(new View.OnClickListener() {
+                Button updateButton = view1.findViewById(R.id.updateButton);
+                updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Task task = taskListRecycle.get(fPosition).getTask();
                         RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.editCategory);
                         RadioButton selected = (RadioButton) view1.findViewById(eCategory.getCheckedRadioButtonId());
                         String category = selected.getText().toString();
-                        String name = editName.getText().toString();
-                        String priority = editPriority.getSelectedItem().toString();
-                        String status = editStatus.getSelectedItem().toString();
-                        String assigned = editAssigned.getSelectedItem().toString();
-                        String tag = editTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(editSP.getText().toString());
-                        String desc = (editDesc.getText().toString());
+                        String name = logName.getText().toString();
+                        String priority = logPriority.getSelectedItem().toString();
+                        String status = logStatus.getSelectedItem().toString();
+                        String assigned = logAssigned.getSelectedItem().toString();
+                        String tag = logTag.getSelectedItem().toString();
+                        int sp = Integer.valueOf(logSP.getText().toString());
+                        String desc = (logDesc.getText().toString());
 
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
