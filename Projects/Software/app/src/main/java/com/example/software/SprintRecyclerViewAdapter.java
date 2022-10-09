@@ -3,13 +3,16 @@ package com.example.software;
 import static com.example.software.SprintOverview.mTaskViewModel;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,12 +20,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.software.provider.Task;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
@@ -31,7 +40,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
     }
-
 
     public SprintRecyclerViewAdapter(Context context){
         this.context = context;
@@ -63,12 +71,37 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final View view1 = LayoutInflater.from(context).inflate(R.layout.log_time_spent, null);
                 builder.setView(view1);
+                builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+
+                final Calendar myCalendar= Calendar.getInstance();
+
+
+//                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+//                DialogFragment DateFragment = new DatePickerFragment();
+//                DateFragment.show(manager, "datePicker");
+
 
                 final EditText logName = view1.findViewById(R.id.logName);
                 final EditText logSP = view1.findViewById(R.id.logSP);
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
+                final EditText logHours = view1.findViewById(R.id.logWorkTime);
+                final EditText logDate = view1.findViewById(R.id.chooseDateLog);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                new DatePickerDialog.OnDateSetListener(){
+                    public void onDateSet(DatePicker view, int year, int month,int day){
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH,month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                        logDate.setText(dateFormat.format(myCalendar.getTime()));
+                    }
+                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DATE));
+
+                logDate.setOnClickListener(view2 -> datePickerDialog.show());
+
 
                 // Dropdown list Values
                 Spinner logPriority = (Spinner) view1.findViewById(R.id.logPriority);
@@ -105,6 +138,8 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 else if (Category.equals("Bug")) {
                     editCategory.check(R.id.bugLog);
                 }
+
+
                 logName.setText(taskListRecycle.get(fPosition).getName());
                 logPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
                 logStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
@@ -143,6 +178,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         Task task = taskListRecycle.get(fPosition).getTask();
                         RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.logCategory);
                         RadioButton selected = (RadioButton) view1.findViewById(eCategory.getCheckedRadioButtonId());
@@ -154,6 +190,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String tag = logTag.getSelectedItem().toString();
                         int sp = Integer.valueOf(logSP.getText().toString());
                         String desc = (logDesc.getText().toString());
+                        String date = logDate.getText().toString();
 
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
