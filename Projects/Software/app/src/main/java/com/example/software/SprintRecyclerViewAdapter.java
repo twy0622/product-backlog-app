@@ -3,6 +3,7 @@ package com.example.software;
 import static com.example.software.SprintOverview.mTaskViewModel;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,10 +18,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.software.provider.DatePickerFragment;
 import com.example.software.provider.Task;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -65,6 +72,17 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 builder.setView(view1);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+
+                EditText DateText = view1.findViewById(R.id.chooseDateLog);
+                DateText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                        DialogFragment DateFragment = new DatePickerFragment();
+                        DateFragment.show(manager,"datePicker");
+                    }
+                });
+
 
                 final EditText logName = view1.findViewById(R.id.logName);
                 final EditText logSP = view1.findViewById(R.id.logSP);

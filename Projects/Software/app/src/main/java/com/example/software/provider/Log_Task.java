@@ -1,98 +1,54 @@
 package com.example.software.provider;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
+import static androidx.room.ForeignKey.CASCADE;
+
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
-@Entity(tableName = "log_tasks")
+@Entity(tableName= "log_task", foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
+                childColumns = "taskIdfk",
+                onDelete = CASCADE,
+                onUpdate = CASCADE))
 public class Log_Task {
+
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "logTaskId")
-    private int logTaskId;
+    private int logTaskID;
 
-    @ColumnInfo(name = "logTaskCategory")
-    private String logCategory;
+    private int taskIdfk;
 
-    @ColumnInfo(name = "logTaskName")
-    private String logName;
+    private String date;
 
-    @ColumnInfo(name = "logTaskPriority")
-    private String logPriority;
+    private int hours;
 
-    @ColumnInfo(name = "logTaskStatus")
-    private String logStatus;
-
-    @ColumnInfo(name = "logTaskAssigned")
-    private String logAssigned;
-
-    @ColumnInfo(name = "logTaskTag")
-    private String logTag;
-
-    @ColumnInfo(name = "logTaskStoryPoints")
-    private int logStoryPoints;
-
-    @ColumnInfo(name = "logTaskDescription")
-    private String logDescription;
-
-    @ColumnInfo(name = "logHours")
-    private int logHours;
-
-    public Log_Task(String logCategory, String logName, String logPriority, String logStatus, String
-            logAssigned, String logTag, int logStoryPoints, String logDescription, int logHours) {
-        this.logCategory = logCategory;
-        this.logName = logName;
-        this.logPriority = logPriority;
-        this.logStatus = logStatus;
-        this.logAssigned = logAssigned;
-        this.logTag = logTag;
-        this.logStoryPoints = logStoryPoints;
-        this.logDescription = logDescription;
-        this.logHours = logHours;
+    public Log_Task(String date, int hours) {
+        this.date = date;
+        this.hours = hours;
     }
 
-    public String getLogCategory() {
-        return logCategory;
+    public int getLogTaskID() {
+        return logTaskID;
     }
 
-    public String getLogName() {
-        return logName;
+    public void setLogTaskID(int logTaskID) {
+        this.logTaskID = logTaskID;
     }
 
-    public String getLogPriority() {
-        return logPriority;
+    public String getDateTest() {
+        return date;
     }
 
-    public String getLogStatus() {
-        return logStatus;
+    public void setDateTest(String date) {
+        this.date = date;
     }
 
-    public String getLogAssigned() {
-        return logAssigned;
+    public int getHours() {
+        return hours;
     }
 
-    public String getLogTag() {
-        return logTag;
-    }
-
-    public int getLogStoryPoints() {
-        return logStoryPoints;
-    }
-
-    public String getLogDescription() {
-        return logDescription;
-    }
-
-    public int getLogHours() {
-        return logHours;
-    }
-
-    public int getLogTaskId() {
-        return logTaskId;
-    }
-
-    public void setLogTaskId(int logTaskId) {
-        this.logTaskId = logTaskId;
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 }
