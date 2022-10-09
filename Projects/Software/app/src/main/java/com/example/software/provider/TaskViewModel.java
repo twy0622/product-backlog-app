@@ -40,6 +40,10 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
+//    public LiveData<List<Task>> getWorkTimeHours(int hours) {
+//        return mRepository.getWorkTimeHours(hours);
+//    }
+
     public void insert(Task task) {
         mRepository.insert(task);
     }
@@ -62,7 +66,8 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void updateTask(int id, String category, String name, String description, String priority,
                            String status, String assigned, String tag, int storyPoints) {
-        mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
+        mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,
+                storyPoints);
     }
 
     //Sprint View Models

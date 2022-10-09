@@ -34,6 +34,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
     //    ArrayList<String> taskList = new ArrayList<String>();
 //    ArrayAdapter myAdapter;
     ProductBacklogRecyclerViewAdapter adapter;
+    TeamMembersViewAdapter teamMembersViewAdapter;
 
 
     @Override
@@ -57,10 +58,15 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 
 
         adapter = new ProductBacklogRecyclerViewAdapter(this);
+        teamMembersViewAdapter = new TeamMembersViewAdapter(this);
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         mTaskViewModel.getAllTasks().observe(this, newData -> {
             adapter.setTask(newData);
             adapter.notifyDataSetChanged();
+        });
+        mTaskViewModel.getAllTeamMembers().observe(this, newData -> {
+            teamMembersViewAdapter.setMember(newData);
+            teamMembersViewAdapter.notifyDataSetChanged();
         });
 
         // Dropdown list Values
