@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software.provider.Task;
 import com.example.software.provider.Log_Task;
+import com.example.software.provider.TaskDateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
     }
+
 
     public SprintRecyclerViewAdapter(Context context){
         this.context = context;
@@ -143,7 +146,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                     editCategory.check(R.id.bugLog);
                 }
 
-
                 logName.setText(taskListRecycle.get(fPosition).getName());
                 logPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
                 logStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
@@ -151,7 +153,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logTag.setSelection(tagAdapter.getPosition(taskListRecycle.get(fPosition).getTag()));
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
-
 
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
@@ -198,13 +199,15 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String date = logDate.getText().toString();
                         int hours = Integer.valueOf(logHours.getText().toString());
 
+                        taskDateHoursListR.add(new Log_Task(date, hours));
+
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
-
+                        TaskDateTime taskDateTime = new TaskDateTime(task, taskDateHoursListR);
+                        mTaskViewModel.insertTaskDateTime(taskDateTime);
 
                         // reset fields after creating a task
                         logHours.setText("");
-
                         alertDialog.dismiss();
                     }
                 });

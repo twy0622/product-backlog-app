@@ -1,5 +1,7 @@
 package com.example.software.provider;
 
+import static androidx.room.OnConflictStrategy.REPLACE;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -25,13 +27,14 @@ public interface TaskDao {
     @Query("select * from tasks where taskSprint = :sprint AND (taskStatus = :status1 OR taskStatus = :status2 OR taskStatus = :status3)")
     LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3);
 
+    @Query("select * from log_task")
+    LiveData<List<Log_Task>> getTaskDateHours();
 
     @Transaction
-    @Insert
-    void addTask(Task task);
+    @Insert(onConflict = REPLACE)
+    long addTask(Task task);
 
-    //Log_Task DAOs
-    @Insert
+    @Insert(onConflict = REPLACE)
     void addLogTask(List<Log_Task> log_tasks);
 
     @Query("delete from tasks where taskId= :id")
@@ -49,6 +52,7 @@ public interface TaskDao {
     @Query("UPDATE tasks SET taskCategory = :category, taskName = :name, taskDescription = :description," +
             " taskPriority = :priority, taskStatus = :status, taskAssigned = :assigned, taskTag = :tag," +
             " taskStoryPoints = :storyPoints WHERE taskId = :id")
+
     void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints);
 
 

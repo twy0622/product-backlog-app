@@ -9,22 +9,21 @@ import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
 @Entity(tableName= "log_task", foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
-                childColumns = "logTaskID",
-                onDelete = CASCADE,
-                onUpdate = CASCADE))
+                childColumns = "taskIdFK",
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE))
 public class Log_Task {
-
     @PrimaryKey(autoGenerate = true)
-    private int logTaskID;
+    private int logId;
 
-//    private int taskIdfk;
+    private int taskIdFK;
 
     private String taskDate;
 
     private int taskHours;
 
-    public int getLogTaskID() {
-        return logTaskID;
+    public int getTaskIdFK() {
+        return taskIdFK;
     }
 
     public int getTaskHours() {
@@ -35,14 +34,21 @@ public class Log_Task {
         return taskDate;
     }
 
+    public int getLogId() {
+        return logId;
+    }
+
     public Log_Task(String taskDate, int taskHours) {
         this.taskDate = taskDate;
         this.taskHours = taskHours;
     }
 
+    public void setLogId(int logId) {
+        this.logId = logId;
+    }
 
-    public void setLogTaskID(int logTaskID) {
-        this.logTaskID = logTaskID;
+    public void setTaskIdFK(int taskIdFK) {
+        this.taskIdFK = taskIdFK;
     }
 
     public void setTaskDate(String date) {

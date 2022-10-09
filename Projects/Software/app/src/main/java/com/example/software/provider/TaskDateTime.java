@@ -12,7 +12,7 @@ public class TaskDateTime {
     public Task task;
     @Relation(
             parentColumn = "taskId",
-            entityColumn = "taskIdfk",
+            entityColumn = "logId",
             entity = Log_Task.class
     )
     public List<Log_Task> log_tasks;
