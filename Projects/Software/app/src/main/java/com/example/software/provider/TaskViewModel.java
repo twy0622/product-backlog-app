@@ -73,9 +73,9 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
     public void updateTask(int id, String category, String name, String description, String priority,
-                           String status, String assigned, String tag, int storyPoints) {
+                           String status, String assigned, String tag, int storyPoints, int accHours) {
         mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,
-                storyPoints);
+                storyPoints, accHours);
     }
 
 

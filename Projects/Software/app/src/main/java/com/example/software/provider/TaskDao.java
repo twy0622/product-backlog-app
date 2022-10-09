@@ -51,9 +51,9 @@ public interface TaskDao {
 
     @Query("UPDATE tasks SET taskCategory = :category, taskName = :name, taskDescription = :description," +
             " taskPriority = :priority, taskStatus = :status, taskAssigned = :assigned, taskTag = :tag," +
-            " taskStoryPoints = :storyPoints WHERE taskId = :id")
+            " taskStoryPoints = :storyPoints, accumulatedHours =:accHours WHERE taskId = :id")
 
-    void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints);
+    void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints, int accHours);
 
 
 

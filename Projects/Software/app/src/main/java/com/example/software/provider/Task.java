@@ -39,7 +39,11 @@ public class Task {
     @ColumnInfo(name = "taskSprint")
     private String sprint;
 
-    public Task(String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints, String sprint) {
+    @ColumnInfo(name = "accumulatedHours")
+    private int accHours;
+
+
+    public Task(String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints, String sprint, int accHours) {
         this.category = category;
         this.name = name;
         this.description = description;
@@ -49,6 +53,7 @@ public class Task {
         this.tag = tag;
         this.storyPoints = storyPoints;
         this.sprint = sprint;
+        this.accHours = accHours;
     }
 
     public String getCategory() { return category; }
@@ -60,6 +65,11 @@ public class Task {
     public String getTag() { return tag; }
     public int getStoryPoints() { return storyPoints; }
     public String getSprint() { return sprint; }
+    public int getAccHours() { return accHours; }
+
+    public void setAccHours(int accHours) {
+        this.accHours = accHours;
+    }
 
     public int getTaskId() { return taskId; }
     public void setTaskId(@NonNull int taskId) { this.taskId = taskId; }

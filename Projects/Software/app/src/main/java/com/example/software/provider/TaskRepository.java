@@ -101,10 +101,10 @@ public class TaskRepository {
     }
 
     void updateTask(int id, String category, String name, String description, String priority,
-                    String status, String assigned, String tag, int storyPoints){
+                    String status, String assigned, String tag, int storyPoints, int accHours){
         TaskDatabase.databaseWriteExecutor.execute(()->{
             mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,
-                    storyPoints);
+                    storyPoints, accHours);
         });
     }
 

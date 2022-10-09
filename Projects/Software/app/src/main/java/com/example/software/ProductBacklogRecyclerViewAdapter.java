@@ -200,7 +200,7 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
                         int sp = Integer.valueOf(editSP.getText().toString());
                         String desc = (editDesc.getText().toString());
 
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
+                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp, task.getAccHours());
 
                         alertDialog.dismiss();
                     }
