@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software.provider.Task;
+import com.example.software.provider.Log_Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.Locale;
 
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
+    List<Log_Task> taskDateHoursListR = new ArrayList<>();
     Context context;
 
     public void setTask(List<Task> data){
@@ -87,6 +89,8 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 final EditText logSP = view1.findViewById(R.id.logSP);
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
                 final EditText logHours = view1.findViewById(R.id.logWorkTime);
+                logHours.setText("");
+
                 final EditText logDate = view1.findViewById(R.id.chooseDateLog);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context,
@@ -148,6 +152,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
 
+
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
 //                editCategory.setEnabled(false);
@@ -191,8 +196,14 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         int sp = Integer.valueOf(logSP.getText().toString());
                         String desc = (logDesc.getText().toString());
                         String date = logDate.getText().toString();
+                        int hours = Integer.valueOf(logHours.getText().toString());
 
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
+
+
+
+                        // reset fields after creating a task
+                        logHours.setText("");
 
                         alertDialog.dismiss();
                     }

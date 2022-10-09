@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
 @Entity(tableName= "log_task", foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
-                childColumns = "taskIdfk",
+                childColumns = "logTaskID",
                 onDelete = CASCADE,
                 onUpdate = CASCADE))
 public class Log_Task {
@@ -17,38 +17,40 @@ public class Log_Task {
     @PrimaryKey(autoGenerate = true)
     private int logTaskID;
 
-    private int taskIdfk;
+//    private int taskIdfk;
 
-    private String date;
+    private String taskDate;
 
-    private int hours;
-
-    public Log_Task(String date, int hours) {
-        this.date = date;
-        this.hours = hours;
-    }
+    private int taskHours;
 
     public int getLogTaskID() {
         return logTaskID;
     }
 
+    public int getTaskHours() {
+        return taskHours;
+    }
+
+    public String getTaskDate() {
+        return taskDate;
+    }
+
+    public Log_Task(String taskDate, int taskHours) {
+        this.taskDate = taskDate;
+        this.taskHours = taskHours;
+    }
+
+
     public void setLogTaskID(int logTaskID) {
         this.logTaskID = logTaskID;
     }
 
-    public String getDateTest() {
-        return date;
+    public void setTaskDate(String date) {
+        this.taskDate = date;
     }
 
-    public void setDateTest(String date) {
-        this.date = date;
+    public void setTaskHours(int hours) {
+        this.taskHours = hours;
     }
 
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
-    }
 }

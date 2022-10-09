@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -25,8 +26,13 @@ public interface TaskDao {
     LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3);
 
 
+    @Transaction
     @Insert
     void addTask(Task task);
+
+    //Log_Task DAOs
+    @Insert
+    void addLogTask(List<Log_Task> log_tasks);
 
     @Query("delete from tasks where taskId= :id")
     void deleteById(int id);
@@ -45,8 +51,6 @@ public interface TaskDao {
             " taskStoryPoints = :storyPoints WHERE taskId = :id")
     void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints);
 
-    //Log_Task DAOs
-    @Insert
-    void addLogTask(List<Log_Task> log_tasks);
+
 
 }
