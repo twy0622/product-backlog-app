@@ -10,20 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".Dashboard"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".HomePage"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SprintOverview"
             android:exported="false" />
         <activity
@@ -32,6 +18,14 @@
         <activity
             android:name=".AddTask"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".AddSprint"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".SprintBoard"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,20 +33,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddSprint"
-            android:exported="true" />
-        <activity
-            android:name=".SprintBoard"
-            android:exported="true" />
-        <activity
             android:name=".SprintAllocate"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
         <activity
-            android:name=".TeamMembersList"
-            android:exported="true" />
-        <activity
-            android:name=".AddTeamMember"
-            android:exported="true" />
+            android:name=".LogTime"
+            android:exported="false">
+        </activity>
+        <activity android:name=".TeamMembersList"
+            android:exported="true">
+        </activity>
+        <activity android:name=".AddTeamMember"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

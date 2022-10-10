@@ -42,6 +42,8 @@ public class TaskRepository {
         return mTaskDao.getSprintStatus2(sprint, status1, status2, status3);
     }
 
+    //LiveData<List<Task>> getWorkTimeHours(int hours) { return mTaskDao.getWorkTimeHours(hours);}
+
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
@@ -72,7 +74,8 @@ public class TaskRepository {
     void updateTask(int id, String category, String name, String description, String priority,
                     String status, String assigned, String tag, int storyPoints){
         TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,storyPoints);
+            mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,
+                    storyPoints);
         });
     }
 
