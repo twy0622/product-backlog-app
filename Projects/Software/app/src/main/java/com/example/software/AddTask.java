@@ -138,7 +138,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
                     mTaskViewModel.insert(task);
                     Toast.makeText(getApplicationContext(), "Task successfully created.", Toast.LENGTH_SHORT).show();
 
-                    // reset fields after creating a task
+                    // reset fields after creating a tas2k
                     radioCategoryGroup.clearCheck();
                     taskName.setText("");
                     taskPriority.setSelection(0);

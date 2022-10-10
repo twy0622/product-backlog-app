@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software.provider.Task;
@@ -61,9 +62,9 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
     @Override
     public void onBindViewHolder(@NonNull SprintRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.sprintTaskTitle.setText(taskListRecycle.get(position).getName());
-        if (taskListRecycle.get(position).getStatus().equals("Not Started")){
+        if (taskListRecycle.get(position).getStatus().equals("Not Started")) {
             holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#830000"));
-        } else if (taskListRecycle.get(position).getStatus().equals("Completed")){
+        } else if (taskListRecycle.get(position).getStatus().equals("Completed")) {
             holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#004614"));
         } else {
             holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#0D0C6F"));
@@ -80,32 +81,32 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-                final Calendar myCalendar= Calendar.getInstance();
+                final Calendar myCalendar = Calendar.getInstance();
 
 
 //                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
 //                DialogFragment DateFragment = new DatePickerFragment();
 //                DateFragment.show(manager, "datePicker");
 
-
+                TextView accumulatedHour = view1.findViewById(R.id.logAccTime);
                 final EditText logName = view1.findViewById(R.id.logName);
                 final EditText logSP = view1.findViewById(R.id.logSP);
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
                 final EditText logHours = view1.findViewById(R.id.logWorkTime);
-                logHours.setText("");
+                logHours.setText("0");
 
                 final EditText logDate = view1.findViewById(R.id.chooseDateLog);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context,
-                new DatePickerDialog.OnDateSetListener(){
-                    public void onDateSet(DatePicker view, int year, int month,int day){
-                        myCalendar.set(Calendar.YEAR, year);
-                        myCalendar.set(Calendar.MONTH,month);
-                        myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                        SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-                        logDate.setText(dateFormat.format(myCalendar.getTime()));
-                    }
-                }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DATE));
+                        new DatePickerDialog.OnDateSetListener() {
+                            public void onDateSet(DatePicker view, int year, int month, int day) {
+                                myCalendar.set(Calendar.YEAR, year);
+                                myCalendar.set(Calendar.MONTH, month);
+                                myCalendar.set(Calendar.DAY_OF_MONTH, day);
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                                logDate.setText(dateFormat.format(myCalendar.getTime()));
+                            }
+                        }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DATE));
 
                 logDate.setOnClickListener(view2 -> datePickerDialog.show());
 
@@ -141,8 +142,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 String Category = taskListRecycle.get(fPosition).getCategory();
                 if (Category.equals("User Story")) {
                     editCategory.check(R.id.userStoryLog);
-                }
-                else if (Category.equals("Bug")) {
+                } else if (Category.equals("Bug")) {
                     editCategory.check(R.id.bugLog);
                 }
 
@@ -154,8 +154,13 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
 
+                int accTime = sumHours(fPosition);
+                accumulatedHour.setText("Accumulated Hours: " + accTime);
+
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
+
+//                taskListRecycle.get(fPosition).setAccHours(sumHours(fPosition));
 //                editCategory.setEnabled(false);
 //                logName.setEnabled(false);
 //                logPriority.setEnabled(false);
@@ -197,14 +202,17 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         int sp = Integer.valueOf(logSP.getText().toString());
                         String desc = (logDesc.getText().toString());
                         String date = logDate.getText().toString();
-                        int hours = Integer.valueOf(logHours.getText().toString());
+                        int hours = Integer.valueOf(logHours.getText().toString().trim());
+                        int accHours = sumHours(fPosition);
 
+                        // add task hour and date into log_task table
                         taskDateHoursListR.add(new Log_Task(date, hours));
-
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
                         TaskDateTime taskDateTime = new TaskDateTime(task, taskDateHoursListR);
                         mTaskViewModel.insertTaskDateTime(taskDateTime);
+
+                        // update task table
+                        mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, sp, accHours);
+
 
                         // reset fields after creating a task
                         logHours.setText("");
@@ -214,15 +222,22 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
             }
         });
-
-
     }
-
 
 
     @Override
     public int getItemCount() {
         return taskListRecycle.size();
+    }
+
+    public int sumHours(int position){
+        int sum = 0;
+            for(int i=0; i < taskDateHoursListR.size(); i++){
+                if (taskDateHoursListR.get(i).getTaskIdFK()==taskListRecycle.get(position).getTaskId()) {
+                    sum += taskDateHoursListR.get(i).getTaskHours();
+                }
+            }
+        return sum;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

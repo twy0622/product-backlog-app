@@ -30,6 +30,9 @@ public interface TaskDao {
     @Query("select * from log_task")
     LiveData<List<Log_Task>> getTaskDateHours();
 
+    @Query("select * from log_task where taskIdFK = :taskId")
+    LiveData<List<Log_Task>> getTaskHours(int taskId);
+
     @Transaction
     @Insert(onConflict = REPLACE)
     long addTask(Task task);
@@ -48,6 +51,9 @@ public interface TaskDao {
 
     @Query("UPDATE tasks SET taskSprint = :sprint WHERE taskId = :id")
     void updateSprint(int id, String sprint);
+
+    @Query("UPDATE tasks SET accumulatedHours = :accHours WHERE taskId = :id")
+    void updateAccHours(int id, int accHours);
 
     @Query("UPDATE tasks SET taskCategory = :category, taskName = :name, taskDescription = :description," +
             " taskPriority = :priority, taskStatus = :status, taskAssigned = :assigned, taskTag = :tag," +

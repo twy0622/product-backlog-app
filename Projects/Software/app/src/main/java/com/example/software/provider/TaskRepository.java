@@ -72,6 +72,10 @@ public class TaskRepository {
 
     LiveData<List<Log_Task>> getTaskDateHours() { return mAllTaskHours; }
 
+    LiveData<List<Log_Task>> getTaskHours(int taskIdFK){
+        mAllTaskHours = mTaskDao.getTaskHours(taskIdFK);
+        return mAllTaskHours;
+    }
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
@@ -105,6 +109,13 @@ public class TaskRepository {
         TaskDatabase.databaseWriteExecutor.execute(()->{
             mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,
                     storyPoints, accHours);
+        });
+
+    }
+
+    void updateAccHours(int id, int hours){
+        TaskDatabase.databaseWriteExecutor.execute(()->{
+            mTaskDao.updateAccHours(id, hours);
         });
     }
 

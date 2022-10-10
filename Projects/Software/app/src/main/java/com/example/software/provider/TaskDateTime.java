@@ -10,12 +10,14 @@ public class TaskDateTime {
 
     @Embedded
     public Task task;
+    public int sumOfHours;
     @Relation(
             parentColumn = "taskId",
             entityColumn = "logId",
             entity = Log_Task.class
     )
     public List<Log_Task> log_tasks;
+
 
     public TaskDateTime(Task task, List<Log_Task> log_tasks) {
         this.task = task;
