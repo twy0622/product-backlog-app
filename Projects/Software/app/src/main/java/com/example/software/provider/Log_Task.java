@@ -7,19 +7,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
-@Entity(tableName= "log_task", indices = {@Index(value = {"logId"}, unique = true)},foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
-                childColumns = "taskIdFK",
-                onDelete = ForeignKey.CASCADE,
-                onUpdate = ForeignKey.CASCADE))
+@Entity(tableName= "log_task")
+//, indices = {@Index(value = {"logId"}, unique = true)},foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
+//                childColumns = "taskIdFK",
+//                onDelete = ForeignKey.CASCADE,
+//                onUpdate = ForeignKey.CASCADE))
+
 public class Log_Task {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int logId;
 
+    @ColumnInfo(name="taskIdFK", index= true)
     private int taskIdFK;
 
     private String taskDate;
@@ -42,7 +46,8 @@ public class Log_Task {
         return logId;
     }
 
-    public Log_Task(String taskDate, int taskHours) {
+    public Log_Task(int taskIdFK, String taskDate, int taskHours) {
+        this.taskIdFK = taskIdFK;
         this.taskDate = taskDate;
         this.taskHours = taskHours;
     }
@@ -64,3 +69,4 @@ public class Log_Task {
     }
 
 }
+

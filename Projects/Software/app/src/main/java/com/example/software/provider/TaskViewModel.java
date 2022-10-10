@@ -15,7 +15,7 @@ public class TaskViewModel extends AndroidViewModel {
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Sprint>> mAllSprints;
     private LiveData<List<Members>> mAllMembers;
-    private LiveData<List<Log_Task>> mAllTaskDateTimes;
+    private LiveData<List<TaskDateTime>> mAllTaskDateTimes;
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
@@ -23,19 +23,18 @@ public class TaskViewModel extends AndroidViewModel {
         mAllTasks = mRepository.getAllTasks();
         mAllSprints = mRepository.getAllSprints();
         mAllMembers = mRepository.getAllTeamMembers();
-        mAllTaskDateTimes = mRepository.getTaskDateHours();
+//        mAllTaskDateTimes = mRepository.getTaskDateHours();
     }
 
-    public void insertTaskDateTime(TaskDateTime taskDateTime){
-        mRepository.insert(taskDateTime);
-    }
+//    public void insertTaskDateTime(TaskDateTime taskDateTime){
+//        mRepository.insert(taskDateTime);
+//    }
 
     //Task View Models
 
     public LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
     }
-
 
     public LiveData<List<Task>> getSprintTasks(String sprint) {
         return mRepository.getSprintTasks(sprint);
@@ -49,7 +48,7 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
-    public LiveData<List<Log_Task>> getAllTaskDateTimes() {
+    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
         return mAllTaskDateTimes;
     }
 
@@ -79,7 +78,9 @@ public class TaskViewModel extends AndroidViewModel {
                 storyPoints);
     }
 
-//    public int getTaskHoursSum(){ return mRepository.getTaskHoursSum(); }
+    public void insertDateHour(Log_Task log_task){
+        mRepository.insertDateHour(log_task);
+    }
 
     //Sprint View Models
 
@@ -150,3 +151,4 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
 }
+

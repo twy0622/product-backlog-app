@@ -7,6 +7,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -26,16 +27,16 @@ public interface TaskDao {
 
     @Query("select * from tasks where taskSprint = :sprint AND (taskStatus = :status1 OR taskStatus = :status2 OR taskStatus = :status3)")
     LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3);
-
-    @Query("select * from log_task")
-    LiveData<List<Log_Task>> getTaskDateHours();
-
-//    @Query("select sum(taskHours) as sumHours, taskIdFK as taskId from log_task group by taskIdFK")
-//    int getTaskHoursSum();
+//
+//    @Query("select * from log_task")
+//    LiveData<List<TaskDateTime>> getTaskDateHours();
 
     @Transaction
     @Insert(onConflict = REPLACE)
     long addTask(Task task);
+
+    @Insert(onConflict = REPLACE)
+    long addTaskDateHours(Log_Task log_task);
 
     @Insert(onConflict = REPLACE)
     void addLogTask(List<Log_Task> log_tasks);
@@ -51,7 +52,6 @@ public interface TaskDao {
 
     @Query("UPDATE tasks SET taskSprint = :sprint WHERE taskId = :id")
     void updateSprint(int id, String sprint);
-
 
     @Query("UPDATE tasks SET taskCategory = :category, taskName = :name, taskDescription = :description," +
             " taskPriority = :priority, taskStatus = :status, taskAssigned = :assigned, taskTag = :tag," +
