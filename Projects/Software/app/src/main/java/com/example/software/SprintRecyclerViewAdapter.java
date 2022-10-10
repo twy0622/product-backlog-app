@@ -31,16 +31,20 @@ import com.example.software.provider.Task;
 import com.example.software.provider.Log_Task;
 import com.example.software.provider.TaskDateTime;
 
+import java.lang.reflect.Executable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
     List<Log_Task> taskDateHoursListR = new ArrayList<>();
     Context context;
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
@@ -154,9 +158,16 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
 
-                int accTime = sumHours(fPosition);
-                accumulatedHour.setText("Accumulated Hours: " + accTime);
-
+                // display using query sum
+                executorService.execute(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                accumulatedHour.setText("Accumulated Hours: " + mTaskViewModel.getTaskHoursSum(taskListRecycle.get(fPosition).getTaskId()));
+                                            }
+                                        }
+                );
+                // display using sumHours function implemented below
+//                accumulatedHour.setText("Accumulated Hours: "+ sumHours(fPosition));
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
 
@@ -203,7 +214,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String desc = (logDesc.getText().toString());
                         String date = logDate.getText().toString();
                         int hours = Integer.valueOf(logHours.getText().toString().trim());
-                        int accHours = sumHours(fPosition);
 
                         // add task hour and date into log_task table
                         taskDateHoursListR.add(new Log_Task(date, hours));
@@ -211,7 +221,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         mTaskViewModel.insertTaskDateTime(taskDateTime);
 
                         // update task table
-                        mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, sp, accHours);
+                        mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, sp);
 
 
                         // reset fields after creating a task

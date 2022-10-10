@@ -134,7 +134,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
                     Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Task task = new Task(category, name, description, priority, status, assigned, tag, Integer.parseInt(sp),sprint, 0);
+                    Task task = new Task(category, name, description, priority, status, assigned, tag, Integer.parseInt(sp),sprint);
                     mTaskViewModel.insert(task);
                     Toast.makeText(getApplicationContext(), "Task successfully created.", Toast.LENGTH_SHORT).show();
 

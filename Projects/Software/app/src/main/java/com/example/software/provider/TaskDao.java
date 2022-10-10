@@ -30,8 +30,8 @@ public interface TaskDao {
     @Query("select * from log_task")
     LiveData<List<Log_Task>> getTaskDateHours();
 
-    @Query("select * from log_task where taskIdFK = :taskId")
-    LiveData<List<Log_Task>> getTaskHours(int taskId);
+    @Query("select sum(taskHours) from log_task where taskIdFK = :taskIdFK")
+    int getTaskHoursSum(int taskIdFK);
 
     @Transaction
     @Insert(onConflict = REPLACE)
@@ -52,14 +52,12 @@ public interface TaskDao {
     @Query("UPDATE tasks SET taskSprint = :sprint WHERE taskId = :id")
     void updateSprint(int id, String sprint);
 
-    @Query("UPDATE tasks SET accumulatedHours = :accHours WHERE taskId = :id")
-    void updateAccHours(int id, int accHours);
 
     @Query("UPDATE tasks SET taskCategory = :category, taskName = :name, taskDescription = :description," +
             " taskPriority = :priority, taskStatus = :status, taskAssigned = :assigned, taskTag = :tag," +
-            " taskStoryPoints = :storyPoints, accumulatedHours =:accHours WHERE taskId = :id")
+            " taskStoryPoints = :storyPoints WHERE taskId = :id")
 
-    void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints, int accHours);
+    void updateTask(int id, String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints);
 
 
 

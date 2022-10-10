@@ -36,10 +36,6 @@ public class TaskViewModel extends AndroidViewModel {
         return mAllTasks;
     }
 
-    public LiveData<List<Log_Task>> getTaskHours(int taskIdFK){
-        mAllTaskDateTimes = mRepository.getTaskHours(taskIdFK);
-        return mAllTaskDateTimes;
-    }
 
     public LiveData<List<Task>> getSprintTasks(String sprint) {
         return mRepository.getSprintTasks(sprint);
@@ -78,15 +74,12 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
     public void updateTask(int id, String category, String name, String description, String priority,
-                           String status, String assigned, String tag, int storyPoints, int accHours) {
+                           String status, String assigned, String tag, int storyPoints) {
         mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,
-                storyPoints, accHours);
+                storyPoints);
     }
 
-    public void updateAccHours(int id, int hours){
-        mRepository.updateAccHours(id,hours);
-    }
-
+    public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
 
     //Sprint View Models
 

@@ -72,9 +72,8 @@ public class TaskRepository {
 
     LiveData<List<Log_Task>> getTaskDateHours() { return mAllTaskHours; }
 
-    LiveData<List<Log_Task>> getTaskHours(int taskIdFK){
-        mAllTaskHours = mTaskDao.getTaskHours(taskIdFK);
-        return mAllTaskHours;
+    int getTaskHoursSum(int taskIdFK){
+        return mTaskDao.getTaskHoursSum(taskIdFK);
     }
 
     void insert(Task task) {
@@ -105,19 +104,14 @@ public class TaskRepository {
     }
 
     void updateTask(int id, String category, String name, String description, String priority,
-                    String status, String assigned, String tag, int storyPoints, int accHours){
+                    String status, String assigned, String tag, int storyPoints){
         TaskDatabase.databaseWriteExecutor.execute(()->{
             mTaskDao.updateTask(id,category,name,description,priority,status,assigned,tag,
-                    storyPoints, accHours);
+                    storyPoints);
         });
 
     }
 
-    void updateAccHours(int id, int hours){
-        TaskDatabase.databaseWriteExecutor.execute(()->{
-            mTaskDao.updateAccHours(id, hours);
-        });
-    }
 
     //Sprint Repositories
 
