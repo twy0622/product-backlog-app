@@ -1,6 +1,8 @@
 package com.example.software.provider;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -13,6 +15,7 @@ public class TaskViewModel extends AndroidViewModel {
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Sprint>> mAllSprints;
     private LiveData<List<Members>> mAllMembers;
+    private LiveData<List<TaskDateTime>> mAllTaskDateTimes;
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
@@ -20,7 +23,12 @@ public class TaskViewModel extends AndroidViewModel {
         mAllTasks = mRepository.getAllTasks();
         mAllSprints = mRepository.getAllSprints();
         mAllMembers = mRepository.getAllTeamMembers();
+//        mAllTaskDateTimes = mRepository.getTaskDateHours();
     }
+
+//    public void insertTaskDateTime(TaskDateTime taskDateTime){
+//        mRepository.insert(taskDateTime);
+//    }
 
     //Task View Models
 
@@ -40,9 +48,9 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
-//    public LiveData<List<Task>> getWorkTimeHours(int hours) {
-//        return mRepository.getWorkTimeHours(hours);
-//    }
+    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
+        return mAllTaskDateTimes;
+    }
 
     public void insert(Task task) {
         mRepository.insert(task);
@@ -69,6 +77,12 @@ public class TaskViewModel extends AndroidViewModel {
         mRepository.updateTask(id,category,name,description,priority,status,assigned,tag,
                 storyPoints);
     }
+
+    public void insertDateHour(Log_Task log_task){
+        mRepository.insertDateHour(log_task);
+    }
+
+    public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
 
     //Sprint View Models
 
@@ -139,3 +153,4 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
 }
+

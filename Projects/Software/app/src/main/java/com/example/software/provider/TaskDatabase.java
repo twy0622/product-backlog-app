@@ -17,7 +17,6 @@ public abstract class TaskDatabase extends RoomDatabase {
 
     public abstract MembersDao membersDao();
 
-    public abstract Log_TaskDao log_taskDao();
 
     // marking the instance as volatile to ensure atomic access to the variable
     private static volatile TaskDatabase INSTANCE;

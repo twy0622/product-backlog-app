@@ -5,12 +5,15 @@ import static com.example.software.SprintOverview.mTaskViewModel;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,17 +26,23 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.software.provider.DatePickerFragment;
 import com.example.software.provider.Task;
+import com.example.software.provider.Log_Task;
+import com.example.software.provider.TaskDateTime;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
+    List<Log_Task> taskDateHoursListR = new ArrayList<>();
     Context context;
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
@@ -70,23 +79,41 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final View view1 = LayoutInflater.from(context).inflate(R.layout.log_time_spent, null);
                 builder.setView(view1);
+                builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-                EditText DateText = view1.findViewById(R.id.chooseDateLog);
-                DateText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                        DialogFragment DateFragment = new DatePickerFragment();
-                        DateFragment.show(manager,"datePicker");
-                    }
-                });
+                final Calendar myCalendar= Calendar.getInstance();
+
+
+//                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+//                DialogFragment DateFragment = new DatePickerFragment();
+//                DateFragment.show(manager, "datePicker");
 
 
                 final EditText logName = view1.findViewById(R.id.logName);
                 final EditText logSP = view1.findViewById(R.id.logSP);
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
+                final EditText logHours = view1.findViewById(R.id.logWorkTime);
+                TextView logSumHours = view1.findViewById(R.id.logAccTime);
+                logHours.setText("0");
+
+
+                final EditText logDate = view1.findViewById(R.id.chooseDateLog);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener(){
+                            public void onDateSet(DatePicker view, int year, int month,int day){
+                                myCalendar.set(Calendar.YEAR, year);
+                                myCalendar.set(Calendar.MONTH,month);
+                                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                                SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                                logDate.setText(dateFormat.format(myCalendar.getTime()));
+                            }
+                        }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DATE));
+
+                logDate.setOnClickListener(view2 -> datePickerDialog.show());
+
 
                 // Dropdown list Values
                 Spinner logPriority = (Spinner) view1.findViewById(R.id.logPriority);
@@ -123,6 +150,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 else if (Category.equals("Bug")) {
                     editCategory.check(R.id.bugLog);
                 }
+
                 logName.setText(taskListRecycle.get(fPosition).getName());
                 logPriority.setSelection(priorityAdapter.getPosition(taskListRecycle.get(fPosition).getPriority()));
                 logStatus.setSelection(statusAdapter.getPosition(taskListRecycle.get(fPosition).getStatus()));
@@ -130,6 +158,15 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logTag.setSelection(tagAdapter.getPosition(taskListRecycle.get(fPosition).getTag()));
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
+
+                executorService.execute(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                logSumHours.setText("Accumulated Time: " + mTaskViewModel.getTaskHoursSum(taskListRecycle.get(fPosition).getTaskId()));
+                                            }
+                                        }
+                );
+                ExecutorService executorService = Executors.newFixedThreadPool(4);
 
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
@@ -161,6 +198,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         Task task = taskListRecycle.get(fPosition).getTask();
                         RadioGroup eCategory = (RadioGroup) view1.findViewById(R.id.logCategory);
                         RadioButton selected = (RadioButton) view1.findViewById(eCategory.getCheckedRadioButtonId());
@@ -172,9 +210,19 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String tag = logTag.getSelectedItem().toString();
                         int sp = Integer.valueOf(logSP.getText().toString());
                         String desc = (logDesc.getText().toString());
+                        String date = logDate.getText().toString();
+                        int hours = Integer.valueOf(logHours.getText().toString());
+
+//                        taskDateHoursListR.add(new Log_Task(date, hours));
+
 
                         mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
+//                        TaskDateTime taskDateTime = new TaskDateTime(task, new Log_Task(id, date, hours));
+                        mTaskViewModel.insertDateHour(new Log_Task(id, date, hours));
+
+                        // reset fields after creating a task
+                        logHours.setText("");
                         alertDialog.dismiss();
                     }
                 });
@@ -184,7 +232,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
 
     }
-
 
 
     @Override
@@ -203,3 +250,5 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
         }
     }
 }
+
+

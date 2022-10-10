@@ -2,53 +2,71 @@ package com.example.software.provider;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
-@Entity(tableName= "log_task", foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
-                childColumns = "taskIdfk",
-                onDelete = CASCADE,
-                onUpdate = CASCADE))
+@Entity(tableName= "log_task")
+//, indices = {@Index(value = {"logId"}, unique = true)},foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
+//                childColumns = "taskIdFK",
+//                onDelete = ForeignKey.CASCADE,
+//                onUpdate = ForeignKey.CASCADE))
+
 public class Log_Task {
-
     @PrimaryKey(autoGenerate = true)
-    private int logTaskID;
+    @NonNull
+    private int logId;
 
-    private int taskIdfk;
+    @ColumnInfo(name="taskIdFK", index= true)
+    private int taskIdFK;
 
-    private String date;
+    private String taskDate;
 
-    private int hours;
+    private int taskHours;
 
-    public Log_Task(String date, int hours) {
-        this.date = date;
-        this.hours = hours;
+    public int getTaskIdFK() {
+        return taskIdFK;
     }
 
-    public int getLogTaskID() {
-        return logTaskID;
+    public int getTaskHours() {
+        return taskHours;
     }
 
-    public void setLogTaskID(int logTaskID) {
-        this.logTaskID = logTaskID;
+    public String getTaskDate() {
+        return taskDate;
     }
 
-    public String getDateTest() {
-        return date;
+    public int getLogId() {
+        return logId;
     }
 
-    public void setDateTest(String date) {
-        this.date = date;
+    public Log_Task(int taskIdFK, String taskDate, int taskHours) {
+        this.taskIdFK = taskIdFK;
+        this.taskDate = taskDate;
+        this.taskHours = taskHours;
     }
 
-    public int getHours() {
-        return hours;
+    public void setLogId(int logId) {
+        this.logId = logId;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setTaskIdFK(int taskIdFK) {
+        this.taskIdFK = taskIdFK;
     }
+
+    public void setTaskDate(String date) {
+        this.taskDate = date;
+    }
+
+    public void setTaskHours(int hours) {
+        this.taskHours = hours;
+    }
+
 }
+

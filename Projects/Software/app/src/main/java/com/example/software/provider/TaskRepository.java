@@ -1,6 +1,9 @@
 package com.example.software.provider;
 
 import android.app.Application;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -13,6 +16,7 @@ public class TaskRepository {
     private LiveData<List<Members>> mAllMembers;
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Task>> mSprintTasks;
+    private LiveData<List<TaskDateTime>> mAllTaskHours;
 
     TaskRepository(Application application) {
         TaskDatabase db = TaskDatabase.getDatabase(application);
@@ -22,7 +26,31 @@ public class TaskRepository {
         mAllMembers = mMembersDao.getAllTeamMembers();
         mAllSprints = mSprintDao.getAllSprints();
         mAllTasks = mTaskDao.getAllTask();
+//        mAllTaskHours = mTaskDao.getTaskDateHours();
     }
+
+//    public void insert(TaskDateTime taskDateTime){
+//        new insertAsync(mTaskDao).execute(taskDateTime);
+//    }
+//
+//    private static class insertAsync extends AsyncTask<TaskDateTime, Void, Void>{
+//        private TaskDao taskDaoAsync;
+//
+//        insertAsync(TaskDao taskDao){
+//            taskDaoAsync = taskDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(TaskDateTime... taskDateTimes) {
+//            int identifier = (int) taskDaoAsync.addTask(taskDateTimes[0].task);
+//
+//            for (Log_Task log_task : taskDateTimes[0].log_tasks){
+//                log_task.setTaskIdFK(identifier);
+//            }
+//            taskDaoAsync.addLogTask(taskDateTimes[0].log_tasks);
+//            return null;
+//        }
+//    }
 
     //Task Repositories
 
@@ -42,12 +70,17 @@ public class TaskRepository {
         return mTaskDao.getSprintStatus2(sprint, status1, status2, status3);
     }
 
-    //LiveData<List<Task>> getWorkTimeHours(int hours) { return mTaskDao.getWorkTimeHours(hours);}
+//    LiveData<List<TaskDateTime>> getTaskDateHours() { return mAllTaskHours; }
 
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));
     }
+
+    void insertDateHour(Log_Task log_task){
+        TaskDatabase.databaseWriteExecutor.execute(()-> mTaskDao.addTaskDateHours(log_task));
+    }
+
 
     void deleteById(int id){
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.deleteById(id));
@@ -78,7 +111,10 @@ public class TaskRepository {
                     storyPoints);
         });
     }
-
+    
+    int getTaskHoursSum(int taskIdFK){
+        return mTaskDao.getTaskHoursSum(taskIdFK);
+    }
     //Sprint Repositories
 
     LiveData<List<Sprint>> getAllSprints(){
@@ -148,8 +184,11 @@ public class TaskRepository {
 
     void updateTeamMembers(int id, String memberName, String memberEmail) {
         TaskDatabase.databaseWriteExecutor.execute(() -> {mMembersDao.updateTeamMembers(id, memberName
-        , memberEmail);
-    });
-}
+                , memberEmail);
+        });
+    }
 
 }
+
+
+//task repo
