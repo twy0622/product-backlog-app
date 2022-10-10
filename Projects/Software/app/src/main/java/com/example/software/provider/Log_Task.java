@@ -2,23 +2,24 @@ package com.example.software.provider;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
-@Entity(tableName= "log_task", foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
+@Entity(tableName= "log_task", indices = {@Index(value = {"logId"}, unique = true)},foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
                 childColumns = "taskIdFK",
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE))
 public class Log_Task {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "logId", index = true)
+    @NonNull
     private int logId;
 
-    @ColumnInfo(name = "taskIdFK", index = true)
     private int taskIdFK;
 
     private String taskDate;

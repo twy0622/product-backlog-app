@@ -79,7 +79,7 @@ public class TaskViewModel extends AndroidViewModel {
                 storyPoints);
     }
 
-    public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
+//    public int getTaskHoursSum(){ return mRepository.getTaskHoursSum(); }
 
     //Sprint View Models
 

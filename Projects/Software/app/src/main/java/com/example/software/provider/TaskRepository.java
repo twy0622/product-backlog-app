@@ -71,10 +71,10 @@ public class TaskRepository {
     }
 
     LiveData<List<Log_Task>> getTaskDateHours() { return mAllTaskHours; }
-
-    int getTaskHoursSum(int taskIdFK){
-        return mTaskDao.getTaskHoursSum(taskIdFK);
-    }
+//
+//    int getTaskHoursSum(){
+//        return mTaskDao.getTaskHoursSum();
+//    }
 
     void insert(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> mTaskDao.addTask(task));

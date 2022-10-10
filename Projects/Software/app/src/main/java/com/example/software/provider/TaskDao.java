@@ -30,8 +30,8 @@ public interface TaskDao {
     @Query("select * from log_task")
     LiveData<List<Log_Task>> getTaskDateHours();
 
-    @Query("select sum(taskHours) from log_task where taskIdFK = :taskIdFK")
-    int getTaskHoursSum(int taskIdFK);
+//    @Query("select sum(taskHours) as sumHours, taskIdFK as taskId from log_task group by taskIdFK")
+//    int getTaskHoursSum();
 
     @Transaction
     @Insert(onConflict = REPLACE)
