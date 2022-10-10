@@ -111,7 +111,10 @@ public class TaskRepository {
                     storyPoints);
         });
     }
-
+    
+    int getTaskHoursSum(int taskIdFK){
+        return mTaskDao.getTaskHoursSum(taskIdFK);
+    }
     //Sprint Repositories
 
     LiveData<List<Sprint>> getAllSprints(){

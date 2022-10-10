@@ -35,11 +35,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
     List<Log_Task> taskDateHoursListR = new ArrayList<>();
     Context context;
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
@@ -156,6 +159,15 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 logSP.setText(String.valueOf(taskListRecycle.get(fPosition).getStoryPoints()));
                 logDesc.setText(taskListRecycle.get(fPosition).getDescription());
 
+                executorService.execute(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                logSumHours.setText("Accumulated Time: " + mTaskViewModel.getTaskHoursSum(taskListRecycle.get(fPosition).getTaskId()));
+                                            }
+                                        }
+                );
+                ExecutorService executorService = Executors.newFixedThreadPool(4);
+
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
 //                editCategory.setEnabled(false);
@@ -225,15 +237,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
     @Override
     public int getItemCount() {
         return taskListRecycle.size();
-    }
-    public int sumHours(int position){
-        int sum = 0;
-        for(int i=0; i < taskDateHoursListR.size(); i++){
-            if (taskDateHoursListR.get(i).getTaskIdFK()==taskListRecycle.get(position).getTaskId()) {
-                sum += taskDateHoursListR.get(i).getTaskHours();
-            }
-        }
-        return sum;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
