@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/startDate" />
 
     <EditText
-        android:id="@+id/chooseDate"
+        android:id="@+id/chooseStartDate"
         android:layout_width="185dp"
         android:layout_height="45dp"
         android:layout_marginTop="156dp"
