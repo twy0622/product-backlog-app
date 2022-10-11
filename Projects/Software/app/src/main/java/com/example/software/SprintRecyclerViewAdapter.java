@@ -83,6 +83,14 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
+                Button cancelButton = view1.findViewById(R.id.cancelButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+
                 final Calendar myCalendar= Calendar.getInstance();
 
 

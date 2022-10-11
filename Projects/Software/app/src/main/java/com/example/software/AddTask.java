@@ -1,10 +1,12 @@
 package com.example.software;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -21,17 +23,25 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.software.provider.Members;
+import com.example.software.provider.MembersDao;
 import com.example.software.provider.Task;
+import com.example.software.provider.TaskDao;
 import com.example.software.provider.TaskViewModel;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddTask extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RadioGroup radioCategoryGroup;
     DrawerLayout drawerLayout;
 
+    static MembersDao mMembersDao;
+
     static TaskViewModel mTaskViewModel;
-    //    ArrayList<String> taskList = new ArrayList<String>();
+    ArrayList<String> membersList = new ArrayList<>();
 //    ArrayAdapter myAdapter;
     ProductBacklogRecyclerViewAdapter adapter;
     TeamMembersViewAdapter teamMembersViewAdapter;
@@ -64,10 +74,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             adapter.setTask(newData);
             adapter.notifyDataSetChanged();
         });
-        mTaskViewModel.getAllTeamMembers().observe(this, newData -> {
-            teamMembersViewAdapter.setMember(newData);
-            teamMembersViewAdapter.notifyDataSetChanged();
-        });
+
 
         // Dropdown list Values
         Spinner prioritySpinner = (Spinner) findViewById(R.id.priorityBox);
@@ -82,11 +89,24 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
+
         Spinner assignSpinner = (Spinner) findViewById(R.id.assignedBox);
         ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(AddTask.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.assigned));
+                android.R.layout.simple_list_item_1, membersList);//getResources().getStringArray(R.array.assigned));
         assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignSpinner.setAdapter(assignAdapter);
+
+        mTaskViewModel.getAllTeamMembers().observe(this, new Observer<List<Members>>() {
+            @Override
+            public void onChanged(@Nullable final List<Members> member) {
+                for (int i = 0; i < member.size(); i++) {
+                    membersList.add(member.get(i).getMemberName());
+                }
+                assignAdapter.notifyDataSetChanged();
+            }
+
+        });
+
 
         Spinner tagSpinner = (Spinner) findViewById(R.id.tagBox);
         ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(AddTask.this,

@@ -16,7 +16,6 @@ public class TaskRepository {
     private LiveData<List<Members>> mAllMembers;
     private LiveData<List<Task>> mAllTasks;
     private LiveData<List<Task>> mSprintTasks;
-    private LiveData<List<TaskDateTime>> mAllTaskHours;
 
     TaskRepository(Application application) {
         TaskDatabase db = TaskDatabase.getDatabase(application);
@@ -26,7 +25,6 @@ public class TaskRepository {
         mAllMembers = mMembersDao.getAllTeamMembers();
         mAllSprints = mSprintDao.getAllSprints();
         mAllTasks = mTaskDao.getAllTask();
-//        mAllTaskHours = mTaskDao.getTaskDateHours();
     }
 
 //    public void insert(TaskDateTime taskDateTime){
