@@ -179,5 +179,12 @@
             android:background="@color/black"
             android:text="Update"
             android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_gravity="end"
+            android:text="Cancel" />
     </LinearLayout>
 </ScrollView>
