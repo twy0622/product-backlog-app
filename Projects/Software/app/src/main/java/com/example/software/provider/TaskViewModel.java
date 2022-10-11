@@ -82,6 +82,8 @@ public class TaskViewModel extends AndroidViewModel {
         mRepository.insertDateHour(log_task);
     }
 
+    public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
+
     //Sprint View Models
 
     public LiveData<List<Sprint>> getAllSprints() {

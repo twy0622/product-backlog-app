@@ -27,6 +27,9 @@ public interface TaskDao {
 
     @Query("select * from tasks where taskSprint = :sprint AND (taskStatus = :status1 OR taskStatus = :status2 OR taskStatus = :status3)")
     LiveData<List<Task>> getSprintStatus2(String sprint, String status1, String status2, String status3);
+
+    @Query("select sum(taskHours) from log_task where taskIdFK = :taskIdFK ")
+    int getTaskHoursSum(int taskIdFK);
 //
 //    @Query("select * from log_task")
 //    LiveData<List<TaskDateTime>> getTaskDateHours();
