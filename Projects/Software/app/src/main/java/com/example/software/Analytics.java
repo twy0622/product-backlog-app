@@ -7,15 +7,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
+
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 
 public class Analytics extends AppCompatActivity {
+
     // variable for our bar chart
     BarChart barChart;
 
@@ -31,7 +37,7 @@ public class Analytics extends AppCompatActivity {
     //member id
     int id;
 
-    Date today =
+//    Date today =
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +73,25 @@ public class Analytics extends AppCompatActivity {
         // adding color to our bar data set.
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
-        // setting text color.
-        barDataSet.setValueTextColor(Color.BLACK);
+        // setting color.
+        barDataSet.setValueTextColor(Color.WHITE);
+        barChart.setDrawGridBackground(false);
+        barChart.setNoDataTextColor(Color.WHITE);
 
         // setting text size
         barDataSet.setValueTextSize(16f);
         barChart.getDescription().setEnabled(false);
+        barChart.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                String[] DAYS = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+                Date today = new Date();
+                today.getDay();
+                return DAYS[(int) value-1];
+            }
+        });
     }
     private void getBarEntries() {
         // creating a new array list
@@ -87,6 +106,6 @@ public class Analytics extends AppCompatActivity {
         barEntriesArrayList.add(new BarEntry(4f, 2));
         barEntriesArrayList.add(new BarEntry(5f, 4));
         barEntriesArrayList.add(new BarEntry(6f, 1));
-        barEntriesArrayList.add(new BarEntry(6f, 1));
+        barEntriesArrayList.add(new BarEntry(7f, 1));
     }
 }

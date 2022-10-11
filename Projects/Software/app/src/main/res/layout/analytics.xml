@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     tools:context=".Analytics">
 
     <TextView
@@ -20,12 +21,22 @@
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/idBarChart"
-        android:layout_width="380dp"
-        android:layout_height="500dp"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
         android:layout_marginTop="108dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <me.ithebk.barchart.BarChart-->
+<!--        android:id="@+id/bar_chart_vertical"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="400dp"-->
+<!--        android:layout_marginTop="108dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.483"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
