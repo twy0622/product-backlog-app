@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 
     static TaskViewModel mTaskViewModel;
     ArrayList<String> membersList = new ArrayList<>();
+
 //    ArrayAdapter myAdapter;
     ProductBacklogRecyclerViewAdapter adapter;
     TeamMembersViewAdapter teamMembersViewAdapter;
@@ -51,6 +53,8 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout_add_task);
+
+        membersList.add("             ");
 
         Toolbar toolbar = findViewById(R.id.toolbar_addtask);
         setSupportActionBar(toolbar);
@@ -92,7 +96,15 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
 
         Spinner assignSpinner = (Spinner) findViewById(R.id.assignedBox);
         ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(AddTask.this,
-                android.R.layout.simple_list_item_1, membersList);//getResources().getStringArray(R.array.assigned));
+                android.R.layout.simple_list_item_1, membersList) {
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                return super.getDropDownView(position + 1, convertView, parent);
+            }
+
+            public int getCount() {
+                return membersList.size() - 1;
+            }
+        };
         assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignSpinner.setAdapter(assignAdapter);
 
