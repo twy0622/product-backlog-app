@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import java.sql.Date;
 import java.util.List;
 
 @Dao
@@ -30,6 +31,10 @@ public interface TaskDao {
 
     @Query("select sum(taskHours) from log_task where taskIdFK = :taskIdFK ")
     int getTaskHoursSum(int taskIdFK);
+
+    @Query("select * from log_task where taskDate >= :fromDate and taskDate <= :untilDate")
+    LiveData<List<Log_Task>> getDatesBetween(Date fromDate, Date untilDate);
+
 //
 //    @Query("select * from log_task")
 //    LiveData<List<TaskDateTime>> getTaskDateHours();

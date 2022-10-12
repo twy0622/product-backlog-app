@@ -30,9 +30,14 @@ import com.example.software.provider.Task;
 import com.example.software.provider.Log_Task;
 import com.example.software.provider.TaskDateTime;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -178,6 +183,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
                 int id = taskListRecycle.get(fPosition).getTaskId();
 
+
 //                editCategory.setEnabled(false);
 //                logName.setEnabled(false);
 //                logPriority.setEnabled(false);
@@ -218,16 +224,31 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String tag = logTag.getSelectedItem().toString();
                         int sp = Integer.valueOf(logSP.getText().toString());
                         String desc = (logDesc.getText().toString());
-                        String date = logDate.getText().toString();
+                        String inputDate = logDate.getText().toString();
+                        DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
                         int hours = Integer.valueOf(logHours.getText().toString());
+
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                Date date = null;
+                                try {
+                                    date = format.parse(inputDate);
+                                    String newDateString = format.format(date);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
 //                        taskDateHoursListR.add(new Log_Task(date, hours));
 
 
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
+                                mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
 //                        TaskDateTime taskDateTime = new TaskDateTime(task, new Log_Task(id, date, hours));
-                        mTaskViewModel.insertDateHour(new Log_Task(id, assigned, date, hours));
+                                mTaskViewModel.insertDateHour(new Log_Task(id, mTaskViewModel.getAssignedMemberID(assigned), date, hours));
+
+                            }
+                        });
 
                         // reset fields after creating a task
                         logHours.setText("");

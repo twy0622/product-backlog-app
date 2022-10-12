@@ -84,6 +84,8 @@ public class TaskViewModel extends AndroidViewModel {
 
     public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
 
+
+
     //Sprint View Models
 
     public LiveData<List<Sprint>> getAllSprints() {
@@ -151,6 +153,8 @@ public class TaskViewModel extends AndroidViewModel {
     public void updateTeamMembers(int memberID, String memberName, String memberEmail) {
         mRepository.updateTeamMembers(memberID,memberName,memberEmail);
     }
+    public int getAssignedMemberID(String memberName){ return mRepository.getAssignedMemberID(memberName); }
+
 
 }
 
