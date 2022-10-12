@@ -49,6 +49,8 @@ public interface TaskDao {
     @Insert(onConflict = REPLACE)
     void addLogTask(List<Log_Task> log_tasks);
 
+//    @Query("select * from log_task where ")
+
     @Query("delete from tasks where taskId= :id")
     void deleteById(int id);
 

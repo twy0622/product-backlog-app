@@ -40,9 +40,6 @@ public class Task {
     @ColumnInfo(name = "taskSprint")
     private String sprint;
 
-    @ColumnInfo(name = "accumulatedHours")
-    private int accHours;
-
     public Task(String category, String name, String description, String priority, String status, String assigned, String tag, int storyPoints, String sprint) {
         this.category = category;
         this.name = name;
@@ -64,11 +61,6 @@ public class Task {
     public String getTag() { return tag; }
     public int getStoryPoints() { return storyPoints; }
     public String getSprint() { return sprint; }
-    public int getAccHours() { return accHours; }
-
-    public void setAccHours(int accHours) {
-        this.accHours = accHours;
-    }
 
     public void setCategory(String category) {
         this.category = category;

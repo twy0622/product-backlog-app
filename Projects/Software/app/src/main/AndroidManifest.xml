@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".Analytics"
+            android:exported="false"
+            android:label="@string/title_activity_analytics"
+            android:theme="@style/NoActionBar" />
+        <activity
             android:name=".SprintOverview"
             android:exported="false" />
         <activity
@@ -26,12 +31,10 @@
         </activity>
         <activity
             android:name=".AddSprint"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".SprintBoard"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".SprintAllocate"
             android:exported="true">
