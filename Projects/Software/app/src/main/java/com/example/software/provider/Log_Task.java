@@ -26,6 +26,8 @@ public class Log_Task {
     @ColumnInfo(name="taskIdFK", index= true)
     private int taskIdFK;
 
+
+
     private String taskDate;
 
     private int taskHours;
@@ -45,11 +47,20 @@ public class Log_Task {
     public int getLogId() {
         return logId;
     }
-
-    public Log_Task(int taskIdFK, String taskDate, int taskHours) {
+    private String taskAssignedFK;
+    public Log_Task(int taskIdFK, String taskAssignedFK, String taskDate, int taskHours) {
         this.taskIdFK = taskIdFK;
+        this.taskAssignedFK = taskAssignedFK;
         this.taskDate = taskDate;
         this.taskHours = taskHours;
+    }
+
+    public String getTaskAssignedFK() {
+        return taskAssignedFK;
+    }
+
+    public void setTaskAssignedFK(String taskAssignedFK) {
+        this.taskAssignedFK = taskAssignedFK;
     }
 
     public void setLogId(int logId) {

@@ -48,9 +48,9 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
-    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
-        return mAllTaskDateTimes;
-    }
+//    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
+//        return mAllTaskDateTimes;
+//    }
 
     public void insert(Task task) {
         mRepository.insert(task);
