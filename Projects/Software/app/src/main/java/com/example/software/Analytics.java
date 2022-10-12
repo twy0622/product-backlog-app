@@ -88,8 +88,7 @@ public class Analytics extends AppCompatActivity {
             public String getFormattedValue(float value) {
                 String[] DAYS = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
                 Date today = new Date();
-                today.getDay();
-                return DAYS[(int) value-1];
+                return DAYS[ ((int) (value + today.getDay())) % 7];
             }
         });
     }
