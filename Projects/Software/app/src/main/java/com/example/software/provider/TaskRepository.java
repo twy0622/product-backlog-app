@@ -185,9 +185,9 @@ public class TaskRepository {
                 , memberEmail);
         });
     }
-
-
-
+    int getAssignedMemberID(String memberName){
+        return mMembersDao.getAssignedMemberID(memberName);
+    }
 }
 
 

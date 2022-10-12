@@ -19,6 +19,9 @@ public interface MembersDao {
     @Query("select * from teamMembers where memberEmail =:memberEmail")
     LiveData<List<Members>> getMemberEmail(String memberEmail);
 
+    @Query("select * from teamMembers where memberName =:memberName")
+    int getAssignedMemberID(String memberName);
+
     @Insert
     void addTeamMember(Members member);
 
