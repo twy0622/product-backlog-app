@@ -30,7 +30,7 @@ public class AddSprint extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_sprint);
-        sprintDateInput= findViewById(R.id.chooseDate);
+        sprintDateInput= findViewById(R.id.chooseSprintDate);
         sprintNameInput = findViewById(R.id.memberNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
