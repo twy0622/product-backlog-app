@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/chooseDate"
+        android:id="@+id/chooseSprintDate"
         android:layout_width="185dp"
         android:layout_height="45dp"
         android:layout_marginTop="248dp"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideLine2"
         app:layout_constraintHorizontal_bias="0.349"
         app:layout_constraintStart_toStartOf="@+id/guideLine"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDate" />
+        app:layout_constraintTop_toBottomOf="@+id/chooseSprintDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
