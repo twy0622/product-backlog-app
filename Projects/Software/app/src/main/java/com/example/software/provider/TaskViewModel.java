@@ -48,9 +48,9 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintStatus2(sprint, status1, status2, status3);
     }
 
-    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
-        return mAllTaskDateTimes;
-    }
+//    public LiveData<List<TaskDateTime>> getAllTaskDateTimes() {
+//        return mAllTaskDateTimes;
+//    }
 
     public void insert(Task task) {
         mRepository.insert(task);
@@ -83,6 +83,8 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
     public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
+
+
 
     //Sprint View Models
 
@@ -151,6 +153,8 @@ public class TaskViewModel extends AndroidViewModel {
     public void updateTeamMembers(int memberID, String memberName, String memberEmail) {
         mRepository.updateTeamMembers(memberID,memberName,memberEmail);
     }
+    public int getAssignedMemberID(String memberName){ return mRepository.getAssignedMemberID(memberName); }
+
 
 }
 

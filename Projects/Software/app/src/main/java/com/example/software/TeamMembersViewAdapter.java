@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,18 @@ public class TeamMembersViewAdapter extends RecyclerView.Adapter<TeamMembersView
                  membersListRecycle.get(position).getMemberEmail());
 
         int finalPosition = position;
+        holder.analyticsView.setOnClickListener(new View.OnClickListener() {
+            int id = membersListRecycle.get(finalPosition).getMemberID();
+            String memberName = membersListRecycle.get(finalPosition).getMemberName();
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context.getApplicationContext(), Analytics.class);
+                intent.putExtra("name", memberName);
+                intent.putExtra("keyID", id);
+                context.startActivity(intent);
+            }
+        });
         holder.deleteMember.setOnClickListener(new View.OnClickListener() {
             int id = membersListRecycle.get(finalPosition).getMemberID();
             String memberName = membersListRecycle.get(finalPosition).getMemberName();
@@ -86,11 +99,13 @@ public class TeamMembersViewAdapter extends RecyclerView.Adapter<TeamMembersView
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView memberInfoCard;
         public ImageView deleteMember;
+        public Button analyticsView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             memberInfoCard = itemView.findViewById(R.id.memberInfoCard);
             deleteMember = itemView.findViewById(R.id.deleteMember);
+            analyticsView = itemView.findViewById(R.id.analyticsButton);
         }
     }
 }

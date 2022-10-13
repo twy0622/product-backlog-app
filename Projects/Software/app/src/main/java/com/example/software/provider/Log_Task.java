@@ -11,6 +11,10 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
 
 @Entity(tableName= "log_task")
 //, indices = {@Index(value = {"logId"}, unique = true)},foreignKeys = @ForeignKey(entity = Task.class, parentColumns = "taskId",
@@ -18,6 +22,7 @@ import androidx.room.Relation;
 //                onDelete = ForeignKey.CASCADE,
 //                onUpdate = ForeignKey.CASCADE))
 
+@TypeConverters(DateConverter.class)
 public class Log_Task {
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -26,7 +31,9 @@ public class Log_Task {
     @ColumnInfo(name="taskIdFK", index= true)
     private int taskIdFK;
 
-    private String taskDate;
+    private int assignedMemberID;
+
+    private Date taskDate;
 
     private int taskHours;
 
@@ -38,18 +45,35 @@ public class Log_Task {
         return taskHours;
     }
 
-    public String getTaskDate() {
+    public java.util.Date getTaskDate() {
         return taskDate;
     }
 
     public int getLogId() {
         return logId;
     }
-
-    public Log_Task(int taskIdFK, String taskDate, int taskHours) {
+//    private String taskAssignedFK;
+    public Log_Task(int taskIdFK, int assignedMemberID, Date taskDate, int taskHours) {
         this.taskIdFK = taskIdFK;
+//        this.taskAssignedFK = taskAssignedFK;
+        this.assignedMemberID = assignedMemberID;
         this.taskDate = taskDate;
         this.taskHours = taskHours;
+    }
+
+    public int getAssignedMemberID() {
+        return assignedMemberID;
+    }
+//    public String getTaskAssignedFK() {
+//        return taskAssignedFK;
+//    }
+//
+//    public void setTaskAssignedFK(String taskAssignedFK) {
+//        this.taskAssignedFK = taskAssignedFK;
+//    }
+
+    public void setAssignedMemberID(int assignedMemberID) {
+        this.assignedMemberID = assignedMemberID;
     }
 
     public void setLogId(int logId) {
@@ -60,9 +84,7 @@ public class Log_Task {
         this.taskIdFK = taskIdFK;
     }
 
-    public void setTaskDate(String date) {
-        this.taskDate = date;
-    }
+    public void setTaskDate(Date date) {this.taskDate = date; }
 
     public void setTaskHours(int hours) {
         this.taskHours = hours;
