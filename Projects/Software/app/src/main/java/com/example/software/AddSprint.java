@@ -18,8 +18,10 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AddSprint extends AppCompatActivity {
-    final Calendar myCalendar= Calendar.getInstance();
-    EditText sprintDateInput;
+    final Calendar myStartSprintCalendar = Calendar.getInstance();
+    final Calendar myEndSprintCalendar = Calendar.getInstance();
+    EditText sprintStartDateInput;
+    EditText sprintEndDateInput;
     EditText sprintNameInput;
     Button addSprint;
 
@@ -30,7 +32,8 @@ public class AddSprint extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_sprint);
-        sprintDateInput= findViewById(R.id.chooseSprintDate);
+        sprintStartDateInput = findViewById(R.id.chooseSprintStartDate);
+        sprintStartDateInput = findViewById(R.id.chooseSprintEndDate);
         sprintNameInput = findViewById(R.id.memberNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
@@ -38,18 +41,28 @@ public class AddSprint extends AppCompatActivity {
 
 
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH,month);
-            myCalendar.set(Calendar.DAY_OF_MONTH,day);
-            updateLabel();
+            myStartSprintCalendar.set(Calendar.YEAR, year);
+            myStartSprintCalendar.set(Calendar.MONTH,month);
+            myStartSprintCalendar.set(Calendar.DAY_OF_MONTH,day);
+            updateSprintStartLabel();
         };
-        sprintDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+
+        DatePickerDialog.OnDateSetListener end_date = (view, year, month, day) -> {
+            myEndSprintCalendar.set(Calendar.YEAR, year);
+            myEndSprintCalendar.set(Calendar.MONTH, month);
+            myEndSprintCalendar.set(Calendar.DAY_OF_MONTH, day);
+            updateSprintEndLabel();
+        };
+
+        sprintStartDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myStartSprintCalendar.get(Calendar.YEAR), myStartSprintCalendar.get(Calendar.MONTH), myStartSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        sprintEndDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myEndSprintCalendar.get(Calendar.YEAR), myEndSprintCalendar.get(Calendar.MONTH), myEndSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
+
 
         addSprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String sprintNameInString = sprintNameInput.getText().toString();
-                String sprintDateInString = sprintDateInput.getText().toString();
+                String sprintDateInString = sprintStartDateInput.getText().toString();
 
                 Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
                 mTaskViewModel.addSprint(sprint);
@@ -70,10 +83,16 @@ public class AddSprint extends AppCompatActivity {
 
 
 
-    private void updateLabel(){
+    private void updateSprintStartLabel(){
         String myFormat="yyyy/MM/dd";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        sprintDateInput.setText(dateFormat.format(myCalendar.getTime()));
+        sprintStartDateInput.setText(dateFormat.format(myStartSprintCalendar.getTime()));
+    }
+
+    private void updateSprintEndLabel(){
+        String myFormat="yyyy/MM/dd";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+        sprintEndDateInput.setText(dateFormat.format(myEndSprintCalendar.getTime()));
     }
 }
 
