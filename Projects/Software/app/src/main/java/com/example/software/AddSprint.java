@@ -55,7 +55,7 @@ public class AddSprint extends AppCompatActivity {
         };
 
         sprintStartDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myStartSprintCalendar.get(Calendar.YEAR), myStartSprintCalendar.get(Calendar.MONTH), myStartSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
-        sprintEndDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myEndSprintCalendar.get(Calendar.YEAR), myEndSprintCalendar.get(Calendar.MONTH), myEndSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
+//        sprintEndDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myEndSprintCalendar.get(Calendar.YEAR), myEndSprintCalendar.get(Calendar.MONTH), myEndSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
 
         addSprint.setOnClickListener(new View.OnClickListener() {

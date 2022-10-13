@@ -245,7 +245,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                                 mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
 
 //                        TaskDateTime taskDateTime = new TaskDateTime(task, new Log_Task(id, date, hours));
-                                mTaskViewModel.insertDateHour(new Log_Task(id, mTaskViewModel.getAssignedMemberID(assigned), date, hours));
+                                mTaskViewModel.insertDateHour(new Log_Task(id, assigned, mTaskViewModel.getAssignedMemberID(assigned), date, hours));
 
                             }
                         });
