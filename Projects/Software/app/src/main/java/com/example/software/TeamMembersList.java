@@ -101,6 +101,10 @@ public class TeamMembersList extends AppCompatActivity implements NavigationView
 //            Intent teamMembersIntent = new Intent(getApplicationContext(), TeamMembersList.class);
 //            startActivity(teamMembersIntent);
         }
+        else if (id == R.id.goToHomePage) {
+            Intent homePageIntent = new Intent(getApplicationContext(), HomePage.class);
+            startActivity(homePageIntent);
+        }
 
         drawerLayout.closeDrawer(GravityCompat.START);
 

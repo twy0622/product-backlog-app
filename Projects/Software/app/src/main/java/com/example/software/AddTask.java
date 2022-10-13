@@ -214,6 +214,11 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
             startActivity(teamMembersIntent);
         }
 
+        else if (id == R.id.goToHomePage) {
+            Intent homePageIntent = new Intent(getApplicationContext(), HomePage.class);
+            startActivity(homePageIntent);
+        }
+
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
