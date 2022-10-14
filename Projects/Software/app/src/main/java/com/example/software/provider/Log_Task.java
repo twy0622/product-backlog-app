@@ -31,11 +31,15 @@ public class Log_Task {
     @ColumnInfo(name="taskIdFK", index= true)
     private int taskIdFK;
 
+    private String taskAssignedFK;
+
     private int assignedMemberID;
 
     private Date taskDate;
 
     private int taskHours;
+
+
 
     public int getTaskIdFK() {
         return taskIdFK;
@@ -52,10 +56,10 @@ public class Log_Task {
     public int getLogId() {
         return logId;
     }
-//    private String taskAssignedFK;
-    public Log_Task(int taskIdFK, int assignedMemberID, Date taskDate, int taskHours) {
+
+    public Log_Task(int taskIdFK, String taskAssignedFK, int assignedMemberID, Date taskDate, int taskHours) {
         this.taskIdFK = taskIdFK;
-//        this.taskAssignedFK = taskAssignedFK;
+        this.taskAssignedFK = taskAssignedFK;
         this.assignedMemberID = assignedMemberID;
         this.taskDate = taskDate;
         this.taskHours = taskHours;
@@ -64,13 +68,13 @@ public class Log_Task {
     public int getAssignedMemberID() {
         return assignedMemberID;
     }
-//    public String getTaskAssignedFK() {
-//        return taskAssignedFK;
-//    }
+    public String getTaskAssignedFK() {
+        return taskAssignedFK;
+    }
 //
-//    public void setTaskAssignedFK(String taskAssignedFK) {
-//        this.taskAssignedFK = taskAssignedFK;
-//    }
+    public void setTaskAssignedFK(String taskAssignedFK) {
+        this.taskAssignedFK = taskAssignedFK;
+    }
 
     public void setAssignedMemberID(int assignedMemberID) {
         this.assignedMemberID = assignedMemberID;

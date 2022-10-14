@@ -2,6 +2,8 @@ package com.example.software.provider;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -9,7 +11,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -49,7 +51,8 @@ public interface TaskDao {
     @Insert(onConflict = REPLACE)
     void addLogTask(List<Log_Task> log_tasks);
 
-//    @Query("select * from log_task where ")
+    @Query("select * from log_task where assignedMemberID = :memberID AND taskDate = :date")
+    LiveData<List<Log_Task>> getDurationByMemberId(int memberID, Date date);
 
     @Query("delete from tasks where taskId= :id")
     void deleteById(int id);

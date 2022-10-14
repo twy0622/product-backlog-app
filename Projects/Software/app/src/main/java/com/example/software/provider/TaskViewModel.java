@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import java.util.Date;
 import java.util.List;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
@@ -159,6 +161,9 @@ public class TaskViewModel extends AndroidViewModel {
     }
     public int getAssignedMemberID(String memberName){ return mRepository.getAssignedMemberID(memberName); }
 
+    public LiveData<List<Log_Task>> getDurationByMemberID (int memberID, Date date){
+        return mRepository.getDurationByMemberID(memberID, date);
+    }
 
 }
 
