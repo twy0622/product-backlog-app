@@ -21,7 +21,12 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.software.provider.Members;
 import com.example.software.provider.Task;
 
 import java.util.ArrayList;
@@ -31,6 +36,7 @@ import java.util.List;
 public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<ProductBacklogRecyclerViewAdapter.ViewHolder> implements Filterable {
     private List<Task> taskListRecycle = new ArrayList<>();
     private List<Task> taskListRecycleFull; /// copy of list with all items
+    ArrayList<String> membersList = new ArrayList<>();
     Context context;
 
     public void setTask(List<Task> data){
@@ -130,9 +136,28 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
 
                 Spinner editAssigned = (Spinner) view1.findViewById(R.id.editAssigned);
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.assigned));
+                        android.R.layout.simple_list_item_1, membersList);
                 assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 editAssigned.setAdapter(assignAdapter);
+
+                editAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
+
+                mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<Members> member) {
+                        if (membersList.size() == 0) {
+                            membersList.add("None");
+
+                        }
+                        for (int i = 0; i < member.size(); i++) {
+                            if (!membersList.contains(member.get(i).getMemberName())) {
+                                membersList.add(member.get(i).getMemberName());
+                            }
+                        }
+                        assignAdapter.notifyDataSetChanged();
+                    }
+
+                });
 
                 Spinner editTag = (Spinner) view1.findViewById(R.id.editTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
