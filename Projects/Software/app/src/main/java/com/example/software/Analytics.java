@@ -51,13 +51,7 @@ public class Analytics extends AppCompatActivity {
     String name;
 
     static TaskViewModel mTaskViewModel;
-    ExecutorService executorService1 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService2 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService3 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService4 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService5 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService6 = Executors.newFixedThreadPool(2);
-    ExecutorService executorService7 = Executors.newFixedThreadPool(2);
+    ExecutorService executorService1 = Executors.newFixedThreadPool(8);
     int data1;
     int data2;
     int data3;
@@ -107,9 +101,8 @@ public class Analytics extends AppCompatActivity {
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
         // setting color.
-        barDataSet.setValueTextColor(Color.WHITE);
+        barDataSet.setValueTextColor(Color.BLACK);
         barChart.setDrawGridBackground(false);
-        barChart.setNoDataTextColor(Color.WHITE);
 
         // setting text size
         barDataSet.setValueTextSize(16f);
@@ -133,37 +126,37 @@ public class Analytics extends AppCompatActivity {
 
         Date today = new Date();
         Date barDate1 = new Date(today.getYear(), today.getMonth(), today.getDate()-6);
-        executorService1.execute(new Runnable() {
-            @Override
-            public void run() {
-                data1 = mTaskViewModel.getDurationByMemberID(id, barDate1);
-            }
-        });
+//        executorService1.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                data1 = mTaskViewModel.getDurationByMemberID(id, barDate1);
+//            }
+//        });
         barEntriesArrayList.add(new BarEntry(1f, data1));
 
 
         Date barDate2 = new Date(today.getYear(), today.getMonth(), today.getDate()-5);
-        executorService2.execute(new Runnable() {
-            @Override
-            public void run() {
-                data2 = mTaskViewModel.getDurationByMemberID(id, barDate2);
-            }
-        });
-        barEntriesArrayList.add(new BarEntry(2f, data2));
+//        executorService1.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                data2 = mTaskViewModel.getDurationByMemberID(id, barDate2);
+//            }
+//        });
+        barEntriesArrayList.add(new BarEntry(2f, Integer.parseInt(String.valueOf(data2))));
 
 
         Date barDate3 = new Date(today.getYear(), today.getMonth(), today.getDate()-4);
-        executorService3.execute(new Runnable() {
+        executorService1.execute(new Runnable() {
             @Override
             public void run() {
                 data3 = mTaskViewModel.getDurationByMemberID(id, barDate3);
             }
         });
-        barEntriesArrayList.add(new BarEntry(3f, data3));
+        barEntriesArrayList.add(new BarEntry(3f, Integer.parseInt(""+data3)));
 
 
         Date barDate4 = new Date(today.getYear(), today.getMonth(), today.getDate()-3);
-        executorService4.execute(new Runnable() {
+        executorService1.execute(new Runnable() {
             @Override
             public void run() {
                 data4 = mTaskViewModel.getDurationByMemberID(id, barDate4);
@@ -173,7 +166,7 @@ public class Analytics extends AppCompatActivity {
 
 
         Date barDate5 = new Date(today.getYear(), today.getMonth(), today.getDate()-2);
-        executorService5.execute(new Runnable() {
+        executorService1.execute(new Runnable() {
             @Override
             public void run() {
                 data5 = mTaskViewModel.getDurationByMemberID(id, barDate5);
@@ -183,7 +176,7 @@ public class Analytics extends AppCompatActivity {
 
 
         Date barDate6 = new Date(today.getYear(), today.getMonth(), today.getDate()-1);
-        executorService6.execute(new Runnable() {
+        executorService1.execute(new Runnable() {
             @Override
             public void run() {
                 data6 = mTaskViewModel.getDurationByMemberID(id, barDate6);
@@ -193,7 +186,7 @@ public class Analytics extends AppCompatActivity {
 
 
         Date barDate7 = new Date(today.getYear(), today.getMonth(), today.getDate());
-        executorService7.execute(new Runnable() {
+        executorService1.execute(new Runnable() {
             @Override
             public void run() {
                 data7 = mTaskViewModel.getDurationByMemberID(id, barDate7);
@@ -201,6 +194,7 @@ public class Analytics extends AppCompatActivity {
         });
         barEntriesArrayList.add(new BarEntry(7f, data7));
 
-        Toast.makeText(getApplicationContext(), String.valueOf(data1), Toast.LENGTH_LONG).show();
+
+        Toast.makeText(getApplicationContext(), String.valueOf(data3), Toast.LENGTH_LONG).show();
     }
 }
