@@ -54,6 +54,8 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout_add_task);
 
+        membersList.add("None");
+
         Toolbar toolbar = findViewById(R.id.toolbar_addtask);
         setSupportActionBar(toolbar);
 
@@ -90,7 +92,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.status));
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
-
 
         Spinner assignSpinner = (Spinner) findViewById(R.id.assignedBox);
         ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(AddTask.this,

@@ -33,14 +33,14 @@ public class AddSprint extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_sprint);
         sprintStartDateInput = findViewById(R.id.chooseSprintStartDate);
-        sprintStartDateInput = findViewById(R.id.chooseSprintEndDate);
+        sprintEndDateInput = findViewById(R.id.chooseSprintEndDate);
         sprintNameInput = findViewById(R.id.memberNameInput);
         addSprint = findViewById(R.id.addSprintButton);
 
         mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
 
-        DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
+        DatePickerDialog.OnDateSetListener start_date = (view, year, month, day) -> {
             myStartSprintCalendar.set(Calendar.YEAR, year);
             myStartSprintCalendar.set(Calendar.MONTH,month);
             myStartSprintCalendar.set(Calendar.DAY_OF_MONTH,day);
@@ -54,17 +54,18 @@ public class AddSprint extends AppCompatActivity {
             updateSprintEndLabel();
         };
 
-        sprintStartDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myStartSprintCalendar.get(Calendar.YEAR), myStartSprintCalendar.get(Calendar.MONTH), myStartSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
-//        sprintEndDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,date, myEndSprintCalendar.get(Calendar.YEAR), myEndSprintCalendar.get(Calendar.MONTH), myEndSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        sprintStartDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,start_date, myStartSprintCalendar.get(Calendar.YEAR), myStartSprintCalendar.get(Calendar.MONTH), myStartSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        sprintEndDateInput.setOnClickListener(view -> new DatePickerDialog(AddSprint.this,end_date, myEndSprintCalendar.get(Calendar.YEAR), myEndSprintCalendar.get(Calendar.MONTH), myEndSprintCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
 
         addSprint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String sprintNameInString = sprintNameInput.getText().toString();
-                String sprintDateInString = sprintStartDateInput.getText().toString();
+                String sprintStartDateInString = sprintStartDateInput.getText().toString();
+                String sprintEndDateInString = sprintEndDateInput.getText().toString();
 
-                Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
+                Sprint sprint = new Sprint(sprintNameInString, sprintStartDateInString, sprintEndDateInString);
                 mTaskViewModel.addSprint(sprint);
 
                 Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +

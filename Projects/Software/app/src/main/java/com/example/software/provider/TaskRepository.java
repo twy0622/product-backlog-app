@@ -124,8 +124,12 @@ public class TaskRepository {
         return mSprintDao.getSprintName(sprint);
     }
 
-    LiveData<List<Sprint>> getSprintDate(String date) {
-        return mSprintDao.getSprintDate(date);
+    LiveData<List<Sprint>> getSprintStartDate(String startDate) {
+        return mSprintDao.getSprintStartDate(startDate);
+    }
+
+    LiveData<List<Sprint>> getSprintEndDate(String endDate) {
+        return mSprintDao.getSprintEndDate(endDate);
     }
 
     void addSprint(Sprint sprint) {
@@ -146,9 +150,9 @@ public class TaskRepository {
         });
     }
 
-    void updateSprintDetails(int id, String sprintName, String sprintDate){
+    void updateSprintDetails(int id, String sprintName, String sprintStartDate, String sprintEndDate){
         TaskDatabase.databaseWriteExecutor.execute(()->{
-            mSprintDao.updateSprintDetails(id, sprintName, sprintDate);
+            mSprintDao.updateSprintDetails(id, sprintName, sprintStartDate, sprintEndDate);
         });
     }
 
