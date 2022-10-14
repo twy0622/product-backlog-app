@@ -194,8 +194,12 @@ public class TaskRepository {
         return mMembersDao.getAssignedMemberID(memberName);
     }
 
-    LiveData<List<Log_Task>> getDurationByMemberID(int memberID, Date date){
+    int getDurationByMemberID(int memberID, Date date){
         return mTaskDao.getDurationByMemberId(memberID, date);
+    }
+
+    int getAllByMemberID(String memberID){
+        return mTaskDao.getAllByMemberID(memberID);
     }
 }
 
