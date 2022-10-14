@@ -54,8 +54,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout_add_task);
 
-        membersList.add("None");
-
         Toolbar toolbar = findViewById(R.id.toolbar_addtask);
         setSupportActionBar(toolbar);
 

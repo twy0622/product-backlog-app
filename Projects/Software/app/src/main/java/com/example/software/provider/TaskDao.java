@@ -34,12 +34,9 @@ public interface TaskDao {
     @Query("select sum(taskHours) from log_task where taskIdFK = :taskIdFK ")
     int getTaskHoursSum(int taskIdFK);
 
-    @Query("select * from log_task where taskDate >= :fromDate and taskDate <= :untilDate")
-    LiveData<List<Log_Task>> getDatesBetween(Date fromDate, Date untilDate);
+    @Query("select sum(taskHours) from log_task where (taskDate between :fromDate and :untilDate) and taskAssignedFK = :member")
+    int getHoursBetweenDates(Date fromDate, Date untilDate, String member);
 
-//
-//    @Query("select * from log_task")
-//    LiveData<List<TaskDateTime>> getTaskDateHours();
 
     @Transaction
     @Insert(onConflict = REPLACE)

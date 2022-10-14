@@ -86,7 +86,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
 
-
+    public int getHoursBetweenDates(Date fromDate, Date untilDate, String member) {
+        return mRepository.getHoursBetweenDates(fromDate,untilDate,member);
+    }
 
     //Sprint View Models
 
