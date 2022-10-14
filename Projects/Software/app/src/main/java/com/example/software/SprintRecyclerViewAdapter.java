@@ -228,6 +228,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
                         int hours = Integer.valueOf(logHours.getText().toString());
 
+
                         executorService.execute(new Runnable() {
                             @Override
                             public void run() {
