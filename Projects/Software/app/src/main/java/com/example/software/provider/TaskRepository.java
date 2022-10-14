@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.Date;
 import java.util.List;
 
 public class TaskRepository {
@@ -191,6 +192,10 @@ public class TaskRepository {
     }
     int getAssignedMemberID(String memberName){
         return mMembersDao.getAssignedMemberID(memberName);
+    }
+
+    LiveData<List<Log_Task>> getDurationByMemberID(int memberID, Date date){
+        return mTaskDao.getDurationByMemberId(memberID, date);
     }
 }
 

@@ -99,6 +99,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignSpinner.setAdapter(assignAdapter);
 
+        membersList.add("None");
         mTaskViewModel.getAllTeamMembers().observe(this, new Observer<List<Members>>() {
             @Override
             public void onChanged(@Nullable final List<Members> member) {
