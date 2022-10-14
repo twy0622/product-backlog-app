@@ -15,12 +15,16 @@ public class Sprint{
     @ColumnInfo(name = "sprintName")
     private String sprintName;
 
-    @ColumnInfo(name = "sprintDate")
-    private String sprintDate;
+    @ColumnInfo(name = "sprintStartDate")
+    private String sprintStartDate;
 
-    public Sprint(String sprintName, String sprintDate) {
+    @ColumnInfo(name = "sprintEndDate")
+    private String sprintEndDate;
+
+    public Sprint(String sprintName, String sprintStartDate, String sprintEndDate) {
         this.sprintName = sprintName;
-        this.sprintDate = sprintDate;
+        this.sprintStartDate = sprintStartDate;
+        this.sprintEndDate = sprintEndDate;
     }
 
     public int getSprintID() {
@@ -31,8 +35,12 @@ public class Sprint{
         return sprintName;
     }
 
-    public String getSprintDate() {
-        return sprintDate;
+    public String getSprintStartDate() {
+        return sprintStartDate;
+    }
+
+    public String getSprintEndDate() {
+        return sprintEndDate;
     }
 
     public void setSprintID(int sprintID) {
