@@ -114,6 +114,10 @@ public class TaskRepository {
     int getTaskHoursSum(int taskIdFK){
         return mTaskDao.getTaskHoursSum(taskIdFK);
     }
+
+    int getHoursBetweenDates(Date fromDate, Date untilDate, String member) {
+        return mTaskDao.getHoursBetweenDates(fromDate,untilDate,member);
+    }
     //Sprint Repositories
 
     LiveData<List<Sprint>> getAllSprints(){
