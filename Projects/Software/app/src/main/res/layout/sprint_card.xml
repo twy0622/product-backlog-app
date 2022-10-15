@@ -32,12 +32,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <ImageView
-                android:id="@+id/imageEditCard"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:src="@drawable/ic_edit_sprint" />
+<!--        <ImageView-->
+<!--                android:id="@+id/imageEditCard"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="right"-->
+<!--                android:src="@drawable/ic_edit_sprint" />-->
 
         </LinearLayout>
 
