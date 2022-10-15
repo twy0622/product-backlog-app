@@ -147,14 +147,11 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 logStatus.setAdapter(statusAdapter);
 
+
                 Spinner logAssigned = (Spinner) view1.findViewById(R.id.logAssigned);
+
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, membersList);
-                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                logAssigned.setAdapter(assignAdapter);
-
-                logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
-
                 mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
                     @Override
                     public void onChanged(@Nullable final List<Members> member) {
@@ -166,10 +163,13 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                                 membersList.add(member.get(i).getMemberName());
                             }
                         }
+                        logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
                         assignAdapter.notifyDataSetChanged();
                     }
 
                 });
+                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                logAssigned.setAdapter(assignAdapter);
 
                 Spinner logTag = (Spinner) view1.findViewById(R.id.logTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
