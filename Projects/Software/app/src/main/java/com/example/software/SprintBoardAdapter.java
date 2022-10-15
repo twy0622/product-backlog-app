@@ -74,7 +74,7 @@ public class SprintBoardAdapter extends RecyclerView.Adapter<SprintBoardAdapter.
         public ViewHolder(View itemView){
             super(itemView);
             sprintName = itemView.findViewById(R.id.sprintNameCard);
-            goToAddSprint = itemView.findViewById(R.id.imageEditCard);
+//            goToAddSprint = itemView.findViewById(R.id.imageEditCard);
         }
     }
 }
