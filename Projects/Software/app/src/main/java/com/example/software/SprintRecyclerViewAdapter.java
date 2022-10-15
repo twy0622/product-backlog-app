@@ -94,7 +94,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final View view1 = LayoutInflater.from(context).inflate(R.layout.log_time_spent, null);
                 builder.setView(view1);
-                builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
@@ -154,10 +153,11 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 logAssigned.setAdapter(assignAdapter);
 
+                logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
+
                 mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
                     @Override
                     public void onChanged(@Nullable final List<Members> member) {
-                        logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
                         if (membersList.size() == 0) {
                             membersList.add("None");
                         }
