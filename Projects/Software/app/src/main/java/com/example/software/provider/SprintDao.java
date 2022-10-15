@@ -16,8 +16,11 @@ public interface SprintDao {
     @Query("select * from sprints where sprintName =:sprintName")
     LiveData<List<Sprint>> getSprintName(String sprintName);
 
-    @Query("select * from sprints where sprintDate =:sprintDate")
-    LiveData<List<Sprint>> getSprintDate(String sprintDate);
+    @Query("select * from sprints where sprintStartDate =:sprintStartDate")
+    LiveData<List<Sprint>> getSprintStartDate(String sprintStartDate);
+
+    @Query("select * from sprints where sprintEndDate =:sprintEndDate")
+    LiveData<List<Sprint>> getSprintEndDate(String sprintEndDate);
 
     @Insert
     void addSprint(Sprint sprint);
@@ -31,6 +34,7 @@ public interface SprintDao {
     @Query("delete FROM sprints")
     void deleteAllSprints();
 
-    @Query("UPDATE sprints SET sprintName =:sprintName, sprintDate =:sprintDate WHERE sprintID =:id")
-    void updateSprintDetails(int id, String sprintName, String sprintDate);
+    @Query("UPDATE sprints SET sprintName =:sprintName, sprintStartDate =:sprintStartDate, " +
+            "sprintEndDate =:sprintEndDate WHERE sprintID =:id")
+    void updateSprintDetails(int id, String sprintName, String sprintStartDate, String sprintEndDate);
 }

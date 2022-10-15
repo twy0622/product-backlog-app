@@ -21,14 +21,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Database;
 
+import com.example.software.provider.Members;
 import com.example.software.provider.Task;
 import com.example.software.provider.Log_Task;
 import com.example.software.provider.TaskDateTime;
+import com.example.software.provider.TaskViewModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,9 +55,10 @@ import java.util.concurrent.Executors;
 public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecyclerViewAdapter.ViewHolder> {
     List<Task> taskListRecycle = new ArrayList<>();
     List<Log_Task> taskDateHoursListR = new ArrayList<>();
+    Database database;
     Context context;
     ExecutorService executorService = Executors.newFixedThreadPool(4);
-
+    ArrayList<String> membersList = new ArrayList<>();
     public void setTask(List<Task> data){
         this.taskListRecycle = data;
     }
@@ -98,11 +108,9 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
                 final Calendar myCalendar= Calendar.getInstance();
 
-
 //                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
 //                DialogFragment DateFragment = new DatePickerFragment();
 //                DateFragment.show(manager, "datePicker");
-
 
                 final EditText logName = view1.findViewById(R.id.logName);
                 final EditText logSP = view1.findViewById(R.id.logSP);
@@ -127,7 +135,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
                 logDate.setOnClickListener(view2 -> datePickerDialog.show());
 
-
                 // Dropdown list Values
                 Spinner logPriority = (Spinner) view1.findViewById(R.id.logPriority);
                 ArrayAdapter<String> priorityAdapter = new ArrayAdapter<String>(context,
@@ -143,9 +150,26 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
 
                 Spinner logAssigned = (Spinner) view1.findViewById(R.id.logAssigned);
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, context.getResources().getStringArray(R.array.assigned));
+                        android.R.layout.simple_list_item_1, membersList);
                 assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 logAssigned.setAdapter(assignAdapter);
+
+                mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<Members> member) {
+                        logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
+                        if (membersList.size() == 0) {
+                            membersList.add("None");
+                        }
+                        for (int i = 0; i < member.size(); i++) {
+                            if (!membersList.contains(member.get(i).getMemberName())) {
+                                membersList.add(member.get(i).getMemberName());
+                            }
+                        }
+                        assignAdapter.notifyDataSetChanged();
+                    }
+
+                });
 
                 Spinner logTag = (Spinner) view1.findViewById(R.id.logTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
@@ -227,6 +251,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String inputDate = logDate.getText().toString();
                         DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
                         int hours = Integer.valueOf(logHours.getText().toString());
+
 
                         executorService.execute(new Runnable() {
                             @Override

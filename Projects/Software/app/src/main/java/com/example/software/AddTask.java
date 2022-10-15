@@ -54,8 +54,6 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout_add_task);
 
-        membersList.add("             ");
-
         Toolbar toolbar = findViewById(R.id.toolbar_addtask);
         setSupportActionBar(toolbar);
 
@@ -93,21 +91,13 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
-
         Spinner assignSpinner = (Spinner) findViewById(R.id.assignedBox);
         ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(AddTask.this,
-                android.R.layout.simple_list_item_1, membersList) {
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                return super.getDropDownView(position + 1, convertView, parent);
-            }
-
-            public int getCount() {
-                return membersList.size() - 1;
-            }
-        };
+                android.R.layout.simple_list_item_1, membersList);
         assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignSpinner.setAdapter(assignAdapter);
 
+        membersList.add("None");
         mTaskViewModel.getAllTeamMembers().observe(this, new Observer<List<Members>>() {
             @Override
             public void onChanged(@Nullable final List<Members> member) {

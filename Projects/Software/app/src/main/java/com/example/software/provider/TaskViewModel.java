@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import java.util.Date;
 import java.util.List;
 
 import kotlin.jvm.internal.PropertyReference0Impl;
@@ -84,7 +86,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     public int getTaskHoursSum(int taskIdFK){ return mRepository.getTaskHoursSum(taskIdFK); }
 
-
+    public int getHoursBetweenDates(Date fromDate, Date untilDate, String member) {
+        return mRepository.getHoursBetweenDates(fromDate,untilDate,member);
+    }
 
     //Sprint View Models
 
@@ -96,8 +100,12 @@ public class TaskViewModel extends AndroidViewModel {
         return mRepository.getSprintName(name);
     }
 
-    public LiveData<List<Sprint>> getSprintDate(String date) {
-        return mRepository.getSprintDate(date);
+    public LiveData<List<Sprint>> getSprintStartDate(String startDate) {
+        return mRepository.getSprintStartDate(startDate);
+    }
+
+    public LiveData<List<Sprint>> getSprintEndDate(String endDate) {
+        return mRepository.getSprintEndDate(endDate);
     }
 
     public void addSprint(Sprint sprint) {
@@ -116,8 +124,8 @@ public class TaskViewModel extends AndroidViewModel {
         mRepository.deleteAllSprints();
     }
 
-    public void updateSprintDetails(int id, String sprintName, String sprintDate) {
-        mRepository.updateSprintDetails(id,sprintName,sprintDate);
+    public void updateSprintDetails(int id, String sprintName, String sprintStartDate, String sprintEndDate) {
+        mRepository.updateSprintDetails(id,sprintName,sprintStartDate,sprintEndDate);
     }
 
     //Member View Models
@@ -155,6 +163,9 @@ public class TaskViewModel extends AndroidViewModel {
     }
     public int getAssignedMemberID(String memberName){ return mRepository.getAssignedMemberID(memberName); }
 
+    public LiveData<List<Log_Task>> getDurationByMemberID (int memberID, Date date){
+        return mRepository.getDurationByMemberID(memberID, date);
+    }
 
 }
 

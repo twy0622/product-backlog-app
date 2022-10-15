@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.Date;
 import java.util.List;
 
 public class TaskRepository {
@@ -113,6 +114,10 @@ public class TaskRepository {
     int getTaskHoursSum(int taskIdFK){
         return mTaskDao.getTaskHoursSum(taskIdFK);
     }
+
+    int getHoursBetweenDates(Date fromDate, Date untilDate, String member) {
+        return mTaskDao.getHoursBetweenDates(fromDate,untilDate,member);
+    }
     //Sprint Repositories
 
     LiveData<List<Sprint>> getAllSprints(){
@@ -123,8 +128,12 @@ public class TaskRepository {
         return mSprintDao.getSprintName(sprint);
     }
 
-    LiveData<List<Sprint>> getSprintDate(String date) {
-        return mSprintDao.getSprintDate(date);
+    LiveData<List<Sprint>> getSprintStartDate(String startDate) {
+        return mSprintDao.getSprintStartDate(startDate);
+    }
+
+    LiveData<List<Sprint>> getSprintEndDate(String endDate) {
+        return mSprintDao.getSprintEndDate(endDate);
     }
 
     void addSprint(Sprint sprint) {
@@ -145,9 +154,9 @@ public class TaskRepository {
         });
     }
 
-    void updateSprintDetails(int id, String sprintName, String sprintDate){
+    void updateSprintDetails(int id, String sprintName, String sprintStartDate, String sprintEndDate){
         TaskDatabase.databaseWriteExecutor.execute(()->{
-            mSprintDao.updateSprintDetails(id, sprintName, sprintDate);
+            mSprintDao.updateSprintDetails(id, sprintName, sprintStartDate, sprintEndDate);
         });
     }
 
@@ -187,6 +196,10 @@ public class TaskRepository {
     }
     int getAssignedMemberID(String memberName){
         return mMembersDao.getAssignedMemberID(memberName);
+    }
+
+    LiveData<List<Log_Task>> getDurationByMemberID(int memberID, Date date){
+        return mTaskDao.getDurationByMemberId(memberID, date);
     }
 }
 
