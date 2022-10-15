@@ -64,8 +64,8 @@ public class AddSprint extends AppCompatActivity {
                 String sprintNameInString = sprintNameInput.getText().toString();
                 String sprintDateInString = startDateInput.getText().toString();
 
-                Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
-                mTaskViewModel.addSprint(sprint);
+//                Sprint sprint = new Sprint(sprintNameInString, sprintDateInString);
+//                mTaskViewModel.addSprint(sprint);
 
                 Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +
                         " added.", Toast.LENGTH_SHORT).show();
