@@ -128,7 +128,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                                 myCalendar.set(Calendar.YEAR, year);
                                 myCalendar.set(Calendar.MONTH,month);
                                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                                SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+                                SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                                 logDate.setText(dateFormat.format(myCalendar.getTime()));
                             }
                         }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DATE));
