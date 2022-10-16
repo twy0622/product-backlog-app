@@ -240,7 +240,7 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String sp = logSP.getText().toString();
                         String desc = (logDesc.getText().toString());
                         String inputDate = logDate.getText().toString();
-                        DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+                        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                         String hours = logHours.getText().toString();
 
                         if (name.isEmpty() | sp.isEmpty() | desc.isEmpty() | hours.isEmpty() | inputDate.isEmpty()) {

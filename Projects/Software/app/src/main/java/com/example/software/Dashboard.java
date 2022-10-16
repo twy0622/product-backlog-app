@@ -85,19 +85,23 @@ public class Dashboard extends AppCompatActivity {
                     int bounded = lastDateOfMonth * difference;
                     dateRange = bounded + myEndCalendar.get(Calendar.DAY_OF_MONTH) - myStartCalendar.get(Calendar.DAY_OF_MONTH) + 1;
                 }
-//                Toast.makeText(getApplicationContext(),String.valueOf(dateRange),Toast.LENGTH_SHORT).show();
 
-                for (int i = 0; i < dashboardRecyclerView.getChildCount(); i++) {
-                    DashboardMemberAdapter.ViewHolder holder = (DashboardMemberAdapter.ViewHolder) dashboardRecyclerView.findViewHolderForAdapterPosition(i);
-                    ExecutorService executorService = Executors.newFixedThreadPool(4);
-                    executorService.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            holder.dashboardHour.setText(String.format("%.2f", mTaskViewModel.getHoursBetweenDates(myStartDate,myEndDate,String.valueOf(holder.dashboardName.getText()))/dateRange)+" hours");
-                        }
-                    });
+                if ((myStartCalendar.getTimeInMillis() <= myEndCalendar.getTimeInMillis()) && !startDateInput.getText().toString().isEmpty() && !endDateInput.getText().toString().isEmpty()) {
+                    for (int i = 0; i < dashboardRecyclerView.getChildCount(); i++) {
+                        DashboardMemberAdapter.ViewHolder holder = (DashboardMemberAdapter.ViewHolder) dashboardRecyclerView.findViewHolderForAdapterPosition(i);
+                        ExecutorService executorService = Executors.newFixedThreadPool(4);
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                holder.dashboardHour.setText(String.format("%.2f", mTaskViewModel.getHoursBetweenDates(myStartDate, myEndDate, String.valueOf(holder.dashboardName.getText())) / dateRange) + " hours");
+                            }
+                        });
+                    }
+                } else if (startDateInput.getText().toString().isEmpty() | endDateInput.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Please choose a start date and an end date.",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "End date cannot be set to a date earlier than start date.",Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
