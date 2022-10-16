@@ -1,16 +1,16 @@
 package com.example.software;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-import com.example.software.provider.Log_Task;
 import com.example.software.provider.TaskViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,10 +20,10 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Analytics extends AppCompatActivity {
@@ -42,8 +42,17 @@ public class Analytics extends AppCompatActivity {
 
     //member id
     int id;
+    String name;
 
     static TaskViewModel mTaskViewModel;
+    ExecutorService executorService = Executors.newFixedThreadPool(8);
+    int data1;
+    int data2;
+    int data3;
+    int data4;
+    int data5;
+    int data6;
+    int data7;
 
 //    Date today =
 
@@ -52,13 +61,23 @@ public class Analytics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.analytics);
 
-        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+
+
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
+        name = intent.getStringExtra("name");
 
         id = intent.getIntExtra("keyID",0);
 
+        Date today = new Date();
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+//        executorService.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                int a = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()));
+//                int b = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()+1));
+//            }
+//        });
         // setting page title
         TextView title = findViewById(R.id.analytics_title);
         title.setText(name + " Analytics");
@@ -84,9 +103,8 @@ public class Analytics extends AppCompatActivity {
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
         // setting color.
-        barDataSet.setValueTextColor(Color.WHITE);
+        barDataSet.setValueTextColor(Color.BLACK);
         barChart.setDrawGridBackground(false);
-        barChart.setNoDataTextColor(Color.WHITE);
 
         // setting text size
         barDataSet.setValueTextSize(16f);
@@ -105,77 +123,33 @@ public class Analytics extends AppCompatActivity {
     private void getBarEntries() {
         // creating a new array list
         barEntriesArrayList = new ArrayList<>();
-        // adding new entry to our array list with bar
-        // entry and passing x and y axis value to it.
-
         Date today = new Date();
-        Date barDate = new Date(today.getYear(), today.getMonth(), today.getDate()-6);
-        LiveData<List<Log_Task>> data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        float duration = 0;
-        for (int i = 0; i < data.getValue().size(); i++) {
-            duration += data.getValue().get(i).getTaskHours();
-        }
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                int a = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-6));
+                barEntriesArrayList.add(new BarEntry(1f, a));
 
-        barEntriesArrayList.add(new BarEntry(1f, duration));
+                int b = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-5));
+                barEntriesArrayList.add(new BarEntry(2f, b));
 
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
+//                int c = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-4));
+//                barEntriesArrayList.add(new BarEntry(3f, c));
+//
+//                int d = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-3));
+//                barEntriesArrayList.add(new BarEntry(4f, d));
+//
+//                int e = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-2));
+//                barEntriesArrayList.add(new BarEntry(5f, e));
+//
+//                int f = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-1));
+//                barEntriesArrayList.add(new BarEntry(6f, f));
+//
+//                int g = mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()));
+//                barEntriesArrayList.add(new BarEntry(7f, g));
             }
-        }
-        barEntriesArrayList.add(new BarEntry(2f, duration));
+        });
 
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
-            }
-        }
-        barEntriesArrayList.add(new BarEntry(3f, duration));
 
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
-            }
-        }
-        barEntriesArrayList.add(new BarEntry(4f, duration));
-
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
-            }
-        }
-        barEntriesArrayList.add(new BarEntry(5f, duration));
-
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
-            }
-        }
-        barEntriesArrayList.add(new BarEntry(6f, duration));
-
-        barDate.setDate(barDate.getDate()+1);
-        data = mTaskViewModel.getDurationByMemberID(id, barDate);
-        duration = 0;
-        if (data != null) {
-            for (int i = 0; i < data.getValue().size(); i++) {
-                duration += data.getValue().get(i).getTaskHours();
-            }
-        }
-        barEntriesArrayList.add(new BarEntry(7f, duration));
     }
 }
