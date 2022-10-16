@@ -103,7 +103,7 @@ public class Analytics extends AppCompatActivity {
                 barChart.setData(barData);
 
                 // adding color to our bar data set.
-                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                barDataSet.setColors(ColorTemplate.PASTEL_COLORS);
 
                 // setting color.
                 barDataSet.setValueTextColor(Color.BLACK);
@@ -112,7 +112,7 @@ public class Analytics extends AppCompatActivity {
                 // customizing barchart
                 barDataSet.setValueTextSize(16f);
                 barChart.getDescription().setEnabled(false);
-                barChart.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                barChart.setBackgroundColor(Color.parseColor("#C1C1C1"));
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setValueFormatter(new ValueFormatter() {
                     @Override
