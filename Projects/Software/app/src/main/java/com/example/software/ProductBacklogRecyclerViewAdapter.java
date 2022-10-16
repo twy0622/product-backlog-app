@@ -75,11 +75,11 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
 
 
         if (taskListRecycle.get(position).getPriority().equals("Critical")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#FF9F6D59")); //#D85251
+            holder.cardview.setBackgroundColor(Color.parseColor("#FF9F5959")); //#D85251
         } else if (taskListRecycle.get(position).getPriority().equals("High")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#FF9F8B59")); //#f47b20
+            holder.cardview.setBackgroundColor(Color.parseColor("#FF9F7759")); //#f47b20
         } else if (taskListRecycle.get(position).getPriority().equals("Medium")){
-            holder.cardview.setBackgroundColor(Color.parseColor("#FF9D9F59")); // #ffd200
+            holder.cardview.setBackgroundColor(Color.parseColor("#FF9A9F59")); // #ffd200
         } else{
             holder.cardview.setBackgroundColor(Color.parseColor("#FF669F59")); // #8FBB09
         }
