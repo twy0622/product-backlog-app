@@ -20,6 +20,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
@@ -137,11 +139,6 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
                 Spinner editAssigned = (Spinner) view1.findViewById(R.id.editAssigned);
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, membersList);
-                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                editAssigned.setAdapter(assignAdapter);
-
-                editAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
-
                 mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
                     @Override
                     public void onChanged(@Nullable final List<Members> member) {
@@ -154,10 +151,13 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
                                 membersList.add(member.get(i).getMemberName());
                             }
                         }
+                        editAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
                         assignAdapter.notifyDataSetChanged();
                     }
 
                 });
+                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                editAssigned.setAdapter(assignAdapter);
 
                 Spinner editTag = (Spinner) view1.findViewById(R.id.editTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
@@ -222,12 +222,18 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
                         String status = editStatus.getSelectedItem().toString();
                         String assigned = editAssigned.getSelectedItem().toString();
                         String tag = editTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(editSP.getText().toString());
+                        String sp = editSP.getText().toString();
                         String desc = (editDesc.getText().toString());
 
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
-                        alertDialog.dismiss();
+                        if (sp.isEmpty()| name.isEmpty() | desc.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, Integer.parseInt(sp));
+                            Toast.makeText(context.getApplicationContext(),
+                                    "Task successfully updated.", Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
+                        }
                     }
                 });
 

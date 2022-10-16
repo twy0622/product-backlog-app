@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,17 +95,8 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final View view1 = LayoutInflater.from(context).inflate(R.layout.log_time_spent, null);
                 builder.setView(view1);
-                builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
-                Button cancelButton = view1.findViewById(R.id.cancelButton);
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
 
                 final Calendar myCalendar= Calendar.getInstance();
 
@@ -117,8 +109,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
                 final EditText logHours = view1.findViewById(R.id.logWorkTime);
                 TextView logSumHours = view1.findViewById(R.id.logAccTime);
-                logHours.setText("0");
-
 
                 final EditText logDate = view1.findViewById(R.id.chooseDateLog);
 
@@ -148,16 +138,14 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 logStatus.setAdapter(statusAdapter);
 
+
                 Spinner logAssigned = (Spinner) view1.findViewById(R.id.logAssigned);
+
                 ArrayAdapter<String> assignAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, membersList);
-                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                logAssigned.setAdapter(assignAdapter);
-
                 mTaskViewModel.getAllTeamMembers().observe((LifecycleOwner) context, new Observer<List<Members>>() {
                     @Override
                     public void onChanged(@Nullable final List<Members> member) {
-                        logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
                         if (membersList.size() == 0) {
                             membersList.add("None");
                         }
@@ -166,10 +154,13 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                                 membersList.add(member.get(i).getMemberName());
                             }
                         }
+                        logAssigned.setSelection(assignAdapter.getPosition(taskListRecycle.get(fPosition).getAssigned()));
                         assignAdapter.notifyDataSetChanged();
                     }
 
                 });
+                assignAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                logAssigned.setAdapter(assignAdapter);
 
                 Spinner logTag = (Spinner) view1.findViewById(R.id.logTag);
                 ArrayAdapter<String> tagAdapter = new ArrayAdapter<String>(context,
@@ -246,38 +237,37 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String status = logStatus.getSelectedItem().toString();
                         String assigned = logAssigned.getSelectedItem().toString();
                         String tag = logTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(logSP.getText().toString());
+                        String sp = logSP.getText().toString();
                         String desc = (logDesc.getText().toString());
                         String inputDate = logDate.getText().toString();
                         DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-                        int hours = Integer.valueOf(logHours.getText().toString());
+                        String hours = logHours.getText().toString();
 
+                        if (name.isEmpty() | sp.isEmpty() | desc.isEmpty() | hours.isEmpty() | inputDate.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            executorService.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Date date = null;
+                                    try {
+                                        date = format.parse(inputDate);
+                                        String newDateString = format.format(date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                            mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, Integer.parseInt(sp));
+                            mTaskViewModel.insertDateHour(new Log_Task(id, assigned, mTaskViewModel.getAssignedMemberID(assigned), date, Integer.parseInt(hours)));
+                            // reset fields after creating a task
+                            logHours.setText("");
+                            alertDialog.dismiss();
+                        }
 
-                        executorService.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                Date date = null;
-                                try {
-                                    date = format.parse(inputDate);
-                                    String newDateString = format.format(date);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-//                        taskDateHoursListR.add(new Log_Task(date, hours));
-
-
-                                mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
-//                        TaskDateTime taskDateTime = new TaskDateTime(task, new Log_Task(id, date, hours));
-                                mTaskViewModel.insertDateHour(new Log_Task(id, assigned, mTaskViewModel.getAssignedMemberID(assigned), date, hours));
-
-                            }
-                        });
-
-                        // reset fields after creating a task
-                        logHours.setText("");
-                        alertDialog.dismiss();
+                    });
+                            Toast.makeText(context.getApplicationContext(),
+                                    "Task successfully updated and logged.", Toast.LENGTH_SHORT).show();
+                }
                     }
                 });
 
