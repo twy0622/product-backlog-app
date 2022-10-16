@@ -36,6 +36,10 @@ public class AddTeamMember extends AppCompatActivity {
                 String memberNameInString = memberNameInput.getText().toString();
                 String memberEmailInString = memberEmailInput.getText().toString();
 
+                if (memberNameInString.isEmpty() | memberEmailInString.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                }
+                else {
                 Members member = new Members(memberNameInString, memberEmailInString);
                 mTeamMemberViewModel.addTeamMember(member);
 
@@ -44,8 +48,7 @@ public class AddTeamMember extends AppCompatActivity {
 
                 finish();
             }
-        });
-
-
+        }
+    });
     }
 }

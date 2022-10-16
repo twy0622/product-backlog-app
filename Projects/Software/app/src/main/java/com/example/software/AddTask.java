@@ -152,7 +152,7 @@ public class AddTask extends AppCompatActivity implements NavigationView.OnNavig
                 String description = taskDescription.getText().toString();
                 String sprint = "PB";
 
-                if (name.matches("") | sp.matches("") | description.matches("")){
+                if (name.isEmpty() | sp.isEmpty() | description.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
                 }
                 else{

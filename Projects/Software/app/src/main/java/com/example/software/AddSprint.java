@@ -65,17 +65,19 @@ public class AddSprint extends AppCompatActivity {
                 String sprintStartDateInString = sprintStartDateInput.getText().toString();
                 String sprintEndDateInString = sprintEndDateInput.getText().toString();
 
-                Sprint sprint = new Sprint(sprintNameInString, sprintStartDateInString, sprintEndDateInString);
-                mTaskViewModel.addSprint(sprint);
+                if (sprintNameInString.isEmpty() | sprintStartDateInString.isEmpty() |
+                sprintEndDateInString.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Sprint sprint = new Sprint(sprintNameInString, sprintStartDateInString, sprintEndDateInString);
+                    mTaskViewModel.addSprint(sprint);
 
-                Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +
-                        " added.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddSprint.this, "" + sprintNameInString + " has been" +
+                            " added.", Toast.LENGTH_SHORT).show();
 
-                finish();
-//
-//                TaskViewModel databaseHelper = new TaskViewModel(AddSprint.this);
-//
-//                boolean success = databaseHelper.insertSprint(sprintAdding);
+                    finish();
+                }
             }
         });
 
