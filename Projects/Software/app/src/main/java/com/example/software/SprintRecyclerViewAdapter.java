@@ -81,11 +81,11 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
     public void onBindViewHolder(@NonNull SprintRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.sprintTaskTitle.setText(taskListRecycle.get(position).getName());
         if (taskListRecycle.get(position).getStatus().equals("Not Started")){
-            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#830000"));
+            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#FF604451"));
         } else if (taskListRecycle.get(position).getStatus().equals("Completed")){
-            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#004614"));
+            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#FF44604E"));
         } else {
-            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#0D0C6F"));
+            holder.sprintTaskStatus.setBackgroundColor(Color.parseColor("#FF465C70"));
         }
 
         int fPosition = position;

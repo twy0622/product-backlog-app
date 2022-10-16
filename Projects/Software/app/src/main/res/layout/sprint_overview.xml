@@ -31,11 +31,11 @@
             android:id="@+id/completed_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#C1C1C1"
             android:gravity="center"
             android:text="Completed"
             android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/completed_recycler_view"
@@ -58,7 +58,7 @@
             android:id="@+id/in_progress_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#C1C1C1"
             android:gravity="center"
             android:text="In progress"
             android:textColor="#000000"
@@ -85,7 +85,7 @@
             android:id="@+id/not_started_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="#C1C1C1"
             android:gravity="center"
             android:text="Not Started"
             android:textColor="#000000"
@@ -102,8 +102,8 @@
         android:id="@+id/end_sprint_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="88dp"
         android:background="#713E3E"
         android:text="End"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,9 +111,10 @@
 
     <Button
         android:id="@+id/sprint_allocate_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
+        android:layout_width="114dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="80dp"
+        android:backgroundTint="#536044"
         android:text="Allocate"
         app:layout_constraintBaseline_toBaselineOf="@+id/end_sprint_overview"
         app:layout_constraintStart_toStartOf="parent" />
