@@ -163,7 +163,7 @@ public class TaskViewModel extends AndroidViewModel {
     }
     public int getAssignedMemberID(String memberName){ return mRepository.getAssignedMemberID(memberName); }
 
-    public LiveData<List<Log_Task>> getDurationByMemberID (int memberID, Date date){
+    public int getDurationByMemberID (int memberID, Date date){
         return mRepository.getDurationByMemberID(memberID, date);
     }
 
