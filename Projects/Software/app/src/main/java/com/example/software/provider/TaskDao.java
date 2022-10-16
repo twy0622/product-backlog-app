@@ -48,8 +48,8 @@ public interface TaskDao {
     @Insert(onConflict = REPLACE)
     void addLogTask(List<Log_Task> log_tasks);
 
-    @Query("select * from log_task where assignedMemberID = :memberID AND taskDate = :date")
-    LiveData<List<Log_Task>> getDurationByMemberId(int memberID, Date date);
+    @Query("select sum(taskHours) from log_task where assignedMemberID = :memberID AND taskDate = :date")
+    int getDurationByMemberId(int memberID, Date date);
 
     @Query("delete from tasks where taskId= :id")
     void deleteById(int id);
