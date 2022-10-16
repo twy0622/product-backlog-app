@@ -20,6 +20,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
@@ -220,12 +222,18 @@ public class ProductBacklogRecyclerViewAdapter extends RecyclerView.Adapter<Prod
                         String status = editStatus.getSelectedItem().toString();
                         String assigned = editAssigned.getSelectedItem().toString();
                         String tag = editTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(editSP.getText().toString());
+                        String sp = editSP.getText().toString();
                         String desc = (editDesc.getText().toString());
 
-                        mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
-                        alertDialog.dismiss();
+                        if (sp.isEmpty()| name.isEmpty() | desc.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, Integer.parseInt(sp));
+                            Toast.makeText(context.getApplicationContext(),
+                                    "Task successfully updated.", Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
+                        }
                     }
                 });
 

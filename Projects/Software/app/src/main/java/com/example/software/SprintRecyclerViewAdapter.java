@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,14 +98,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
-                Button cancelButton = view1.findViewById(R.id.cancelButton);
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-
                 final Calendar myCalendar= Calendar.getInstance();
 
 //                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
@@ -116,8 +109,6 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                 final EditText logDesc = view1.findViewById(R.id.logDesc);
                 final EditText logHours = view1.findViewById(R.id.logWorkTime);
                 TextView logSumHours = view1.findViewById(R.id.logAccTime);
-                logHours.setText("0");
-
 
                 final EditText logDate = view1.findViewById(R.id.chooseDateLog);
 
@@ -246,38 +237,37 @@ public class SprintRecyclerViewAdapter extends RecyclerView.Adapter<SprintRecycl
                         String status = logStatus.getSelectedItem().toString();
                         String assigned = logAssigned.getSelectedItem().toString();
                         String tag = logTag.getSelectedItem().toString();
-                        int sp = Integer.valueOf(logSP.getText().toString());
+                        String sp = logSP.getText().toString();
                         String desc = (logDesc.getText().toString());
                         String inputDate = logDate.getText().toString();
                         DateFormat format = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-                        int hours = Integer.valueOf(logHours.getText().toString());
+                        String hours = logHours.getText().toString();
 
+                        if (name.isEmpty() | sp.isEmpty() | desc.isEmpty() | hours.isEmpty() | inputDate.isEmpty()) {
+                            Toast.makeText(context.getApplicationContext(), "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            executorService.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Date date = null;
+                                    try {
+                                        date = format.parse(inputDate);
+                                        String newDateString = format.format(date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                            mTaskViewModel.updateTask(id, category, name, desc, priority, status, assigned, tag, Integer.parseInt(sp));
+                            mTaskViewModel.insertDateHour(new Log_Task(id, assigned, mTaskViewModel.getAssignedMemberID(assigned), date, Integer.parseInt(hours)));
+                            // reset fields after creating a task
+                            logHours.setText("");
+                            alertDialog.dismiss();
+                        }
 
-                        executorService.execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                Date date = null;
-                                try {
-                                    date = format.parse(inputDate);
-                                    String newDateString = format.format(date);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-//                        taskDateHoursListR.add(new Log_Task(date, hours));
-
-
-                                mTaskViewModel.updateTask(id,category,name,desc,priority,status,assigned,tag,sp);
-
-//                        TaskDateTime taskDateTime = new TaskDateTime(task, new Log_Task(id, date, hours));
-                                mTaskViewModel.insertDateHour(new Log_Task(id, assigned, mTaskViewModel.getAssignedMemberID(assigned), date, hours));
-
-                            }
-                        });
-
-                        // reset fields after creating a task
-                        logHours.setText("");
-                        alertDialog.dismiss();
+                    });
+                            Toast.makeText(context.getApplicationContext(),
+                                    "Task successfully updated and logged.", Toast.LENGTH_SHORT).show();
+                }
                     }
                 });
 
