@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.widget.TextView;
 
 
@@ -74,13 +75,13 @@ public class Analytics extends AppCompatActivity {
 
                 // creating entries
                 barEntriesArrayList = new ArrayList<>();
-                barEntriesArrayList.add(new BarEntry(1f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-6))));
-                barEntriesArrayList.add(new BarEntry(2f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-5))));
-                barEntriesArrayList.add(new BarEntry(3f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-4))));
-                barEntriesArrayList.add(new BarEntry(4f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-3))));
-                barEntriesArrayList.add(new BarEntry(5f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-2))));
-                barEntriesArrayList.add(new BarEntry(6f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()-1))));
-                barEntriesArrayList.add(new BarEntry(7f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getYear(), today.getMonth(), today.getDate()))));
+                barEntriesArrayList.add(new BarEntry(1f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (6 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(2f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (5 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(3f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (4 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(4f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (3 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(5f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (2 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(6f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (1 * DateUtils.DAY_IN_MILLIS)))));
+                barEntriesArrayList.add(new BarEntry(7f, mTaskViewModel.getDurationByMemberID(id, new Date(today.getTime() - (0 * DateUtils.DAY_IN_MILLIS)))));
 
                 barDataSet = new BarDataSet(barEntriesArrayList, "Past 7 days time spent");
 
