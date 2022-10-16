@@ -18,7 +18,7 @@ import com.example.software.provider.TaskViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -58,6 +58,10 @@ public class Dashboard extends AppCompatActivity {
             myStartCalendar.set(Calendar.YEAR, year);
             myStartCalendar.set(Calendar.MONTH, month);
             myStartCalendar.set(Calendar.DAY_OF_MONTH, day);
+            myStartCalendar.set(Calendar.HOUR, 0);
+            myStartCalendar.set(Calendar.MINUTE, 0);
+            myStartCalendar.set(Calendar.SECOND, 0);
+            myStartCalendar.set(Calendar.MILLISECOND, 0);
             updateStartLabel();
             myStartDate = new Date(myStartCalendar.getTimeInMillis());
         };
@@ -65,6 +69,10 @@ public class Dashboard extends AppCompatActivity {
             myEndCalendar.set(Calendar.YEAR, year);
             myEndCalendar.set(Calendar.MONTH, month);
             myEndCalendar.set(Calendar.DAY_OF_MONTH, day);
+            myEndCalendar.set(Calendar.HOUR, 0);
+            myEndCalendar.set(Calendar.MINUTE, 0);
+            myEndCalendar.set(Calendar.SECOND, 0);
+            myEndCalendar.set(Calendar.MILLISECOND, 0);
             updateEndLabel();
             myEndDate = new Date(myEndCalendar.getTimeInMillis());
         };
@@ -79,14 +87,24 @@ public class Dashboard extends AppCompatActivity {
                 if (myStartCalendar.get(Calendar.MONTH) == myEndCalendar.get(Calendar.MONTH)) {
                     dateRange = myEndCalendar.get(Calendar.DAY_OF_MONTH) - myStartCalendar.get(Calendar.DAY_OF_MONTH) + 1;
                 } else {
-
                     int difference = myEndCalendar.get(Calendar.MONTH) - myStartCalendar.get(Calendar.MONTH);
                     int lastDateOfMonth = myStartCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
                     int bounded = lastDateOfMonth * difference;
                     dateRange = bounded + myEndCalendar.get(Calendar.DAY_OF_MONTH) - myStartCalendar.get(Calendar.DAY_OF_MONTH) + 1;
                 }
 
-                if ((myStartCalendar.getTimeInMillis() <= myEndCalendar.getTimeInMillis()) && !startDateInput.getText().toString().isEmpty() && !endDateInput.getText().toString().isEmpty()) {
+                if ((myStartCalendar.getTimeInMillis() == myEndCalendar.getTimeInMillis()) && !startDateInput.getText().toString().isEmpty() && !endDateInput.getText().toString().isEmpty()) {
+                    for (int i = 0; i < dashboardRecyclerView.getChildCount(); i++) {
+                        DashboardMemberAdapter.ViewHolder holder = (DashboardMemberAdapter.ViewHolder) dashboardRecyclerView.findViewHolderForAdapterPosition(i);
+                        ExecutorService executorService = Executors.newFixedThreadPool(4);
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                holder.dashboardHour.setText(String.valueOf(mTaskViewModel.getHoursBetweenDates(myStartDate, myEndDate, String.valueOf(holder.dashboardName.getText()))) + ".00 hours");
+                            }
+                        });
+                    }
+                }else if ((myStartCalendar.getTimeInMillis() < myEndCalendar.getTimeInMillis()) && !startDateInput.getText().toString().isEmpty() && !endDateInput.getText().toString().isEmpty()) {
                     for (int i = 0; i < dashboardRecyclerView.getChildCount(); i++) {
                         DashboardMemberAdapter.ViewHolder holder = (DashboardMemberAdapter.ViewHolder) dashboardRecyclerView.findViewHolderForAdapterPosition(i);
                         ExecutorService executorService = Executors.newFixedThreadPool(4);
